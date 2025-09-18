@@ -2,13 +2,13 @@ name: Daily Sentiment Update
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # runs at 7am UTC (3am EST)
+    - cron: "0 7 * * *" # runs at 7am UTC (3am EST)
   workflow_dispatch:
     inputs:
       run_job:
-        description: 'Which job to run'
+        description: "Which job to run"
         required: true
-        default: 'all'
+        default: "all"
         type: choice
         options:
           - all
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: Cache pip dependencies
         uses: actions/cache@v3
@@ -47,13 +47,13 @@ jobs:
         id: set-matrix
         run: |
           if [[ "${{ github.event.inputs.run_job }}" == "all" ]]; then
-            echo "matrix=[enterprise,emerging]" >> $GITHUB_OUTPUT
+            echo "matrix=[\"enterprise\",\"emerging\"]" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event.inputs.run_job }}" == "enterprise" ]]; then
-            echo "matrix=[enterprise]" >> $GITHUB_OUTPUT
+            echo "matrix=[\"enterprise\"]" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event.inputs.run_job }}" == "emerging" ]]; then
-            echo "matrix=[emerging]" >> $GITHUB_OUTPUT
+            echo "matrix=[\"emerging\"]" >> $GITHUB_OUTPUT
           else
-            echo "matrix=[enterprise,emerging]" >> $GITHUB_OUTPUT
+            echo "matrix=[\"enterprise\",\"emerging\"]" >> $GITHUB_OUTPUT
           fi
 
   process-data:
@@ -72,7 +72,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: Cache pip dependencies
         uses: actions/cache@v3
@@ -92,11 +92,19 @@ jobs:
           MAX_ARTICLES_PER_TERM: 20
           MAX_SEARCH_TERMS: None
         run: |
-          python ${{ matrix.job_type }}RiskNews.py
+          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
+            python EnterpriseRiskNews.py
+          else
+            python EmergingRiskNews.py
+          fi
 
       - name: Check CSV size
         run: |
-          file="output/${{ matrix.job_type }}_risks_online_sentiment.csv"
+          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
+            file="output/enterprise_risks_online_sentiment.csv"
+          else
+            file="output/emerging_risks_online_sentiment.csv"
+          fi
           if [ -f "$file" ]; then
             size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
             if [ $size -gt 90000000 ]; then
@@ -110,7 +118,11 @@ jobs:
 
       - name: Compress CSV
         run: |
-          file="output/${{ matrix.job_type }}_risks_online_sentiment.csv"
+          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
+            file="output/enterprise_risks_online_sentiment.csv"
+          else
+            file="output/emerging_risks_online_sentiment.csv"
+          fi
           if [ -f "$file" ]; then
             gzip "$file"
           else
@@ -121,7 +133,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.job_type }}-data
-          path: output/${{ matrix.job_type }}_risks_online_sentiment.csv.gz
+          path: |
+            output/${{ matrix.job_type }}_risks_online_sentiment.csv.gz
 
   publish-data:
     needs: process-data
@@ -137,14 +150,14 @@ jobs:
           ref: main
 
       - name: Download enterprise artifact
-        if: contains(needs.process-data.result, 'enterprise') || contains(needs.process-data.result, 'success')
+        if: contains(needs.process-data.result, 'success')
         uses: actions/download-artifact@v4
         with:
           name: enterprise-data
           path: output/
 
       - name: Download emerging artifact
-        if: contains(needs.process-data.result, 'emerging') || contains(needs.process-data.result, 'success')
+        if: contains(needs.process-data.result, 'success')
         uses: actions/download-artifact@v4
         with:
           name: emerging-data
@@ -156,7 +169,7 @@ jobs:
           git config --global user.email "github-actions@users.noreply.github.com"
           git checkout main
           mkdir -p output
-          
+
           # Decompress files if they exist
           for file in output/*.csv.gz; do
             if [ -f "$file" ]; then
@@ -164,7 +177,7 @@ jobs:
               rm "$file"
             fi
           done
-          
+
           # Add and commit changes
           git add output/*.csv
           if git diff --staged --quiet; then

@@ -1,4 +1,4 @@
-# enterprise risk news
+# emerging risk news
 # uses shared utilities for common functionality
 
 import datetime as dt
@@ -24,15 +24,15 @@ from utils import (
 
 def main():
     # config
-    RISK_TYPE = "enterprise"
-    ENCODED_CSV = "EnterpriseRisksListEncoded.csv"
-    OUTPUT_CSV = "enterprise_risks_online_sentiment.csv"
-    RISK_ID_COL = "ENTERPRISE_RISK_ID"
+    RISK_TYPE = "emerging"
+    ENCODED_CSV = "EmergingRisksListEncoded.csv"
+    OUTPUT_CSV = "emerging_risks_online_sentiment.csv"
+    RISK_ID_COL = "EMERGING_RISK_ID"
     
     # process time start
     print("*" * 50)
     start_time = dt.datetime.now()
-    print_debug_info("EnterpriseRiskNews", RISK_TYPE, start_time)
+    print_debug_info("EmergingRiskNews", RISK_TYPE, start_time)
     
     # setup NLTK and session etc.
     setup_nltk()
@@ -53,12 +53,12 @@ def main():
     whitelist = load_source_lists()
     
     # process articles
-    articles_df = process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist)
+    articles_df = process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist)
     
     # save results
     if not articles_df.empty:
         record_count = save_results(articles_df, output_path, RISK_TYPE)
-        print(f"✓ Completed: {record_count} total records")
+        print(f"Completed: {record_count} total records")
     else:
         print("WARNING: No articles processed!")
     
@@ -66,8 +66,8 @@ def main():
     print(f"Completed at: {dt.datetime.now()}")
     print("*" * 50)
 
-def process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist):
-    # this is the MAIN processing loop for enterprise articles
+def process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist):
+    # this is the MAIN processing loop for emerging articles
     print(f"Processing {len(search_terms_df)} search terms...")
     
     all_articles = []
