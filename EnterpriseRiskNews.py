@@ -7,7 +7,7 @@ import time
 import re
 import csv
 from pathlib import Path
-from newspaper import Article, Config
+from newspaper4k import Article, Config
 from googlenewsdecoder import new_decoderv1
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from concurrent.futures import ThreadPoolExecutor
