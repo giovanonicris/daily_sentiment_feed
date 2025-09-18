@@ -7,12 +7,14 @@ import time
 import re
 import csv
 from pathlib import Path
-from newspaper4k import Article, Config
+from newspaper import Article, Config
 from googlenewsdecoder import new_decoderv1
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
+from bs4 import BeautifulSoup
 import pandas as pd
+from dateutil import parser
 
 # import shared utilities
 from utils import (
@@ -22,12 +24,14 @@ from utils import (
     calculate_quality_score
 )
 
+RISK_ID_COL = "EMERGING_RISK_ID"
+
 def main():
     # config
     RISK_TYPE = "emerging"
     ENCODED_CSV = "EmergingRisksListEncoded.csv"
     OUTPUT_CSV = "emerging_risks_online_sentiment.csv"
-    RISK_ID_COL = "EMERGING_RISK_ID"
+
     
     # process time start
     print("*" * 50)
@@ -124,49 +128,86 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         return pd.DataFrame()
 
 def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday):
-    # extract articles from Google News using decoder
+    # original working RSS-based google news search
     articles = []
-    try:
-        print(f"  - searching: {search_term[:50]}...")
-        
-        # googlenewsdecoder
-        gn = new_decoderv1.GoogleNewsDecoder()
-        gn.set_search(search_term)
-        gn.set_date(now.strftime("%Y-%m-%d"), yesterday.strftime("%Y-%m-%d"))
-        gn.set_pages(3)  # limit to 3 pages as in original
-        
-        # get search results
-        results = gn.get_results()
-        
-        # KEY LOOP! Processes each result
-        for result in results:
-            url = result.get('link', '').strip()
-            title = result.get('title', '').strip()
+    article_count = 0
+    
+    # iterate over first 3 pages (10 results per page)
+    for page in range(3):
+        start = page * 10
+        try:
+            time.sleep(0.5)  # rate limit to avoid 429 errors
+            url_start = 'https://news.google.com/rss/search?q={'
+            url_end = '}%20when%3A1d'
+            req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
+            soup = BeautifulSoup(req.text, 'xml')
             
-            # skip duplicates and invalid urls
-            if not url or not title or url.lower().strip() in existing_links:
-                continue
+            for item in soup.find_all("item"):
+                if article_count >= max_articles:
+                    print(f"DEBUGGING - stopping at {max_articles} articles for term '{search_term}'")
+                    break
                 
-            # basic validation
-            if len(title) < 10 or len(url) < 10:
-                continue
-            
-            articles.append({
-                'url': url,
-                'title': title,
-                'html': None  # will fetch during processing
-            })
-            
-            # respect article limit
-            if len(articles) >= max_articles:
+                title_text = item.title.text.strip()
+                encoded_url = item.link.text.strip()
+                source_text = item.source.text.strip().lower()
+                source_url = urlparse(encoded_url).netloc  # extract domain for SOURCE_URL
+                
+                interval_time = 5
+                decoded_url = new_decoderv1(encoded_url, interval=interval_time)
+                
+                if decoded_url.get("status"):
+                    decoded_url = decoded_url['decoded_url'].strip().lower()
+                    parsed_url = urlparse(decoded_url)
+                    domain_name = parsed_url.netloc.lower()
+                    
+                    if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net')):
+                        if DEBUG_MODE:
+                            print(f"Skipping {decoded_url} (Invalid domain extension)")
+                        continue
+                    
+                    # whitelist check (instead of filtered_sources)
+                    if source_text not in whitelist:
+                        if DEBUG_MODE:
+                            print(f"Skipping article from {source_text} (Not in whitelist)")
+                        continue
+                    
+                    if "/en/" in decoded_url:
+                        if DEBUG_MODE:
+                            print(f"Skipping {decoded_url} (Detected translated article)")
+                        continue
+                    
+                    if decoded_url in existing_links:
+                        if DEBUG_MODE:
+                            print(f"Skipping {decoded_url} (Already exists)")
+                        continue
+                    
+                    try:
+                        published_date = parser.parse(item.pubDate.text).date()
+                    except (ValueError, TypeError):
+                        published_date = None
+                        print(f"WARNING! Date Error: {item.pubDate.text}")
+                    
+                    regex_pattern = re.compile('(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
+                    domain_search = regex_pattern.search(str(item.source))
+                    
+                    articles.append({
+                        'url': decoded_url,
+                        'title': title_text,
+                        'html': None  # will fetch during processing
+                    })
+                    article_count += 1
+                else:
+                    print("Error:", decoded_url['message'])
+                
+            if article_count >= max_articles:
                 break
                 
-        print(f"  - found {len(articles)} new articles")
-        return articles
-        
-    except Exception as e:
-        print(f"  - error searching google news: {e}")
-        return []
+        except requests.exceptions.RequestException as e:
+            print(f"Request error for term {search_term} on page {page+1}: {e}")
+            break
+    
+    print(f"  - found {len(articles)} new articles")
+    return articles
 
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id):
     # Process in parallel for optimization...
