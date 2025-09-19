@@ -93,7 +93,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         # ORIGINAL DECODING LOGIC
         df['SEARCH_TERMS'] = df['ENCODED_TERMS'].apply(process_encoded_search_terms)
         
-        print(f"✓ Loaded {len(df)} search terms from {encoded_csv_path}")
+        print(f"Loaded {len(df)} search terms from {encoded_csv_path}")
         valid_terms = df['SEARCH_TERMS'].dropna()
         print(f"Valid search terms ({len(valid_terms)}): {valid_terms.head().tolist()}")
         
@@ -143,7 +143,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
             continue
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
-        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id)
+        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
         
         all_articles.extend(processed_articles)
         print(f"  - Processed {len(processed_articles)} articles")
@@ -167,7 +167,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     articles = []
     article_count = 0
     
-    # iterate over first 3 pages (10 results per page)
+    # iterate over first 3 pages (should be 10 results per page)
     for page in range(3):
         start = page * 10
         try:
@@ -207,16 +207,16 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                             print(f"Skipping {decoded_url} (Invalid domain extension)")
                         continue
                     
-                    # whitelist check (instead of filtered_sources)
-                    if source_text not in whitelist:
-                        if DEBUG_MODE:
-                            print(f"Skipping article from {source_text} (Not in whitelist)")
-                        continue
+                    # # whitelist check (instead of filtered_sources)
+                    # if source_text not in whitelist:
+                    #     if DEBUG_MODE:
+                    #         print(f"Skipping article from {source_text} (Not in whitelist)")
+                    #     continue
                     
-                    if "/en/" in decoded_url:
-                        if DEBUG_MODE:
-                            print(f"Skipping {decoded_url} (Detected translated article)")
-                        continue
+                    # if "/en/" in decoded_url:
+                    #     if DEBUG_MODE:
+                    #         print(f"Skipping {decoded_url} (Detected translated article)")
+                    #     continue
                     
                     if decoded_url in existing_links:
                         if DEBUG_MODE:
@@ -253,7 +253,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     print(f"  - found {len(articles)} new articles")
     return articles
 
-def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id):
+def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links):
     # Process in parallel for optimization...
     processed = []
     
