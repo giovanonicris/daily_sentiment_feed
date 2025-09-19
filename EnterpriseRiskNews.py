@@ -6,6 +6,7 @@ import random
 import time
 import re
 import csv
+import requests
 from pathlib import Path
 from newspaper import Article, Config
 from googlenewsdecoder import new_decoderv1
@@ -16,15 +17,28 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from dateutil import parser
 
+# global config
+RISK_ID_COL = "ENTERPRISE_RISK_ID"
+
+# original decoder function from your working script
+def process_encoded_search_terms(term):
+    """decode encoded search terms from the csv file"""
+    try:
+        encoded_number = int(term)
+        byte_length = (encoded_number.bit_length() + 7) // 8
+        byte_rep = encoded_number.to_bytes(byte_length, byteorder='little')
+        decoded_text = byte_rep.decode('utf-8')
+        return decoded_text
+    except (ValueError, UnicodeDecodeError, OverflowError):
+        return None
 
 # import shared utilities
 from utils import (
     ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
-    load_search_terms, save_results, print_debug_info, DEBUG_MODE,
+    save_results, print_debug_info, DEBUG_MODE,
     MAX_ARTICLES_PER_TERM, MAX_SEARCH_TERMS, load_source_lists, 
     calculate_quality_score
 )
-RISK_ID_COL = "ENTERPRISE_RISK_ID"
 
 def main():
     # config
@@ -69,6 +83,28 @@ def main():
     print(f"Completed at: {dt.datetime.now()}")
     print("*" * 50)
 
+def load_search_terms(encoded_csv_path, risk_id_col):
+    # Load and decode search terms from CSV - ORIGINAL LOGIC
+    try:
+        usecols = [risk_id_col, 'SEARCH_TERM_ID', 'ENCODED_TERMS']
+        df = pd.read_csv(f'data/{encoded_csv_path}', encoding='utf-8', usecols=usecols)
+        df[risk_id_col] = pd.to_numeric(df[risk_id_col], downcast='integer', errors='coerce')
+        
+        # ORIGINAL DECODING LOGIC
+        df['SEARCH_TERMS'] = df['ENCODED_TERMS'].apply(process_encoded_search_terms)
+        
+        print(f"✓ Loaded {len(df)} search terms from {encoded_csv_path}")
+        valid_terms = df['SEARCH_TERMS'].dropna()
+        print(f"Valid search terms ({len(valid_terms)}): {valid_terms.head().tolist()}")
+        
+        return df
+    except FileNotFoundError:
+        print(f"ERROR!!! data/{encoded_csv_path} not found!")
+        sys.exit(1)
+    except Exception as e:
+        print(f"ERROR loading data/{encoded_csv_path}: {e}")
+        sys.exit(1)
+
 def process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist):
     # this is the MAIN processing loop for enterprise articles
     print(f"Processing {len(search_terms_df)} search terms...")
@@ -94,13 +130,13 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
             print("DEBUG: Early exit after 5 articles")
             break
             
-        search_term = row['ENCODED_TERMS']
+        search_term = row['SEARCH_TERMS']  # use DECODED term
         risk_id = row[RISK_ID_COL]
         
-        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id})")
+        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:30]}...'")
         
         # Get Google News articles
-        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday)
+        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist)
         
         if not articles:
             print(f"  - No new articles found for this term")
@@ -126,7 +162,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         print("No articles to process")
         return pd.DataFrame()
 
-def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday):
+def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist):
     # original working RSS-based google news search
     articles = []
     article_count = 0
@@ -136,26 +172,26 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
         start = page * 10
         try:
             time.sleep(0.5)  # rate limit to avoid 429 errors
-            url_start = 'https://news.google.com/rss/search?q={'
-            url_end = '}%20when%3A1d'
+            url_start = 'https://news.google.com/rss/search?q='
+            url_end = '%20when%3A1d'
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
-            print(f"    - RSS URL: {f'{url_start}{search_term[:20]}...{url_end}&start={start}'}")
-            print(f"    - Status code: {req.status_code}")
             soup = BeautifulSoup(req.text, 'xml')
-            print(f"    - RSS content length: {len(req.text)} characters")
-            print(f"    - RSS preview: {req.text[:500]}...")
-
-            items = soup.find_all("item")
-            print(f"    - Found {len(items)} <item> tags")
             
-            for item in soup.find_all("item"):
+            items = soup.find_all("item")
+            print(f"    - Page {page+1}: found {len(items)} RSS items")
+            
+            for item in items:
                 if article_count >= max_articles:
-                    print(f"DEBUGGING - stopping at {max_articles} articles for term '{search_term}'")
+                    print(f"DEBUGGING - stopping at {max_articles} articles for term '{search_term[:30]}...'")
                     break
                 
-                title_text = item.title.text.strip()
-                encoded_url = item.link.text.strip()
-                source_text = item.source.text.strip().lower()
+                title_text = item.title.text.strip() if item.title else ''
+                encoded_url = item.link.text.strip() if item.link else ''
+                source_text = item.source.text.strip().lower() if item.source else ''
+                
+                if not title_text or not encoded_url:
+                    continue
+                
                 source_url = urlparse(encoded_url).netloc  # extract domain for SOURCE_URL
                 
                 interval_time = 5
@@ -193,7 +229,8 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         published_date = None
                         print(f"WARNING! Date Error: {item.pubDate.text}")
                     
-                    regex_pattern = re.compile('(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
+                    # fix regex pattern for Python 3.12+
+                    regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
                     domain_search = regex_pattern.search(str(item.source))
                     
                     articles.append({
@@ -202,19 +239,19 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         'html': None  # will fetch during processing
                     })
                     article_count += 1
+                    print(f"    - Added article: '{title_text[:50]}...' from {source_text}")
                 else:
-                    print("Error:", decoded_url['message'])
+                    print(f"    - Decode error: {decoded_url.get('message', 'Unknown error')}")
                 
             if article_count >= max_articles:
                 break
                 
         except requests.exceptions.RequestException as e:
-            print(f"Request error for term {search_term} on page {page+1}: {e}")
+            print(f"Request error for term {search_term[:30]}... on page {page+1}: {e}")
             break
     
     print(f"  - found {len(articles)} new articles")
     return articles
-
 
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id):
     # Process in parallel for optimization...
