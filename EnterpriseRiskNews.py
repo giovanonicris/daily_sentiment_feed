@@ -16,6 +16,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import pandas as pd
 from dateutil import parser
+import sys
 
 # global config
 RISK_ID_COL = "ENTERPRISE_RISK_ID"
@@ -133,7 +134,11 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         search_term = row['SEARCH_TERMS']  # use DECODED term
         risk_id = row[RISK_ID_COL]
         
-        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:30]}...'")
+        if pd.isna(search_term):
+            print(f"  - Skipping invalid search term for risk ID {risk_id}")
+            continue
+            
+        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:50]}...'")
         
         # Get Google News articles
         articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist)
@@ -167,7 +172,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     articles = []
     article_count = 0
     
-    # iterate over first 3 pages (should be 10 results per page)
+    # iterate over first 3 pages (10 results per page)
     for page in range(3):
         start = page * 10
         try:
@@ -175,73 +180,109 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
             url_start = 'https://news.google.com/rss/search?q='
             url_end = '%20when%3A1d'
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
-            soup = BeautifulSoup(req.text, 'xml')
+            req.raise_for_status()
             
-            items = soup.find_all("item")
-            print(f"    - Page {page+1}: found {len(items)} RSS items")
+            # Parse RSS feed
+            soup = BeautifulSoup(req.content, 'xml')
+            items = soup.find_all('item')
+            
+            print(f"    - Page {page+1}: found {len(items)} potential articles")
             
             for item in items:
-                if article_count >= max_articles:
-                    print(f"DEBUGGING - stopping at {max_articles} articles for term '{search_term[:30]}...'")
-                    break
-                
-                title_text = item.title.text.strip() if item.title else ''
-                encoded_url = item.link.text.strip() if item.link else ''
-                source_text = item.source.text.strip().lower() if item.source else ''
-                
-                if not title_text or not encoded_url:
+                # Decode the Google News encoded URL - FIXED VERSION
+                try:
+                    encoded_url = item.link.text.strip()
+                    decoded_result = new_decoderv1(encoded_url)
+                    
+                    # FIXED: Handle both string and dict responses from the decoder
+                    if isinstance(decoded_result, dict):
+                        if decoded_result.get('status') and 'decoded_url' in decoded_result:
+                            decoded_url = decoded_result['decoded_url']
+                        else:
+                            if DEBUG_MODE:
+                                print(f"    - Skipping: bad dict format: {decoded_result}")
+                            continue
+                    elif isinstance(decoded_result, str):
+                        decoded_url = decoded_result
+                    else:
+                        if DEBUG_MODE:
+                            print(f"    - Skipping: unexpected decode type: {type(decoded_result)}")
+                        continue
+                        
+                except Exception as e:
+                    if DEBUG_MODE:
+                        print(f"    - URL decode error: {e}")
                     continue
                 
-                source_url = urlparse(encoded_url).netloc  # extract domain for SOURCE_URL
+                # Extract title and source
+                title_elem = item.title.text.strip() if item.title else None
+                source_elem = item.source.text.strip() if item.source else None
                 
-                interval_time = 5
-                decoded_url = new_decoderv1(encoded_url, interval=interval_time)
+                if not title_elem or not source_elem:
+                    continue
                 
-                if decoded_url.get("status"):
-                    decoded_url = decoded_url['decoded_url'].strip().lower()
-                    parsed_url = urlparse(decoded_url)
-                    domain_name = parsed_url.netloc.lower()
-                    
-                    if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov', '.co')):
-                        if DEBUG_MODE:
-                            print(f"Skipping {decoded_url} (Invalid domain extension)")
-                        continue
-                    
-                    # # whitelist check (instead of filtered_sources)
-                    # if source_text not in whitelist:
-                    #     if DEBUG_MODE:
-                    #         print(f"Skipping article from {source_text} (Not in whitelist)")
-                    #     continue
-                    
-                    # if "/en/" in decoded_url:
-                    #     if DEBUG_MODE:
-                    #         print(f"Skipping {decoded_url} (Detected translated article)")
-                    #     continue
-                    
-                    if decoded_url in existing_links:
-                        if DEBUG_MODE:
-                            print(f"Skipping {decoded_url} (Already exists)")
-                        continue
-                    
-                    try:
-                        published_date = parser.parse(item.pubDate.text).date()
-                    except (ValueError, TypeError):
-                        published_date = None
-                        print(f"WARNING! Date Error: {item.pubDate.text}")
-                    
-                    # fix regex pattern for Python 3.12+
-                    regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
-                    domain_search = regex_pattern.search(str(item.source))
-                    
-                    articles.append({
-                        'url': decoded_url,
-                        'title': title_text,
-                        'html': None  # will fetch during processing
-                    })
-                    article_count += 1
-                    print(f"    - Added article: '{title_text[:50]}...' from {source_text}")
+                title_text = title_elem
+                source_text = source_elem
+                
+                # Basic filtering
+                if len(title_text) < 10:
+                    continue
+                
+                # Extract domain from URL for filtering
+                parsed_url = urlparse(decoded_url)
+                domain_name = parsed_url.netloc.lower().replace('www.', '')
+                
+                if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net')):
+                    if DEBUG_MODE:
+                        print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
+                    continue
+                
+                # DOMAIN-BASED WHITELIST CHECK
+                source_is_whitelisted = False
+                
+                if not whitelist:
+                    source_is_whitelisted = True
                 else:
-                    print(f"    - Decode error: {decoded_url.get('message', 'Unknown error')}")
+                    # Check if the actual domain matches any whitelist entry
+                    for white_source in whitelist:
+                        white_lower = white_source.lower().strip()
+                        if white_lower == domain_name or white_lower in domain_name:
+                            source_is_whitelisted = True
+                            break
+                
+                if not source_is_whitelisted:
+                    if DEBUG_MODE:
+                        print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
+                    continue
+                
+                if "/en/" in decoded_url:
+                    if DEBUG_MODE:
+                        print(f"Skipping {decoded_url[:50]}... (Translated article)")
+                    continue
+                
+                if decoded_url.lower().strip() in existing_links:
+                    if DEBUG_MODE:
+                        print(f"Skipping {decoded_url[:50]}... (Already exists)")
+                    continue
+                
+                try:
+                    published_date = parser.parse(item.pubDate.text).date()
+                except (ValueError, TypeError):
+                    published_date = None
+                    if DEBUG_MODE:
+                        print(f"WARNING! Date Error: {item.pubDate.text}")
+                
+                # fix regex pattern for Python 3.12+
+                regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
+                domain_search = regex_pattern.search(str(item.source))
+                
+                articles.append({
+                    'url': decoded_url,
+                    'title': title_text,
+                    'html': None  # will fetch during processing
+                })
+                article_count += 1
+                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name})")
                 
             if article_count >= max_articles:
                 break
@@ -267,9 +308,28 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             if url.lower().strip() in existing_links:
                 return None
             
+            # PRE-FILTER: Skip known problematic URL patterns
+            problematic_patterns = [
+                '/video/', '/videos/', '/watch/',
+                'wsj.com/subscriptions', 'bloomberg.com/newsletters',
+                'reuters.com/video', 'reuters.com/graphics'
+            ]
+            
+            if any(pattern in url.lower() for pattern in problematic_patterns):
+                if DEBUG_MODE:
+                    print(f"  - Skipping problematic URL: {title[:50]}... ({url[:50]}...)")
+                return None
+            
             # download and parse article
             article = Article(url, config=config)
             article.download()
+            
+            # Check if download succeeded - FIXED: Use try/except instead of download_exception
+            if not article.html or article.html.strip() == '':
+                if DEBUG_MODE:
+                    print(f"  - Download failed for '{title[:50]}...' (empty HTML)")
+                return None
+                
             article.parse()
             
             # extract content
@@ -277,6 +337,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             
             # skip empty content
             if not summary or len(summary.strip()) < 50:
+                if DEBUG_MODE:
+                    print(f"  - Empty content for '{title[:50]}...'")
                 return None
             
             # sentiment analysis
@@ -302,11 +364,13 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                     **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
                 }
             else:
-                print(f"  - skipped low quality article: score {quality_scores['total_score']}")
+                if DEBUG_MODE:
+                    print(f"  - skipped low quality article '{title[:50]}...': score {quality_scores['total_score']}")
                 return None
                 
         except Exception as e:
-            print(f"  - error processing article {url}: {e}")
+            if DEBUG_MODE:
+                print(f"  - error processing article '{title[:50] if 'title' in locals() else 'Unknown'}...': {e}")
             return None
     
     # process with threading (limit to 3 concurrent)
