@@ -202,7 +202,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     parsed_url = urlparse(decoded_url)
                     domain_name = parsed_url.netloc.lower()
                     
-                    if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net')):
+                    if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov', '.co')):
                         if DEBUG_MODE:
                             print(f"Skipping {decoded_url} (Invalid domain extension)")
                         continue
