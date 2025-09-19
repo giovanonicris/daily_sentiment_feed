@@ -138,7 +138,7 @@ def save_results(df, output_path, risk_type):
 # print debug info
 def print_debug_info(script_name, risk_type, start_time):
     print("*" * 50)
-    print(f"{script_name} - {risk_type.upper()} Sentiment Processor")
+    print(f"{script_name} - {risk_type.upper()} News Sentiment Scraper")
     print(f"DEBUG_MODE: {DEBUG_MODE}")
     if DEBUG_MODE:
         print(f"   - Max terms: {MAX_SEARCH_TERMS}")
