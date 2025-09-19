@@ -9,4 +9,4 @@ setuptools>=70
 googlenewsdecoder==0.1.6
 chardet
 certifi
-newspaper3k
+newspaper3k>=0.2.8

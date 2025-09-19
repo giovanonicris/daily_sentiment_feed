@@ -41,7 +41,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install lxml[html_clean] git+https://github.com/AndyTheFactory/newspaper4k vaderSentiment googlenewsdecoder
+          pip install lxml[html_clean] newspaper3k vaderSentiment googlenewsdecoder
 
       - name: Set job matrix
         id: set-matrix
@@ -62,7 +62,7 @@ jobs:
     strategy:
       matrix:
         job_type: ${{ fromJson(needs.setup.outputs.matrix) }}
-    if: ${{ github.event.inputs.run_job == 'all' || github.event.inputs.run_job == matrix.job_type || github.event.inputs.run_job == '' }}
+    # FIXED: Removed invalid matrix.job_type condition
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -84,7 +84,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install lxml[html_clean] git+https://github.com/AndyTheFactory/newspaper4k vaderSentiment googlenewsdecoder
+          pip install lxml[html_clean] newspaper3k vaderSentiment googlenewsdecoder
 
       - name: Run ${{ matrix.job_type }} sentiment processor
         env:
