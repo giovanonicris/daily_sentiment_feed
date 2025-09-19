@@ -1,38 +1,22 @@
-# 7/25/25 - CG adds Debug mode for easier debugging and testing
-# 9/1/25 - CG optimizes GitHub Actions to do the ff: parallel processing, reduct CSV size, limit rates
-# 9/9/25 - CG removes file splitting, optimizes for power bi, reduces csv size, keeps full summaries
-# 9/11/25 - CG keeps source_url, populates with domain, limits to 3 google news pages
-# 9/11/25 - CG adds quality scoring logic, removes relative file paths
-# 9/11/25 - CG fixes syntax error in calculate_quality_score
+# emerging risk news
+# uses shared utilities for common functionality
 
-import requests
+import datetime as dt
 import random
-import re
 import time
+import re
+import csv
+import requests
+from pathlib import Path
+from newspaper import Article, Config
+from googlenewsdecoder import new_decoderv1
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import pandas as pd
 from dateutil import parser
-from newspaper import Article, Config
-import datetime as dt
-import nltk
-from googlenewsdecoder import new_decoderv1
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import os
-import chardet
-from urllib.parse import urlparse
-from concurrent.futures import ThreadPoolExecutor
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-import cProfile
-import csv
 import sys
-
-# IMPORTANT!!!
-# DEBUG MODE SETTINGS - CHANGE THIS TO False WHEN RUNNING IN PROD
-DEBUG_MODE = False
-MAX_SEARCH_TERMS = 2 if DEBUG_MODE else None
-MAX_ARTICLES_PER_TERM = 3 if DEBUG_MODE else 20
-SKIP_ARTICLE_PROCESSING = True if DEBUG_MODE else False
 
 # global config
 RISK_ID_COL = "EMERGING_RISK_ID"
@@ -49,78 +33,56 @@ def process_encoded_search_terms(term):
     except (ValueError, UnicodeDecodeError, OverflowError):
         return None
 
-# DEBUG META INFO
-print("*" * 50)
-print(f"DEBUG_MODE: {DEBUG_MODE}")
-if DEBUG_MODE:
-    print(f"   - Limited to {MAX_SEARCH_TERMS} search terms")
-    print(f"   - Max {MAX_ARTICLES_PER_TERM} articles per term")
-    print(f"   - Skip article processing: {SKIP_ARTICLE_PROCESSING}")
-print(f"Script started at: {dt.datetime.now()}")
-print(f"Working directory: {os.getcwd()}")
-print(f"Script file location: {os.path.abspath(__file__)}")
-print("*" * 50)
+# import shared utilities
+from utils import (
+    ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
+    save_results, print_debug_info, DEBUG_MODE,
+    MAX_ARTICLES_PER_TERM, MAX_SEARCH_TERMS, load_source_lists, 
+    calculate_quality_score
+)
 
-# set dates for today and yesterday
-now = dt.date.today()
-yesterday = now - dt.timedelta(days=1)
-
-# check and download nltk resources
-for resource in ['punkt', 'punkt_tab']:
-    try:
-        nltk.data.find(f'tokenizers/{resource}')
-    except LookupError:
-        print(f"Downloading missing NLTK resource: {resource}")
-        nltk.download(resource)
-
-# create a list of random user agents
-user_agent_list = [
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.15',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
-]
-
-config = Config()
-user_agent = random.choice(user_agent_list)
-config.browser_user_agent = user_agent
-config.enable_image_fetching = False  # disable image fetching for speed
-config.request_timeout = 10 if DEBUG_MODE else 20
-header = {'User-Agent': user_agent}
-
-# set up requests session with retries
-session = requests.Session()
-retries = Retry(total=3, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
-session.mount('https://', HTTPAdapter(max_retries=retries))
-
-# load existing dataset to avoid duplicate fetching
-script_dir = os.path.dirname(os.path.abspath(__file__))
-output_dir = os.path.join(script_dir, 'output')
-os.makedirs(output_dir, exist_ok=True)
-main_csv_path = os.path.join(output_dir, 'emerging_risks_online_sentiment.csv')
-encoded_search_terms_csv = os.path.join(script_dir, 'EmergingRisksListEncoded.csv')
-
-print("*" * 50)
-print("EMERGING RISK NEWS PROCESSOR")
-print(f"Script directory: {script_dir}")
-print(f"Output directory: {output_dir}")
-print(f"Main CSV path: {main_csv_path}")
-print(f"Output directory exists: {os.path.exists(output_dir)}")
-print("*" * 50)
-
-# skip existing links check in debug mode for speed
-if DEBUG_MODE:
-    existing_links = set()
-    print("DEBUG: Skipping existing links check for faster testing")
-else:
-    if os.path.exists(main_csv_path):
-        existing_df = pd.read_csv(main_csv_path, usecols=lambda x: 'LINK' in x, encoding="utf-8")
-        existing_links = set(existing_df["LINK"].str.lower().str.strip().tolist())
-        print(f"Loaded {len(existing_links)} existing links from CSV")
+def main():
+    # config
+    RISK_TYPE = "emerging"
+    ENCODED_CSV = "EmergingRisksListEncoded.csv"
+    OUTPUT_CSV = "emerging_risks_online_sentiment.csv"
+    
+    # process time start
+    print("*" * 50)
+    start_time = dt.datetime.now()
+    print_debug_info("EmergingRiskNews", RISK_TYPE, start_time)
+    
+    # setup NLTK and session etc.
+    setup_nltk()
+    session = ScraperSession()
+    analyzer = SentimentIntensityAnalyzer()
+    
+    # load data
+    output_path = setup_output_dir(OUTPUT_CSV)
+    existing_links = load_existing_links(output_path)
+    search_terms_df = load_search_terms(ENCODED_CSV, RISK_ID_COL)
+    
+    # limit for debug mode
+    if MAX_SEARCH_TERMS:
+        search_terms_df = search_terms_df.head(MAX_SEARCH_TERMS)
+        print(f"DEBUG: Limited to first {MAX_SEARCH_TERMS} search terms")
+    
+    # load whitelist sources
+    whitelist = load_source_lists()
+    
+    # process articles
+    articles_df = process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist)
+    
+    # save results
+    if not articles_df.empty:
+        record_count = save_results(articles_df, output_path, RISK_TYPE)
+        print(f"Completed: {record_count} total records")
     else:
-        existing_links = set()
-        print("No existing CSV found - starting fresh")
+        print("WARNING: No articles processed!")
+    
+    # end time
+    print(f"Completed at: {dt.datetime.now()}")
+    print("*" * 50)
 
 def load_search_terms(encoded_csv_path, risk_id_col):
     # Load and decode search terms from CSV - ORIGINAL LOGIC
@@ -144,6 +106,63 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         print(f"ERROR loading data/{encoded_csv_path}: {e}")
         sys.exit(1)
 
+def process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist):
+    # this is the MAIN processing loop for emerging articles
+    print(f"Processing {len(search_terms_df)} search terms...")
+    
+    all_articles = []
+    
+    # setup newspaper config
+    config = Config()
+    user_agent = random.choice(session.user_agents)
+    config.browser_user_agent = user_agent
+    config.enable_image_fetching = False  # faster without images!
+    config.request_timeout = 10 if DEBUG_MODE else 20
+    
+    # set dates for search (last 24 hours)
+    # NOTE!! for backfilling, change to last 7 days
+    now = dt.date.today()
+    yesterday = now - dt.timedelta(days=1)
+    
+    # process each search term
+    for idx, row in search_terms_df.iterrows():
+        # quick exit for debug mode!
+        if DEBUG_MODE and len(all_articles) >= 5:
+            print("DEBUG: Early exit after 5 articles")
+            break
+            
+        search_term = row['SEARCH_TERMS']  # use DECODED term
+        risk_id = row[RISK_ID_COL]
+        
+        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id})")
+        
+        # Get Google News articles
+        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday)
+        
+        if not articles:
+            print(f"  - No new articles found for this term")
+            continue
+        
+        # IMPORTANT FOR OPTIMIZATION: process articles in parallel
+        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
+        
+        all_articles.extend(processed_articles)
+        print(f"  - Processed {len(processed_articles)} articles")
+        
+        # rate limiting every 5 terms to ease load on Google
+        if idx % 5 == 0 and idx > 0:
+            print("  - rate limiting pause...")
+            time.sleep(random.uniform(2, 5))
+    
+    # Create final dataframe
+    if all_articles:
+        df = pd.DataFrame(all_articles)
+        print(f"Total articles collected: {len(df)}")
+        return df
+    else:
+        print("No articles to process")
+        return pd.DataFrame()
+
 def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday):
     # original working RSS-based google news search
     articles = []
@@ -154,8 +173,8 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
         start = page * 10
         try:
             time.sleep(0.5)  # rate limit to avoid 429 errors
-            url_start = 'https://news.google.com/rss/search?q={'
-            url_end = '}%20when%3A1d'
+            url_start = 'https://news.google.com/rss/search?q='
+            url_end = '%20when%3A1d'
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
             req.raise_for_status()
             
@@ -201,25 +220,8 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url} (Invalid domain extension)")
                     continue
                 
-                # Load source lists for filtering
-                try:
-                    whitelist_df = pd.read_csv('filter_in_sources.csv', encoding='utf-8')
-                    blacklist_df = pd.read_csv('filter_out_sources.csv', encoding='utf-8')
-                    whitelist = set(whitelist_df['SOURCE_NAME'].str.lower().str.strip().tolist())
-                    blacklist = set(blacklist_df['SOURCE_NAME'].str.lower().str.strip().tolist())
-                except FileNotFoundError:
-                    print("WARNING: Could not load source filter files, skipping source filtering")
-                    whitelist = set()
-                    blacklist = set()
-                
-                # Check if source should be filtered
-                source_domain = domain_name.replace('www.', '')
-                if any(black_source in source_text.lower() or black_source in source_domain for black_source in blacklist):
-                    if DEBUG_MODE:
-                        print(f"Skipping article from {source_text} (Blacklisted source)")
-                    continue
-                
-                if whitelist and not any(white_source in source_text.lower() or white_source in source_domain for white_source in whitelist):
+                # whitelist check (instead of filtered_sources)
+                if source_text not in whitelist:
                     if DEBUG_MODE:
                         print(f"Skipping article from {source_text} (Not in whitelist)")
                     continue
@@ -229,7 +231,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url} (Detected translated article)")
                     continue
                 
-                if decoded_url.lower().strip() in existing_links:
+                if decoded_url in existing_links:
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url} (Already exists)")
                     continue
@@ -238,8 +240,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     published_date = parser.parse(item.pubDate.text).date()
                 except (ValueError, TypeError):
                     published_date = None
-                    if DEBUG_MODE:
-                        print(f"WARNING! Date Error: {item.pubDate.text}")
+                    print(f"WARNING! Date Error: {item.pubDate.text}")
                 
                 # fix regex pattern for Python 3.12+
                 regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
@@ -326,302 +327,6 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             processed = [r for r in results if r is not None]
     
     return processed
-
-def calculate_quality_score(title, summary, url, search_terms, whitelist):
-    """calculate quality score for articles based on multiple factors"""
-    score = {
-        'relevance': 0,
-        'source_reputation': 0,
-        'content_length': 0,
-        'freshness': 0,
-        'total_score': 0
-    }
-    
-    # 1. Relevance scoring (search term matching)
-    title_lower = title.lower()
-    summary_lower = summary.lower()
-    terms_lower = [term.lower() for term in search_terms]
-    
-    title_matches = sum(1 for term in terms_lower if term in title_lower)
-    summary_matches = sum(1 for term in terms_lower if term in summary_lower)
-    
-    relevance_score = min(title_matches + summary_matches * 0.5, 2)
-    score['relevance'] = relevance_score
-    
-    # 2. Source reputation scoring
-    try:
-        parsed_url = urlparse(url)
-        domain = parsed_url.netloc.lower().replace('www.', '')
-        
-        # load whitelist for bonus points
-        if whitelist:
-            if any(white_domain in domain for white_domain in whitelist):
-                score['source_reputation'] = 2
-            else:
-                score['source_reputation'] = 1
-        else:
-            # basic domain reputation based on common patterns
-            reputable_domains = ['nytimes', 'wsj', 'reuters', 'bloomberg', 'bbc', 'cnn', 'apnews', 'forbes']
-            if any(rep_domain in domain for rep_domain in reputable_domains):
-                score['source_reputation'] = 2
-            else:
-                score['source_reputation'] = 1
-                
-    except:
-        score['source_reputation'] = 0
-    
-    # 3. Content length scoring
-    content_length = len(summary)
-    if content_length > 1000:
-        score['content_length'] = 2
-    elif content_length > 300:
-        score['content_length'] = 1
-    else:
-        score['content_length'] = 0
-    
-    # 4. Freshness scoring (within last 24 hours = max score)
-    try:
-        # This would ideally use the article's publish date
-        # For now, assume recent articles get full points
-        score['freshness'] = 1
-    except:
-        score['freshness'] = 0
-    
-    # Calculate total score (weighted)
-    score['total_score'] = (
-        score['relevance'] * 1.5 +
-        score['source_reputation'] * 1.2 +
-        score['content_length'] * 0.8 +
-        score['freshness'] * 0.5
-    )
-    
-    return score
-
-def process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist):
-    # this is the MAIN processing loop for emerging articles
-    print(f"Processing {len(search_terms_df)} search terms...")
-    
-    all_articles = []
-    
-    # set dates for search (last 24 hours)
-    # NOTE!! for backfilling, change to last 7 days
-    now = dt.date.today()
-    yesterday = now - dt.timedelta(days=1)
-    
-    # process each search term
-    for idx, row in search_terms_df.iterrows():
-        # quick exit for debug mode!
-        if DEBUG_MODE and len(all_articles) >= 5:
-            print("DEBUG: Early exit after 5 articles")
-            break
-            
-        search_term = row['SEARCH_TERMS']  # use DECODED term
-        risk_id = row[RISK_ID_COL]
-        
-        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id})")
-        
-        # Get Google News articles
-        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday)
-        
-        if not articles:
-            print(f"  - No new articles found for this term")
-            continue
-        
-        # IMPORTANT FOR OPTIMIZATION: process articles in parallel
-        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
-        
-        all_articles.extend(processed_articles)
-        print(f"  - Processed {len(processed_articles)} articles")
-        
-        # rate limiting every 5 terms to ease load on Google
-        if idx % 5 == 0 and idx > 0:
-            print("  - rate limiting pause...")
-            time.sleep(random.uniform(2, 5))
-    
-    return all_articles
-
-def main():
-    # config
-    RISK_TYPE = "emerging"
-    ENCODED_CSV = "EmergingRisksListEncoded.csv"
-    OUTPUT_CSV = "emerging_risks_online_sentiment.csv"
-    
-    # process time start
-    print("*" * 50)
-    start_time = dt.datetime.now()
-    print(f"EMERGING RISK NEWS - Started: {start_time}")
-    print(f"Processing type: {RISK_TYPE}")
-    print("*" * 50)
-    
-    # setup analyzer
-    analyzer = SentimentIntensityAnalyzer()
-    
-    # load data
-    search_terms_df = load_search_terms(ENCODED_CSV, RISK_ID_COL)
-    
-    # limit for debug mode
-    if MAX_SEARCH_TERMS:
-        search_terms_df = search_terms_df.head(MAX_SEARCH_TERMS)
-        print(f"DEBUG: Limited to first {MAX_SEARCH_TERMS} search terms")
-    
-    # load whitelist sources
-    try:
-        whitelist_df = pd.read_csv('filter_in_sources.csv', encoding='utf-8')
-        whitelist = set(whitelist_df['SOURCE_NAME'].str.lower().str.strip().tolist())
-        print(f"Loaded {len(whitelist)} whitelist sources")
-    except FileNotFoundError:
-        print("WARNING: Could not load whitelist - using empty set")
-        whitelist = set()
-    
-    # process articles
-    print("Starting article processing...")
-    summary = process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist)
-    
-    # Create final dataframe
-    if summary:
-        final_df = pd.DataFrame(summary)
-        
-        # Apply quality scoring to existing data if needed
-        if not final_df.empty and 'SEARCH_TERMS' not in final_df.columns:
-            # For existing data, we might need to re-calculate scores
-            print("Re-calculating quality scores for existing data...")
-            
-            # Load source lists
-            try:
-                blacklist_df = pd.read_csv('filter_out_sources.csv', encoding='utf-8')
-                blacklist = set(blacklist_df['SOURCE_NAME'].str.lower().str.strip().tolist())
-            except FileNotFoundError:
-                blacklist = set()
-            
-            # Extract search terms from the dataframe (assuming they're stored somewhere)
-            # For simplicity, we'll use a placeholder approach
-            def get_search_terms_from_row(row):
-                # This is a simplified approach - in production you'd want to map back to original terms
-                return [row.get('TITLE', '').lower()]  # Use title as fallback
-            
-            # Apply quality scoring
-            score_breakdown = final_df.apply(
-                lambda row: calculate_quality_score(
-                    row.get('TITLE', ''),
-                    row.get('SUMMARY', ''),
-                    row.get('SOURCE_URL', ''),
-                    get_search_terms_from_row(row),
-                    whitelist
-                ),
-                axis=1
-            )
-            
-            # convert the series of dictionaries to separate columns
-            score_df = pd.DataFrame(score_breakdown.tolist())
-            
-            # add all scoring columns to the final dataframe
-            for col in score_df.columns:
-                final_df[f'SCORE_{col.upper()}'] = score_df[col]
-            
-            # add total score column
-            final_df['QUALITY_SCORE'] = final_df['SCORE_TOTAL_SCORE']
-        
-        # Filter by quality score
-        if 'QUALITY_SCORE' in final_df.columns:
-            high_quality_df = final_df[final_df['QUALITY_SCORE'] >= 2].copy()
-            print(f"Filtered to {len(high_quality_df)} high-quality articles (score >= 2)")
-            final_df = high_quality_df
-        else:
-            print("WARNING: No quality scores calculated - keeping all articles")
-        
-    else:
-        final_df = pd.DataFrame()
-        print("No articles processed")
-
-print("*" * 50)
-print(f"Processed {len(summary)} articles")
-print(f"Final DataFrame shape: {final_df.shape}")
-print(f"Final DataFrame columns: {final_df.columns.tolist()}")
-if len(final_df) > 0:
-    print("Sample of final data:")
-    print(final_df.head(2))
-else:
-    print("WARNING!!! Final DataFrame is empty!")
-print(f"\nQuality Score Statistics:")
-if 'QUALITY_SCORE' in final_df.columns:
-    print(f"Mean score: {final_df['QUALITY_SCORE'].mean():.2f}")
-    print(f"Score distribution:")
-    print(final_df['QUALITY_SCORE'].value_counts().sort_index())
-    print(f"\nScoring Component Statistics:")
-    scoring_cols = [col for col in final_df.columns if col.startswith('SCORE_') and col != 'SCORE_TOTAL_SCORE']
-    for col in scoring_cols:
-        print(f"{col}: Mean = {final_df[col].mean():.2f}, Non-zero = {(final_df[col] != 0).sum()}")
-print("*" * 50)
-
-# load existing data and combine
-if os.path.exists(main_csv_path):
-    existing_main_df = pd.read_csv(main_csv_path, parse_dates=['PUBLISHED_DATE'], encoding='utf-8')
-    print(f"Loaded existing CSV with {len(existing_main_df)} records")
-else:
-    existing_main_df = pd.DataFrame()
-    print("No existing CSV found - starting fresh")
-
-# DEBUG BEFORE SAVING
-print("*" * 50)
-if not final_df.empty:
-    print(f"Saving {len(final_df)} new records")
-else:
-    print("WARNING!!! No new records to save!")
-print("*" * 50)
-
-combined_df = pd.concat([existing_main_df, final_df], ignore_index=True).drop_duplicates(subset=['TITLE', 'LINK', 'PUBLISHED_DATE'])
-
-# rolling 4-month window
-cutoff_date = dt.datetime.now() - dt.timedelta(days=4 * 30)
-combined_df['PUBLISHED_DATE'] = pd.to_datetime(combined_df['PUBLISHED_DATE'], errors='coerce')
-
-if combined_df['PUBLISHED_DATE'].isna().any():
-    print("Warning: Some rows have invalid PUBLISHED_DATE values.")
-
-# separate current and old data
-current_df = combined_df[combined_df['PUBLISHED_DATE'] >= cutoff_date].copy()
-old_df = combined_df[combined_df['PUBLISHED_DATE'] < cutoff_date].copy()
-
-# DEBUG AFTER COMBINING DATA
-print("*" * 50)
-print(f"Combined DataFrame shape: {combined_df.shape}")
-print(f"Current DataFrame shape (after filtering): {current_df.shape}")
-print("*" * 50)
-
-# save current data
-current_df.sort_values(by='PUBLISHED_DATE', ascending=False).to_csv(main_csv_path, index=False, encoding='utf-8', quoting=csv.QUOTE_MINIMAL)
-file_size = os.path.getsize(main_csv_path)
-print(f"Updated main CSV with {len(current_df)} records.")
-print(f"File size: {file_size} bytes")
-
-# DEBUG VERIFY FILE
-print("*" * 50)
-if os.path.exists(main_csv_path):
-    file_size = os.path.getsize(main_csv_path)
-    print(f"✓ Output file exists at: {main_csv_path}")
-    print(f"✓ File size: {file_size} bytes")
-    if file_size > 0:
-        print("Preview file:")
-        try:
-            preview_df = pd.read_csv(main_csv_path).head(2)
-            print(preview_df)
-        except Exception as e:
-            print(f"Could not preview file: {e}")
-    else:
-        print("File is empty!!!")
-else:
-    print("ERROR!!! Output file not created!")
-print(f"Script completed at: {dt.datetime.now()}")
-print("*" * 50)
-
-# archive old data
-if not DEBUG_MODE and not old_df.empty:
-    old_df = old_df.sort_values(by='PUBLISHED_DATE')
-    archive_path = os.path.join(output_dir, 'emerging_risks_sentiment_archive.csv')
-    old_df.to_csv(archive_path, index=False, encoding='utf-8', quoting=csv.QUOTE_MINIMAL)
-    print(f"Archived {len(old_df)} records to {archive_path}.")
-elif DEBUG_MODE:
-    print("DEBUGGING - skipping archival process")
 
 if __name__ == '__main__':
     main()
