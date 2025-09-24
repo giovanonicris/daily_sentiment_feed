@@ -1,4 +1,34 @@
 RISK_ID,TITLE,LINK,PUBLISHED_DATE,SUMMARY,SENTIMENT_COMPOUND,SOURCE_URL,QUALITY_SCORE,SCORE_RELEVANCE,SCORE_RECENCY,SCORE_LENGTH_150,SCORE_LENGTH_500,SCORE_WHITELIST_BONUS,SCORE_CLICKBAIT_PENALTY
+2,Secret Service disrupts telecom threat near UN General Assembly - BBC,https://www.bbc.com/news/articles/cn4w0d8zz22o,2025-09-24 07:28:08.087362,"Secret Service disrupts telecom threat near UN General Assembly
+
+Secret Service: Telecom threat could send 30M disruptive texts per minute
+
+The US Secret Service disrupted a network of telecommunications devices that could have shut down cellular systems as leaders gather for the United Nations General Assembly in New York City.
+
+The agency said on Tuesday that last month it found more than 300 SIM servers and 100,000 SIM cards that could have been used for telecom attacks within the area encomp",-0.9118,https://www.bbc.com/news/articles/cn4w0d8zz22o,3,0,1,0,0,2,0
+2,"Despite Gains, Ransomware Still Strains Education Sector - GovTech",https://www.govtech.com/education/higher-ed/despite-gains-ransomware-still-strains-education-sector,2025-09-23 23:04:38.894000,"ROOT CAUSES OF ATTACKS
+
+DATA ENCRYPTION AND EXFILTRATION
+
+RANSOM DEMANDS AND PAYMENTS
+
+RECOVERY COSTS AND TIMELINES
+
+HUMAN IMPACT
+
+Amid shifting federal education priorities and the removal from public view of ed-tech resources and guidance for schools, institutions have been forced to rely on each other, and on nonprofits and private companies, for cyber support. And, to a degree, these changes appear to be working.A recent report by Sophos, a cybersecurity software company, presents surveyed i",-0.8003,https://www.govtech.com/education/higher-ed/despite-gains-ransomware-still-strains-education-sector,4,1,1,0,0,2,0
+2,Phishing Remains Persistent Threat in K-12 Cybersecurity - GovTech,https://www.govtech.com/security/phishing-remains-persistent-threat-in-k-12-cybersecurity,2025-09-23 22:58:23.143000,"Email continues to serve as a primary entry point for cyber attacks against schools and universities, with phishing in particular remaining a major threat, one expert says. Glen Deskin is head of engineering for Check Point Software, a cybersecurity company with public-sector clients, including some in the education space. Deskin notes that phishing is a longtime threat and will remain one. As such, cybersecurity education around it needs to be ongoing.Regular reminders, phishing simulations and",-0.9245,https://www.govtech.com/security/phishing-remains-persistent-threat-in-k-12-cybersecurity,4,1,1,0,0,2,0
+2,Many ‘material’ cybersecurity breaches go unreported: VikingCloud - Cybersecurity Dive,https://www.cybersecuritydive.com/news/material-cybersecurity-breaches-unreported/760892/,2025-09-23 12:00:00.000000,"Dive Brief:
+
+Nearly half (48%) of cybersecurity leaders didn’t report a “material” cybersecurity incident to their executive leadership or board of directors in the past year, according to the results of a survey conducted by cybersecurity firm VikingCloud.
+
+The leading reasons cited were worry over punitive rather than constructive responses from leadership and the board (40%), and fear of financial or reputational harm if the incident were made public or resulted in regulatory consequences (44",-0.9169,https://www.cybersecuritydive.com/news/material-cybersecurity-breaches-unreported/760892/,3,0,1,0,0,2,0
+2,Jaguar Land Rover to extend production pause into October following cyberattack - Cybersecurity Dive,https://www.cybersecuritydive.com/news/jaguar-land-rover-extend-production-pause-cyberattack/760883/,2025-09-23 11:33:00.000000,"Jaguar Land Rover said it will extend a delay at its production facilities until Oct. 1, weeks after a cyberattack forced the luxury automaker to pause operations.
+
+The U.K.-based company said the decision to extend the delay will “give clarity for the coming week,” as it prepares for the phased restart of production, according to a statement posted Tuesday on its corporate website.
+
+“Our teams continue to work around-the-clock alongside cybersecurity specialists, the [National Cyber Security Ce",0.1531,https://www.cybersecuritydive.com/news/jaguar-land-rover-extend-production-pause-cyberattack/760883/,3,0,1,0,0,2,0
+2,Jaguar Land Rover says a shutdown will continue until at least Oct 1 after cyberattack - AP News,https://apnews.com/article/jaguar-land-rover-cyberattack-shutdown-46fb6fa68b2eb611ff8fc7dac4cd5aec,2025-09-23 07:56:33.000000,"The Associated Press is an independent global news organization dedicated to factual reporting. Founded in 1846, AP today remains the most trusted source of fast, accurate, unbiased news in all formats and the essential provider of the technology and services vital to the news business. More than half the world’s population sees AP journalism every day.",0.8173,https://apnews.com/article/jaguar-land-rover-cyberattack-shutdown-46fb6fa68b2eb611ff8fc7dac4cd5aec,3,0,1,0,0,2,0
 2,EU cyber agency says airport software held to ransom by criminals - BBC,https://www.bbc.com/news/articles/cqjeej85452o,2025-09-23 07:22:19.633263,"EU cyber agency says airport software held to ransom by criminals
 
 21 hours ago Share Save Joe Tidy Cyber correspondent and Tabby Wilson Share Save
@@ -34,6 +64,11 @@ The EU's cyber security agency says criminals are using ransomware to cause chao
 EPA Disruption has continued at some of Europe's busiest airports as they try to recover from Friday's cyber attack
 
 The EU's cyber security agency says criminals are using ransomware to cause chaos in airports around the world. Several of Europe's busiest airports have spent the past few days trying to restore normal operations, after a cyber-attac",-0.7906,https://www.bbc.com/news/articles/cqjeej85452o,3,0,1,0,0,2,0
+2,A plot could have caused cell phone chaos. It's part of a troubling trend. - USA Today,https://www.usatoday.com/story/news/nation/2025/09/23/nyc-cell-plot-cyberattacks-infrastructure/86309320007/,2025-09-23 00:00:00.000000,"A plot could have caused cell phone chaos. It's part of a troubling trend. The discovery of thousands of devices that could have wiped out communications in New York City comes after a series of cyberattacks targeting the US.
+
+Show Caption Hide Caption Prevent hackers from breaking into your home security cameras Keep your home safe by preventing hackers from breaking into your home security devices. USA TODAY
+
+The discovery of a vast telecommunications network that authorities say was capable o",-0.7783,https://www.usatoday.com/story/news/nation/2025/09/23/nyc-cell-plot-cyberattacks-infrastructure/86309320007/,4,1,1,0,0,2,0
 2,Europe’s Airport Cyber Nightmare Echoes the CrowdStrike Chaos - Bloomberg,https://www.bloomberg.com/opinion/articles/2025-09-23/europe-airport-cyberattack-and-flight-cancellations-echo-crowdstrike-chaos,2025-09-23 00:00:00.000000,"Europeans were in airport purgatory over the weekend after a cyberattack on a provider of check-in and boarding systems caused delays and cancellations, affecting hubs including Heathrow and Berlin where some airlines had to board passengers manually. The attack took place late Friday, according to Brussels Airport, and gummed up travel across the continent. Charlotte, NC-based Collins Aerospace confirmed a “cyber-related disruption” to its MUSE software, following a now familiar pattern of comp",-0.7783,https://www.bloomberg.com/opinion/articles/2025-09-23/europe-airport-cyberattack-and-flight-cancellations-echo-crowdstrike-chaos,3,0,1,0,0,2,0
 2,Flights across Europe delayed after cyberattack targets third-party vendor - Cybersecurity Dive,https://www.cybersecuritydive.com/news/flights-europe-delayed-cyberattack-third-party/760745/,2025-09-22 11:08:00.000000,"A cyberattack targeting a third-party technology vendor has disrupted passenger flights at major international airports across Europe, including Heathrow Airport in London.
 
@@ -81,6 +116,7 @@ Air travellers are facing another day of disruption at several European airports
 Watch: Sea of people seen at Brussels airport
 
 Air travellers are facing another day of disruption at several European airports including Heathrow, after a cyber-attack knocked out a check-in and baggage system. There were hundreds of delays on Saturday after the software used by several airlines failed, with affected airports boarding passengers using pen and paper.",-0.34,https://www.bbc.com/news/articles/cwy88857llno,3,0,1,0,0,2,0
+2,Detective Conan: One-Eyed Flashback review – anime sleuth wades through a bamboozling bureaucratic maze - The Guardian,https://www.theguardian.com/film/2025/sep/22/detective-conan-one-eyed-flashback-review-anime-sleuth-wades-through-a-bamboozling-bureaucratic-maze,2025-09-22 00:00:00.000000,"By the time a suave law enforcer from the Cabinet Satellite Intelligence Center turns up near the end to join colleagues from Yamanashi prefectural police, Nagano police and Tokyo’s Public Security Bureau (PSB), this bewildering but oddly enjoyable anime serves as a handy guide to Japanese bureaucratic structures. As this is the 28th film instalment (eat your heart out 007) of the bestselling manga centred on a crack sleuth forced to inhabit a child’s body, you will need to be some kind of preco",0.9001,https://www.theguardian.com/film/2025/sep/22/detective-conan-one-eyed-flashback-review-anime-sleuth-wades-through-a-bamboozling-bureaucratic-maze,4,1,1,0,0,2,0
 2,"Cyberattack on European airports caused by ransomware, EU finds - Al Jazeera",https://www.aljazeera.com/news/2025/9/22/cyberattack-on-european-airports-caused-by-ransomware-eu-finds,2025-09-22 00:00:00.000000,"A cyberattack that has caused major airport disruptions in the United Kingdom, Germany and Belgium was caused by ransomware, the European Union Agency for Cybersecurity (ENISA) says.
 
 In a statement on Monday, ENISA said law enforcement was involved to investigate the software that holds data until those targeted pay to have their access back.
@@ -88,7 +124,6 @@ In a statement on Monday, ENISA said law enforcement was involved to investigate
 ENISA did not elaborate on where the ransomware had originated.
 
 Since Friday night, several of Europe’s biggest airports have faced disruptions after ha",-0.0717,https://www.aljazeera.com/news/2025/9/22/cyberattack-on-european-airports-caused-by-ransomware-eu-finds,3,0,1,0,0,2,0
-2,Detective Conan: One-Eyed Flashback review – anime sleuth wades through a bamboozling bureaucratic maze - The Guardian,https://www.theguardian.com/film/2025/sep/22/detective-conan-one-eyed-flashback-review-anime-sleuth-wades-through-a-bamboozling-bureaucratic-maze,2025-09-22 00:00:00.000000,"By the time a suave law enforcer from the Cabinet Satellite Intelligence Center turns up near the end to join colleagues from Yamanashi prefectural police, Nagano police and Tokyo’s Public Security Bureau (PSB), this bewildering but oddly enjoyable anime serves as a handy guide to Japanese bureaucratic structures. As this is the 28th film instalment (eat your heart out 007) of the bestselling manga centred on a crack sleuth forced to inhabit a child’s body, you will need to be some kind of preco",0.9001,https://www.theguardian.com/film/2025/sep/22/detective-conan-one-eyed-flashback-review-anime-sleuth-wades-through-a-bamboozling-bureaucratic-maze,4,1,1,0,0,2,0
 2,Airport cyberattack disrupts more flights across Europe - AP News,https://apnews.com/article/europe-airports-cyberattack-4eb95c1157cf34b606e021088256d20a,2025-09-21 11:06:15.000000,"BRUSSELS (AP) — Fallout from a cyberattack that disrupted check-in systems at several European airports extended into a second full day on Sunday, as passengers faced dozens of canceled and delayed flights — and the impact poised to worsen for at least one major airport.
 
 Brussels Airport, seemingly the hardest hit, said it asked airlines to cancel nearly 140 departing flights scheduled for Monday because a U.S.-based software system provider “is not yet able to deliver a new secure version of t",-0.4215,https://apnews.com/article/europe-airports-cyberattack-4eb95c1157cf34b606e021088256d20a,3,0,1,0,0,2,0
@@ -178,20 +213,6 @@ JENN",-0.9153,https://www.npr.org/transcripts/nx-s1-5525957,4,1,1,0,0,2,0
 The U.S. Environmental Protection Agency recently sounded the alarm about an increase in malicious cyberattacks targeting American water systems. As hackers from nation-states and criminal gangs alike cause chaos, make money and even prepare for potential future conflicts with the United States, NPR cybersecurity correspondent Jenna McLaughlin traveled to a small New England town to learn more about how water operators are defending their systems from digital attacks.
 
 JENN",-0.9153,https://www.npr.org/transcripts/nx-s1-5525957,4,1,1,0,0,2,0
-2,A-maze-ing | PHOTOS - Baltimore Sun,https://www.baltimoresun.com/2025/09/21/a-maze-ing-photos/,2025-09-21 00:00:00.000000,"The Carroll County Agriculture Center’s annual corn maze runs every Friday, Saturday, and Sunday through November 2nd. Open on Friday, Oct. 31st for Halloween!",0.0,https://www.baltimoresun.com/2025/09/21/a-maze-ing-photos/,4,1,1,0,0,2,0
-2,What we know about the cyberattack that hit major European airports - CNBC,https://www.cnbc.com/2025/09/21/what-we-know-about-the-cyberattack-that-hit-major-european-airports.html,2025-09-21 00:00:00.000000,"In this article RTX Follow your favorite stocks CREATE FREE ACCOUNT
-
-Travellers wait in Terminal 4 at Heathrow Airport on Sept. 20, 2025 after major European airports including Brussels, Berlin and London's Heathrow were hit by ""cyber-related disruption."" Justin Tallis | Afp | Getty Images
-
-Disruption at some European airports continued for a second day on Sunday after a cyberattack targeted check-in technology company Collins Aerospace. The U.K.'s largest airport, Heathrow, was among those affe",0.7065,https://www.cnbc.com/2025/09/21/what-we-know-about-the-cyberattack-that-hit-major-european-airports.html,3,0,1,0,0,2,0
-2,Delays continue to affect thousands as cyberattack hits Europe’s airports - Al Jazeera,https://www.aljazeera.com/news/2025/9/21/delays-continue-to-affect-thousands-as-cyberattack-hits-europes-airports,2025-09-21 00:00:00.000000,"London’s Heathrow and Brussel airports tell passengers to expect more delays on Sunday as interruption persists.
-
-Major international aviation hubs across Europe, including London’s Heathrow airport and Berlin’s Brandenburg airport, continue to face interruptions in their operations following a suspected cyberattack affecting their check-in systems, causing cancellations and delays for thousands of passengers.
-
-Heathrow airport said early on Sunday that it is still trying “to resolve and recover",-0.5423,https://www.aljazeera.com/news/2025/9/21/delays-continue-to-affect-thousands-as-cyberattack-hits-europes-airports,3,0,1,0,0,2,0
-2,Europe Air Travel Snarls Continue After Cyberattack - Bloomberg.com,https://www.bloomberg.com/news/articles/2025-09-21/europe-air-travel-snarls-continue-after-cyberattack-on-system,2025-09-21 00:00:00.000000,"Airports in Berlin, London and Brussels faced continued delays on Sunday after a cyberattack on a key airline check-in system forced staff to process passengers manually.
-
-The outage stems from a cyber incident at Collins Aerospace that knocked out its MUSE software late Friday. The platform underpins check-in, boarding and baggage systems for airlines worldwide. With kiosks and bag-drop machines offline, airports have been forced to rely on manual processing, slowing passenger flows.",-0.7579,https://www.bloomberg.com/news/articles/2025-09-21/europe-air-travel-snarls-continue-after-cyberattack-on-system,3,0,1,0,0,2,0
 2,How Gov. Wes Moore’s economic growth agenda bets big on quantum computing - Baltimore Sun,https://www.baltimoresun.com/2025/09/21/moore-economic-growth-bets-on-quantum-computing/,2025-09-21 00:00:00.000000,"Click to share on Facebook (Opens in new window)
 
 Facebook",0.5859,https://www.baltimoresun.com/2025/09/21/moore-economic-growth-bets-on-quantum-computing/,4,1,1,0,0,2,0
@@ -200,6 +221,20 @@ Facebook",0.5859,https://www.baltimoresun.com/2025/09/21/moore-economic-growth-b
 Airlines were forced to revert to slower manual check-ins from Friday night after the attack hit Collins Aerospace, which provides check-in desk technology to various airlines.
 
 Brussels airport asked airlines on Sunday afternoon to ca",-0.8779,https://www.theguardian.com/business/2025/sep/21/delays-continue-at-heathrow-brussels-and-berlin-airports-after-alleged-cyber-attack,3,0,1,0,0,2,0
+2,Europe Air Travel Snarls Continue After Cyberattack - Bloomberg.com,https://www.bloomberg.com/news/articles/2025-09-21/europe-air-travel-snarls-continue-after-cyberattack-on-system,2025-09-21 00:00:00.000000,"Airports in Berlin, London and Brussels faced continued delays on Sunday after a cyberattack on a key airline check-in system forced staff to process passengers manually.
+
+The outage stems from a cyber incident at Collins Aerospace that knocked out its MUSE software late Friday. The platform underpins check-in, boarding and baggage systems for airlines worldwide. With kiosks and bag-drop machines offline, airports have been forced to rely on manual processing, slowing passenger flows.",-0.7579,https://www.bloomberg.com/news/articles/2025-09-21/europe-air-travel-snarls-continue-after-cyberattack-on-system,3,0,1,0,0,2,0
+2,Delays continue to affect thousands as cyberattack hits Europe’s airports - Al Jazeera,https://www.aljazeera.com/news/2025/9/21/delays-continue-to-affect-thousands-as-cyberattack-hits-europes-airports,2025-09-21 00:00:00.000000,"London’s Heathrow and Brussel airports tell passengers to expect more delays on Sunday as interruption persists.
+
+Major international aviation hubs across Europe, including London’s Heathrow airport and Berlin’s Brandenburg airport, continue to face interruptions in their operations following a suspected cyberattack affecting their check-in systems, causing cancellations and delays for thousands of passengers.
+
+Heathrow airport said early on Sunday that it is still trying “to resolve and recover",-0.5423,https://www.aljazeera.com/news/2025/9/21/delays-continue-to-affect-thousands-as-cyberattack-hits-europes-airports,3,0,1,0,0,2,0
+2,What we know about the cyberattack that hit major European airports - CNBC,https://www.cnbc.com/2025/09/21/what-we-know-about-the-cyberattack-that-hit-major-european-airports.html,2025-09-21 00:00:00.000000,"In this article RTX Follow your favorite stocks CREATE FREE ACCOUNT
+
+Travellers wait in Terminal 4 at Heathrow Airport on Sept. 20, 2025 after major European airports including Brussels, Berlin and London's Heathrow were hit by ""cyber-related disruption."" Justin Tallis | Afp | Getty Images
+
+Disruption at some European airports continued for a second day on Sunday after a cyberattack targeted check-in technology company Collins Aerospace. The U.K.'s largest airport, Heathrow, was among those affe",0.7065,https://www.cnbc.com/2025/09/21/what-we-know-about-the-cyberattack-that-hit-major-european-airports.html,3,0,1,0,0,2,0
+2,A-maze-ing | PHOTOS - Baltimore Sun,https://www.baltimoresun.com/2025/09/21/a-maze-ing-photos/,2025-09-21 00:00:00.000000,"The Carroll County Agriculture Center’s annual corn maze runs every Friday, Saturday, and Sunday through November 2nd. Open on Friday, Oct. 31st for Halloween!",0.0,https://www.baltimoresun.com/2025/09/21/a-maze-ing-photos/,4,1,1,0,0,2,0
 2,Flushable wipes and Iran: Water treatment facility adds cyberattacks to worry list - NPR,https://www.npr.org/2025/09/20/nx-s1-5525957/water-supply-hack,2025-09-20 00:00:00.000000,"Flushable wipes and Iran: Water treatment facility adds cyberattacks to worry list
 
 toggle caption Claire Harbage/NPR
