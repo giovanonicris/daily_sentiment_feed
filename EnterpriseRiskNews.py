@@ -141,7 +141,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         risk_id = row[RISK_ID_COL]
         
         if pd.isna(search_term):
-            print(f"  -> Skipping invalid search term for risk ID {risk_id}")
+            print(f"  - Skipping invalid search term for risk ID {risk_id}")
             continue
             
         print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:50]}...'")
@@ -150,18 +150,18 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
         
         if not articles:
-            print(f"  -> No new articles found for this term")
+            print(f"  - No new articles found for this term")
             continue
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
         processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
         
         all_articles.extend(processed_articles)
-        print(f"  -> Processed {len(processed_articles)} articles")
+        print(f"  - Processed {len(processed_articles)} articles")
         
         # rate limiting every 5 terms to ease load on Google
         if idx % 5 == 0 and idx > 0:
-            print("  -> rate limiting pause...")
+            print("  - rate limiting pause...")
             time.sleep(random.uniform(2, 5))
     
     # Create final dataframe
@@ -238,27 +238,15 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 parsed_url = urlparse(decoded_url)
                 domain_name = parsed_url.netloc.lower().replace('www.', '')
                 
-                if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net')):
+                # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
+                if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
                     continue
-                
-                # removed whitelist check to include all articles from first 3 pages
-                # DOMAIN-BASED WHITELIST CHECK
-                # source_is_whitelisted = False
-                # if not whitelist:
-                #     source_is_whitelisted = True
-                # else:
-                #     # Check if the actual domain matches any whitelist entry
-                #     for white_source in whitelist:
-                #         white_lower = white_source.lower().strip()
-                #         if white_lower == domain_name or white_lower in domain_name:
-                #             source_is_whitelisted = True
-                #             break
-                # if not source_is_whitelisted:
-                #     if DEBUG_MODE:
-                #         print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
-                #     continue
+                if re.match(r'^/[a-z]{2}(/|$)', parsed_url.path.lower()) or re.match(r'^\.[a-z]{2}', domain_name.lower().rsplit('.', 1)[-1]):
+                    if DEBUG_MODE:
+                        print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or domain_name})")
+                    continue
                 
                 if "/en/" in decoded_url:
                     if DEBUG_MODE:
@@ -337,7 +325,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             seen_urls.add(url_key)
             seen_titles.add(title_key)
             
-            # removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED IN utils.py
+            # removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED in utils.py
             # if url.lower().strip() in existing_links:
             #     return None
             
@@ -382,27 +370,22 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 title, summary, url, [search_term], whitelist
             )
             
-            # only keep articles with decent quality score
-            if quality_scores['total_score'] >= 2:
-                return {
-                    'RISK_ID': risk_id,  # proper risk id mapping
-                    'GOOGLE_INDEX': google_index,  # google news position for this article
-                    'TITLE': title,
-                    'LINK': url,
-                    'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),
-                    'SUMMARY': summary[:1000],  # truncate for CSV size
-                    'SENTIMENT_COMPOUND': sentiment['compound'],
-                    'SOURCE_URL': url,
-                    'PAYWALLED': is_paywalled,
-                    'CREDIBILITY_TYPE': credibility_type,
-                    'QUALITY_SCORE': quality_scores['total_score'],
-                    # add individual score components
-                    **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
-                }
-            else:
-                if DEBUG_MODE:
-                    print(f"  - skipped low quality article '{title[:50]}...': score {quality_scores['total_score']}")
-                return None
+            # include all articles, keeping quality score for review
+            return {
+                'RISK_ID': risk_id,  # proper risk id mapping
+                'GOOGLE_INDEX': google_index,  # google news position for this article
+                'TITLE': title,
+                'LINK': url,
+                'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),
+                'SUMMARY': summary[:1000],  # truncate for CSV size
+                'SENTIMENT_COMPOUND': sentiment['compound'],
+                'SOURCE_URL': url,
+                'PAYWALLED': is_paywalled,
+                'CREDIBILITY_TYPE': credibility_type,
+                'QUALITY_SCORE': quality_scores['total_score'],
+                # add individual score components
+                **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
+            }
                 
         except Exception as e:
             if DEBUG_MODE:
