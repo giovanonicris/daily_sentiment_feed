@@ -14,6 +14,14 @@ on:
           - all
           - enterprise
           - emerging
+      debug_mode:
+        description: "Enable debug mode (true/false)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
 
 jobs:
   setup:
@@ -29,13 +37,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-py3.9
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-py3.12
 
       - name: Install dependencies
         run: |
@@ -62,7 +70,6 @@ jobs:
     strategy:
       matrix:
         job_type: ${{ fromJson(needs.setup.outputs.matrix) }}
-    # FIXED: Removed invalid matrix.job_type condition
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -72,13 +79,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-py3.9
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-py3.12
 
       - name: Install dependencies
         run: |
@@ -88,7 +95,7 @@ jobs:
 
       - name: Run ${{ matrix.job_type }} sentiment processor
         env:
-          DEBUG_MODE: false
+          DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
           MAX_ARTICLES_PER_TERM: 20
           MAX_SEARCH_TERMS: None
         run: |
