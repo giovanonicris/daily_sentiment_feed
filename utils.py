@@ -85,7 +85,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         usecols = [risk_id_col, 'SEARCH_TERM_ID', 'ENCODED_TERMS']
         df = pd.read_csv(f'data/{encoded_csv_path}', encoding='utf-8', usecols=usecols)
         df[risk_id_col] = pd.to_numeric(df[risk_id_col], downcast='integer', errors='coerce')
-        print(f"✓ Loaded {len(df)} search terms from {encoded_csv_path}")
+        print(f"Loaded {len(df)} search terms from {encoded_csv_path}")
         return df
     except FileNotFoundError:
         print(f"ERROR!!! data/{encoded_csv_path} not found!")
@@ -147,23 +147,22 @@ def print_debug_info(script_name, risk_type, start_time):
     print(f"Working directory: {os.getcwd()}")
     print("*" * 50)
 
-# load whitelist sources only
+# load whitelist and source type lists
 def load_source_lists():
     try:
-        # load whitelist
-        whitelist_df = pd.read_csv('data/filter_in_sources.csv', encoding='utf-8')
-        whitelist = set(whitelist_df['SOURCE_NAME'].str.lower().str.strip())
-        
-        # load paywalled
-        paywalled_df = pd.read_csv('data/paywalled_sources.csv', encoding='utf-8')
-        paywalled = set(paywalled_df['SOURCE_NAME'].str.lower().str.strip())
+        # load source and type data
+        source_df = pd.read_csv('data/source_and_type.csv', encoding='utf-8')
+        whitelist = set(source_df[source_df['CREDIBILITY_TYPE'] == 'Mainstream']['SOURCE_NAME'].str.lower().str.strip())
+        paywalled = set(source_df[source_df['IS_PAYWALLED'] == 1]['SOURCE_NAME'].str.lower().str.strip())
+        credibility_map = dict(zip(source_df['SOURCE_NAME'].str.lower().str.strip(), source_df['CREDIBILITY_TYPE']))
         
         print(f"Loaded {len(whitelist)} whitelist sources")
         print(f"Loaded {len(paywalled)} paywalled sources")
-        return whitelist, paywalled
+        print(f"Loaded {len(credibility_map)} credibility mappings")
+        return whitelist, paywalled, credibility_map
     except Exception as e:
         print(f"Warning: Could not load source lists: {e}")
-        return set(), set()
+        return set(), set(), {}
 
 # calculate quality score for an article
 def calculate_quality_score(title, summary, source_url, search_terms, whitelist):

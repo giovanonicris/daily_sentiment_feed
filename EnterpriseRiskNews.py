@@ -1,4 +1,4 @@
-# enterprise risk news
+# ENTERPRISE RISK NEWS
 # uses shared utilities for common functionality; this includes the debug mode
 
 import datetime as dt
@@ -34,7 +34,7 @@ def process_encoded_search_terms(term):
     except (ValueError, UnicodeDecodeError, OverflowError):
         return None
 
-# IMPORTANT!! Import shared utilities
+# IMPORTANT!! Import shared utilities from utils.py
 from utils import (
     ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
     save_results, print_debug_info, DEBUG_MODE,
@@ -69,11 +69,11 @@ def main():
         search_terms_df = search_terms_df.head(MAX_SEARCH_TERMS)
         print(f"DEBUG: Limited to first {MAX_SEARCH_TERMS} search terms")
     
-    # load whitelist sources
-    whitelist = load_source_lists()
+    # load whitelist, paywalled, and credibility sources
+    whitelist, paywalled, credibility_map = load_source_lists()
     
     # process articles
-    articles_df = process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist)
+    articles_df = process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist, paywalled, credibility_map)
     
     # save results
     if not articles_df.empty:
@@ -100,7 +100,12 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         valid_terms = df['SEARCH_TERMS'].dropna()
         print(f"Valid search terms ({len(valid_terms)}): {valid_terms.head().tolist()}")
         
-        return df
+        # filter out rows with invalid search terms
+        valid_df = df.dropna(subset=['SEARCH_TERMS'])
+        if valid_df.empty:
+            print("ERROR!!! No valid search terms after decoding!")
+            sys.exit(1)
+        return valid_df
     except FileNotFoundError:
         print(f"ERROR!!! data/{encoded_csv_path} not found!")
         sys.exit(1)
@@ -108,7 +113,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         print(f"ERROR loading data/{encoded_csv_path}: {e}")
         sys.exit(1)
 
-def process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist):
+def process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist, paywalled, credibility_map):
     # this is the MAIN processing loop for enterprise articles
     print(f"Processing {len(search_terms_df)} search terms...")
     
@@ -136,27 +141,27 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         risk_id = row[RISK_ID_COL]
         
         if pd.isna(search_term):
-            print(f"  - Skipping invalid search term for risk ID {risk_id}")
+            print(f"  -> Skipping invalid search term for risk ID {risk_id}")
             continue
             
         print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:50]}...'")
         
         # Get Google News articles
-        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist)
+        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
         
         if not articles:
-            print(f"  - No new articles found for this term")
+            print(f"  -> No new articles found for this term")
             continue
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
         processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
         
         all_articles.extend(processed_articles)
-        print(f"  - Processed {len(processed_articles)} articles")
+        print(f"  -> Processed {len(processed_articles)} articles")
         
         # rate limiting every 5 terms to ease load on Google
         if idx % 5 == 0 and idx > 0:
-            print("  - rate limiting pause...")
+            print("  -> rate limiting pause...")
             time.sleep(random.uniform(2, 5))
     
     # Create final dataframe
@@ -168,7 +173,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         print("No articles to process")
         return pd.DataFrame()
 
-def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist):
+def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist, paywalled, credibility_map):
     # from original logic, fetch articles from Google News RSS
     articles = []
     article_count = 0
@@ -238,7 +243,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
                     continue
                 
-                #### removed whitelist check to include all articles from first 3 pages
+                # removed whitelist check to include all articles from first 3 pages
                 # DOMAIN-BASED WHITELIST CHECK
                 # source_is_whitelisted = False
                 # if not whitelist:
@@ -260,7 +265,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url[:50]}... (Translated article)")
                     continue
                 
-                #### removed existing_links check to handle in process_articles_batch
+                # removed existing_links check to handle in process_articles_batch
                 # if decoded_url.lower().strip() in existing_links:
                 #     if DEBUG_MODE:
                 #         print(f"Skipping {decoded_url[:50]}... (Already exists)")
@@ -280,14 +285,22 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 # add google index for article position (page-based + item position)
                 google_index = page * 10 + item_idx + 1
                 
+                # check if domain is paywalled
+                is_paywalled = domain_name in paywalled
+                
+                # set credibility type (default to Relevant Article)
+                credibility_type = credibility_map.get(domain_name, 'Relevant Article')
+                
                 articles.append({
                     'url': decoded_url,
                     'title': title_text,
                     'html': None,  # will fetch during processing
-                    'google_index': google_index
+                    'google_index': google_index,
+                    'paywalled': is_paywalled,
+                    'credibility_type': credibility_type
                 })
                 article_count += 1
-                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index})")
+                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index}, paywalled: {is_paywalled}, credibility: {credibility_type})")
                 
             if article_count >= max_articles:
                 break
@@ -311,6 +324,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             url = article_data['url']
             title = article_data['title']
             google_index = article_data.get('google_index', 0)  # get index from article to see the sort order
+            is_paywalled = article_data.get('paywalled', False)
+            credibility_type = article_data.get('credibility_type', 'Relevant Article')
             
             # deduplicate by url and title for this search term
             url_key = url.lower().strip()
@@ -322,11 +337,11 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             seen_urls.add(url_key)
             seen_titles.add(title_key)
             
-            #### removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED IN utils.py
+            # removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED IN utils.py
             # if url.lower().strip() in existing_links:
             #     return None
             
-            # PRE-FILTER: Skip known problematic URL patterns
+            # PRE-FILTER: Skip known problematic URL patterns from manual review
             problematic_patterns = [
                 '/video/', '/videos/', '/watch/',
                 'wsj.com/subscriptions', 'bloomberg.com/newsletters',
@@ -378,6 +393,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                     'SUMMARY': summary[:1000],  # truncate for CSV size
                     'SENTIMENT_COMPOUND': sentiment['compound'],
                     'SOURCE_URL': url,
+                    'PAYWALLED': is_paywalled,
+                    'CREDIBILITY_TYPE': credibility_type,
                     'QUALITY_SCORE': quality_scores['total_score'],
                     # add individual score components
                     **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
