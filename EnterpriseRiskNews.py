@@ -189,7 +189,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
             
             print(f"    - Page {page+1}: found {len(items)} potential articles")
             
-            for item in items:
+            for item_idx, item in enumerate(items):
                 # Decode the Google News encoded URL - FIXED VERSION
                 try:
                     encoded_url = item.link.text.strip()
@@ -277,13 +277,17 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
                 domain_search = regex_pattern.search(str(item.source))
                 
+                # add google index for article position (page-based + item position)
+                google_index = page * 10 + item_idx + 1
+                
                 articles.append({
                     'url': decoded_url,
                     'title': title_text,
-                    'html': None  # will fetch during processing
+                    'html': None,  # will fetch during processing
+                    'google_index': google_index
                 })
                 article_count += 1
-                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name})")
+                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index})")
                 
             if article_count >= max_articles:
                 break
@@ -298,14 +302,15 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links):
     # Process in parallel for optimization...
     processed = []
-    seen_urls = set()  # track urls for this search term
-    seen_titles = set()  # track titles for this search term
+    seen_urls = set()  # DEDUP LAYER - track urls for this search term
+    seen_titles = set()  # DEDUP LAYER - track titles for this search term
     
     def process_single_article(article_data):
         # handle single article processing
         try:
             url = article_data['url']
             title = article_data['title']
+            google_index = article_data.get('google_index', 0)  # get index from article to see the sort order
             
             # deduplicate by url and title for this search term
             url_key = url.lower().strip()
@@ -366,6 +371,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             if quality_scores['total_score'] >= 2:
                 return {
                     'RISK_ID': risk_id,  # proper risk id mapping
+                    'GOOGLE_INDEX': google_index,  # google news position for this article
                     'TITLE': title,
                     'LINK': url,
                     'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),

@@ -55,7 +55,7 @@ def setup_nltk():
             print(f"Downloading NLTK resource: {resource}")
             nltk.download(resource)
 
-# Deduplicate and load existing links from CSV
+# Dedup and load existing links from CSV
 def load_existing_links(csv_path):
     if DEBUG_MODE:
         print("DEBUG: Skipping existing links check")
@@ -167,35 +167,36 @@ def calculate_quality_score(title, summary, source_url, search_terms, whitelist)
         'whitelist_bonus': 0, 'clickbait_penalty': 0, 'total_score': 0
     }
     
-    # Basic relevance check
+    # basic relevance check
     title_lower = str(title).lower()
     summary_lower = str(summary).lower() if summary else ''
     text = f"{title_lower} {summary_lower}"
     
-    # Check relevance to search terms
+    # check relevance to search terms
     relevant_terms = sum(1 for term in search_terms if re.search(re.escape(str(term).lower()), text))
     scores['relevance'] = min(relevant_terms, 2)  # cap at 2
     
-    # Recency (you'll need to pass publish date)
+    # recency (you'll need to pass publish date)
     scores['recency'] = 1
     
-    # Source quality - whitelist only
+    # source quality - IF IN WHITELIST
     if source_url:
         domain = urlparse(source_url).netloc.lower()
         if any(white in domain for white in whitelist):
             scores['whitelist_bonus'] = 2
     
-    # Clickbait detection (basic patterns)
+    # clickbait detection (hard-coded basic patterns)
     clickbait_patterns = ['clickbait', 'shocking', 'unbelievable', 'you won\'t believe']
     scores['clickbait_penalty'] = -2 if any(re.search(pattern, title_lower) for pattern in clickbait_patterns) else 0
     
-    # Content length
+    # content length
+    # NOTE: summary articles of video news will have very short text and is considered low quality because it's not the full article
     article_text = f"{title} {summary}" if summary else title
     word_count = len(str(article_text).split())
     scores['length_150'] = 1 if word_count > 150 else 0
     scores['length_500'] = 1 if word_count > 500 else 0
 
-    # Calculate total
+    # calculate total
     total_score = sum(scores.values())
     scores['total_score'] = max(total_score, 0)
     
