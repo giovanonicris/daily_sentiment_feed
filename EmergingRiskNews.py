@@ -1,5 +1,5 @@
-# emerging risk news
-# uses shared utilities for common functionality
+# EMERGING RISK NEWS
+# uses shared utilities for common functionality; this includes the debug mode
 
 import datetime as dt
 import random
@@ -18,10 +18,11 @@ import pandas as pd
 from dateutil import parser
 import sys
 
-# global config
-RISK_ID_COL = "EMERGING_RISK_ID"
+# GLOBAL CONSTANTS
+RISK_ID_COL = "EMERGING_RISK_ID" # makes sure it matches the CSV column
+SEARCH_DAYS = 7  # look back this many days for news articles; edit to change
 
-# original decoder function from your working script
+# decoding logic (retained from original script but made a fx)
 def process_encoded_search_terms(term):
     """decode encoded search terms from the csv file"""
     try:
@@ -33,7 +34,7 @@ def process_encoded_search_terms(term):
     except (ValueError, UnicodeDecodeError, OverflowError):
         return None
 
-# import shared utilities
+# IMPORTANT!! Import shared utilities
 from utils import (
     ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
     save_results, print_debug_info, DEBUG_MODE,
@@ -41,13 +42,14 @@ from utils import (
     calculate_quality_score
 )
 
+# This is the main fx that orchestrates the entire process.
 def main():
     # config
     RISK_TYPE = "emerging"
     ENCODED_CSV = "EmergingRisksListEncoded.csv"
     OUTPUT_CSV = "emerging_risks_online_sentiment.csv"
     
-    # process time start
+    # process time start for reference
     print("*" * 50)
     start_time = dt.datetime.now()
     print_debug_info("EmergingRiskNews", RISK_TYPE, start_time)
@@ -62,25 +64,25 @@ def main():
     existing_links = load_existing_links(output_path)
     search_terms_df = load_search_terms(ENCODED_CSV, RISK_ID_COL)
     
-    # limit for debug mode
-    if MAX_SEARCH_TERMS:
+    # only limit search terms in debug mode
+    if DEBUG_MODE and MAX_SEARCH_TERMS:
         search_terms_df = search_terms_df.head(MAX_SEARCH_TERMS)
         print(f"DEBUG: Limited to first {MAX_SEARCH_TERMS} search terms")
     
-    # load whitelist sources
-    whitelist = load_source_lists()
+    # load whitelist, paywalled, and credibility sources
+    whitelist, paywalled, credibility_map = load_source_lists()
     
     # process articles
-    articles_df = process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist)
+    articles_df = process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist, paywalled, credibility_map)
     
     # save results
     if not articles_df.empty:
         record_count = save_results(articles_df, output_path, RISK_TYPE)
         print(f"Completed: {record_count} total records")
     else:
-        print("WARNING: No articles processed!")
+        print("WARNING!!! No articles processed!")
     
-    # end time
+    # end time for reference
     print(f"Completed at: {dt.datetime.now()}")
     print("*" * 50)
 
@@ -98,7 +100,12 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         valid_terms = df['SEARCH_TERMS'].dropna()
         print(f"Valid search terms ({len(valid_terms)}): {valid_terms.head().tolist()}")
         
-        return df
+        # filter out rows with invalid search terms
+        valid_df = df.dropna(subset=['SEARCH_TERMS'])
+        if valid_df.empty:
+            print("ERROR!!! No valid search terms after decoding!")
+            sys.exit(1)
+        return valid_df
     except FileNotFoundError:
         print(f"ERROR!!! data/{encoded_csv_path} not found!")
         sys.exit(1)
@@ -106,7 +113,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         print(f"ERROR loading data/{encoded_csv_path}: {e}")
         sys.exit(1)
 
-def process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist):
+def process_emerging_articles(search_terms_df, session, existing_links, analyzer, whitelist, paywalled, credibility_map):
     # this is the MAIN processing loop for emerging articles
     print(f"Processing {len(search_terms_df)} search terms...")
     
@@ -119,10 +126,9 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
     config.enable_image_fetching = False  # faster without images!
     config.request_timeout = 10 if DEBUG_MODE else 20
     
-    # set dates for search (last 24 hours)
-    # NOTE!! for backfilling, change to last 7 days
+    # set dates for search (using SEARCH_DAYS global constant)
     now = dt.date.today()
-    yesterday = now - dt.timedelta(days=1)
+    yesterday = now - dt.timedelta(days=SEARCH_DAYS)
     
     # process each search term
     for idx, row in search_terms_df.iterrows():
@@ -141,7 +147,7 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:50]}...'")
         
         # Get Google News articles
-        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist)
+        articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
         
         if not articles:
             print(f"  - No new articles found for this term")
@@ -167,8 +173,8 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         print("No articles to process")
         return pd.DataFrame()
 
-def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist):
-    # original working RSS-based google news search
+def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist, paywalled, credibility_map):
+    # from original logic, fetch articles from Google News RSS
     articles = []
     article_count = 0
     
@@ -176,9 +182,9 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     for page in range(3):
         start = page * 10
         try:
-            time.sleep(0.5)  # rate limit to avoid 429 errors
+            time.sleep(0.5)  # rate limit - this avoids 429 errors encountered previously
             url_start = 'https://news.google.com/rss/search?q='
-            url_end = '%20when%3A1d'
+            url_end = f'%20when%3A{SEARCH_DAYS}d'  # use SEARCH_DAYS global constant
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
             req.raise_for_status()
             
@@ -188,7 +194,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
             
             print(f"    - Page {page+1}: found {len(items)} potential articles")
             
-            for item in items:
+            for item_idx, item in enumerate(items):
                 # Decode the Google News encoded URL - FIXED VERSION
                 try:
                     encoded_url = item.link.text.strip()
@@ -237,33 +243,33 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
                     continue
                 
+                # removed whitelist check to include all articles from first 3 pages
                 # DOMAIN-BASED WHITELIST CHECK
-                source_is_whitelisted = False
-                
-                if not whitelist:
-                    source_is_whitelisted = True
-                else:
-                    # Check if the actual domain matches any whitelist entry
-                    for white_source in whitelist:
-                        white_lower = white_source.lower().strip()
-                        if white_lower == domain_name or white_lower in domain_name:
-                            source_is_whitelisted = True
-                            break
-                
-                if not source_is_whitelisted:
-                    if DEBUG_MODE:
-                        print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
-                    continue
+                # source_is_whitelisted = False
+                # if not whitelist:
+                #     source_is_whitelisted = True
+                # else:
+                #     # Check if the actual domain matches any whitelist entry
+                #     for white_source in whitelist:
+                #         white_lower = white_source.lower().strip()
+                #         if white_lower == domain_name or white_lower in domain_name:
+                #             source_is_whitelisted = True
+                #             break
+                # if not source_is_whitelisted:
+                #     if DEBUG_MODE:
+                #         print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
+                #     continue
                 
                 if "/en/" in decoded_url:
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Translated article)")
                     continue
                 
-                if decoded_url.lower().strip() in existing_links:
-                    if DEBUG_MODE:
-                        print(f"Skipping {decoded_url[:50]}... (Already exists)")
-                    continue
+                # removed existing_links check to handle in process_articles_batch
+                # if decoded_url.lower().strip() in existing_links:
+                #     if DEBUG_MODE:
+                #         print(f"Skipping {decoded_url[:50]}... (Already exists)")
+                #     continue
                 
                 try:
                     published_date = parser.parse(item.pubDate.text).date()
@@ -276,13 +282,25 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
                 domain_search = regex_pattern.search(str(item.source))
                 
+                # add google index for article position (page-based + item position)
+                google_index = page * 10 + item_idx + 1
+                
+                # check if domain is paywalled
+                is_paywalled = domain_name in paywalled
+                
+                # set credibility type (default to Relevant Article)
+                credibility_type = credibility_map.get(domain_name, 'Relevant Article')
+                
                 articles.append({
                     'url': decoded_url,
                     'title': title_text,
-                    'html': None  # will fetch during processing
+                    'html': None,  # will fetch during processing
+                    'google_index': google_index,
+                    'paywalled': is_paywalled,
+                    'credibility_type': credibility_type
                 })
                 article_count += 1
-                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name})")
+                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index}, paywalled: {is_paywalled}, credibility: {credibility_type})")
                 
             if article_count >= max_articles:
                 break
@@ -297,18 +315,33 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links):
     # Process in parallel for optimization...
     processed = []
+    seen_urls = set()  # DEDUP LAYER - track urls for this search term
+    seen_titles = set()  # DEDUP LAYER - track titles for this search term
     
     def process_single_article(article_data):
         # handle single article processing
         try:
             url = article_data['url']
             title = article_data['title']
+            google_index = article_data.get('google_index', 0)  # get index from article to see the sort order
+            is_paywalled = article_data.get('paywalled', False)
+            credibility_type = article_data.get('credibility_type', 'Relevant Article')
             
-            # skip if already processed (double check)
-            if url.lower().strip() in existing_links:
+            # deduplicate by url and title for this search term
+            url_key = url.lower().strip()
+            title_key = title.lower().strip()[:100]  # limit title length for comparison
+            if url_key in seen_urls or title_key in seen_titles:
+                if DEBUG_MODE:
+                    print(f"  - Skipping duplicate: '{title[:50]}...' ({url[:50]}...)")
                 return None
+            seen_urls.add(url_key)
+            seen_titles.add(title_key)
             
-            # PRE-FILTER: Skip known problematic URL patterns
+            # removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED in utils.py
+            # if url.lower().strip() in existing_links:
+            #     return None
+            
+            # PRE-FILTER: Skip known problematic URL patterns from manual review
             problematic_patterns = [
                 '/video/', '/videos/', '/watch/',
                 'wsj.com/subscriptions', 'bloomberg.com/newsletters',
@@ -353,12 +386,15 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             if quality_scores['total_score'] >= 2:
                 return {
                     'RISK_ID': risk_id,  # proper risk id mapping
+                    'GOOGLE_INDEX': google_index,  # google news position for this article
                     'TITLE': title,
                     'LINK': url,
                     'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),
                     'SUMMARY': summary[:1000],  # truncate for CSV size
                     'SENTIMENT_COMPOUND': sentiment['compound'],
                     'SOURCE_URL': url,
+                    'PAYWALLED': is_paywalled,
+                    'CREDIBILITY_TYPE': credibility_type,
                     'QUALITY_SCORE': quality_scores['total_score'],
                     # add individual score components
                     **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
