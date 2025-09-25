@@ -154,11 +154,16 @@ def load_source_lists():
         whitelist_df = pd.read_csv('data/filter_in_sources.csv', encoding='utf-8')
         whitelist = set(whitelist_df['SOURCE_NAME'].str.lower().str.strip())
         
+        # load paywalled
+        paywalled_df = pd.read_csv('data/paywalled_sources.csv', encoding='utf-8')
+        paywalled = set(paywalled_df['SOURCE_NAME'].str.lower().str.strip())
+        
         print(f"Loaded {len(whitelist)} whitelist sources")
-        return whitelist
+        print(f"Loaded {len(paywalled)} paywalled sources")
+        return whitelist, paywalled
     except Exception as e:
         print(f"Warning: Could not load source lists: {e}")
-        return set()
+        return set(), set()
 
 # calculate quality score for an article
 def calculate_quality_score(title, summary, source_url, search_terms, whitelist):
