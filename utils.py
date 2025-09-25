@@ -1,7 +1,6 @@
 # shared utilities for enterprise and emerging risks scripts
 # handles common functionality for both processing
 
-
 import requests
 import random
 import re
@@ -97,6 +96,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
 
 # save results to CSV with deduplication and archiving
 def save_results(df, output_path, risk_type):
+    # save results to csv with deduplication per risk_id
     print(f"Saving {len(df)} {risk_type} articles to {output_path}")
     
     # load existing data
@@ -107,9 +107,9 @@ def save_results(df, output_path, risk_type):
         existing_df = pd.DataFrame()
         print("No existing CSV found - starting fresh")
     
-    # combine and dedup
+    # combine and dedup by risk_id, title, and link
     combined_df = pd.concat([existing_df, df], ignore_index=True)
-    combined_df = combined_df.drop_duplicates(subset=['TITLE', 'LINK', 'PUBLISHED_DATE'])
+    combined_df = combined_df.drop_duplicates(subset=['RISK_ID', 'TITLE', 'LINK'], keep='first')
     
     # 4-month rolling window
     cutoff_date = dt.datetime.now() - dt.timedelta(days=4 * 30)

@@ -1,5 +1,5 @@
 # enterprise risk news
-# uses shared utilities for common functionality
+# uses shared utilities for common functionality; this includes the debug mode
 
 import datetime as dt
 import random
@@ -18,10 +18,11 @@ import pandas as pd
 from dateutil import parser
 import sys
 
-# global config
-RISK_ID_COL = "ENTERPRISE_RISK_ID"
+# GLOBAL CONSTANTS
+RISK_ID_COL = "ENTERPRISE_RISK_ID" # makes sure it matches the CSV column
+SEARCH_DAYS = 7  # look back this many days for news articles; edit to change
 
-# original decoder function from your working script
+# decoding logic (retained from original script but made a fx)
 def process_encoded_search_terms(term):
     """decode encoded search terms from the csv file"""
     try:
@@ -33,7 +34,7 @@ def process_encoded_search_terms(term):
     except (ValueError, UnicodeDecodeError, OverflowError):
         return None
 
-# import shared utilities
+# IMPORTANT!! Import shared utilities
 from utils import (
     ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
     save_results, print_debug_info, DEBUG_MODE,
@@ -41,13 +42,14 @@ from utils import (
     calculate_quality_score
 )
 
+# This is the main fx that orchestrates the entire process.
 def main():
     # config
     RISK_TYPE = "enterprise"
     ENCODED_CSV = "EnterpriseRisksListEncoded.csv"
     OUTPUT_CSV = "enterprise_risks_online_sentiment.csv"
     
-    # process time start
+    # process time start for reference
     print("*" * 50)
     start_time = dt.datetime.now()
     print_debug_info("EnterpriseRiskNews", RISK_TYPE, start_time)
@@ -62,8 +64,8 @@ def main():
     existing_links = load_existing_links(output_path)
     search_terms_df = load_search_terms(ENCODED_CSV, RISK_ID_COL)
     
-    # limit for debug mode
-    if MAX_SEARCH_TERMS:
+    # only limit search terms in debug mode
+    if DEBUG_MODE and MAX_SEARCH_TERMS:
         search_terms_df = search_terms_df.head(MAX_SEARCH_TERMS)
         print(f"DEBUG: Limited to first {MAX_SEARCH_TERMS} search terms")
     
@@ -78,9 +80,9 @@ def main():
         record_count = save_results(articles_df, output_path, RISK_TYPE)
         print(f"Completed: {record_count} total records")
     else:
-        print("WARNING: No articles processed!")
+        print("WARNING!!! No articles processed!")
     
-    # end time
+    # end time for reference
     print(f"Completed at: {dt.datetime.now()}")
     print("*" * 50)
 
@@ -119,10 +121,9 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
     config.enable_image_fetching = False  # faster without images!
     config.request_timeout = 10 if DEBUG_MODE else 20
     
-    # set dates for search (last 24 hours)
-    # NOTE!! for backfilling, change to last 7 days
+    # set dates for search (using SEARCH_DAYS global constant)
     now = dt.date.today()
-    yesterday = now - dt.timedelta(days=1)
+    yesterday = now - dt.timedelta(days=SEARCH_DAYS)
     
     # process each search term
     for idx, row in search_terms_df.iterrows():
@@ -168,7 +169,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         return pd.DataFrame()
 
 def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist):
-    # original working RSS-based google news search
+    # from original logic, fetch articles from Google News RSS
     articles = []
     article_count = 0
     
@@ -176,9 +177,9 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     for page in range(3):
         start = page * 10
         try:
-            time.sleep(0.5)  # rate limit to avoid 429 errors
+            time.sleep(0.5)  # rate limit - this avoids 429 errors encountered previously
             url_start = 'https://news.google.com/rss/search?q='
-            url_end = '%20when%3A1d'
+            url_end = f'%20when%3A{SEARCH_DAYS}d'  # use SEARCH_DAYS global constant
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
             req.raise_for_status()
             
@@ -237,33 +238,33 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
                     continue
                 
+                #### removed whitelist check to include all articles from first 3 pages
                 # DOMAIN-BASED WHITELIST CHECK
-                source_is_whitelisted = False
-                
-                if not whitelist:
-                    source_is_whitelisted = True
-                else:
-                    # Check if the actual domain matches any whitelist entry
-                    for white_source in whitelist:
-                        white_lower = white_source.lower().strip()
-                        if white_lower == domain_name or white_lower in domain_name:
-                            source_is_whitelisted = True
-                            break
-                
-                if not source_is_whitelisted:
-                    if DEBUG_MODE:
-                        print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
-                    continue
+                # source_is_whitelisted = False
+                # if not whitelist:
+                #     source_is_whitelisted = True
+                # else:
+                #     # Check if the actual domain matches any whitelist entry
+                #     for white_source in whitelist:
+                #         white_lower = white_source.lower().strip()
+                #         if white_lower == domain_name or white_lower in domain_name:
+                #             source_is_whitelisted = True
+                #             break
+                # if not source_is_whitelisted:
+                #     if DEBUG_MODE:
+                #         print(f"Skipping '{title_text[:50]}...' from {source_text} (domain: {domain_name} not in whitelist)")
+                #     continue
                 
                 if "/en/" in decoded_url:
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Translated article)")
                     continue
                 
-                if decoded_url.lower().strip() in existing_links:
-                    if DEBUG_MODE:
-                        print(f"Skipping {decoded_url[:50]}... (Already exists)")
-                    continue
+                #### removed existing_links check to handle in process_articles_batch
+                # if decoded_url.lower().strip() in existing_links:
+                #     if DEBUG_MODE:
+                #         print(f"Skipping {decoded_url[:50]}... (Already exists)")
+                #     continue
                 
                 try:
                     published_date = parser.parse(item.pubDate.text).date()
@@ -297,6 +298,8 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links):
     # Process in parallel for optimization...
     processed = []
+    seen_urls = set()  # track urls for this search term
+    seen_titles = set()  # track titles for this search term
     
     def process_single_article(article_data):
         # handle single article processing
@@ -304,9 +307,19 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             url = article_data['url']
             title = article_data['title']
             
-            # skip if already processed (double check)
-            if url.lower().strip() in existing_links:
+            # deduplicate by url and title for this search term
+            url_key = url.lower().strip()
+            title_key = title.lower().strip()[:100]  # limit title length for comparison
+            if url_key in seen_urls or title_key in seen_titles:
+                if DEBUG_MODE:
+                    print(f"  - Skipping duplicate: '{title[:50]}...' ({url[:50]}...)")
                 return None
+            seen_urls.add(url_key)
+            seen_titles.add(title_key)
+            
+            #### removed existing_links check to handle in save_results - DEDUP LOGIC HANDLED IN utils.py
+            # if url.lower().strip() in existing_links:
+            #     return None
             
             # PRE-FILTER: Skip known problematic URL patterns
             problematic_patterns = [
