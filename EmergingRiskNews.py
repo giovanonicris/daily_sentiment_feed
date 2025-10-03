@@ -139,6 +139,7 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
             
         search_term = row['SEARCH_TERMS']  # use DECODED term
         risk_id = row[RISK_ID_COL]
+        search_term_id = row['SEARCH_TERM_ID'] #STID to delete later!
         
         if pd.isna(search_term):
             print(f"  - Skipping invalid search term for risk ID {risk_id}")
@@ -154,7 +155,7 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
             continue
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
-        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links)
+        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links) #STID to delete later!
         
         all_articles.extend(processed_articles)
         print(f"  - Processed {len(processed_articles)} articles")
@@ -300,7 +301,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     print(f"  - found {len(articles)} new articles")
     return articles
 
-def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, existing_links):
+def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links): #STID to delete later!
     # Process in parallel for optimization...
     processed = []
     seen_urls = set()  # DEDUP LAYER - track urls for this search term
@@ -373,6 +374,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             # include all articles, keeping quality score for review
             return {
                 'RISK_ID': risk_id,  # proper risk id mapping
+                'SEARCH_TERM_ID': search_term_id, #STID to delete later!
                 'GOOGLE_INDEX': google_index,  # google news position for this article
                 'TITLE': title,
                 'LINK': url,
