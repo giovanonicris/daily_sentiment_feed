@@ -372,6 +372,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             )
             
             # include all articles, keeping quality score for review
+            print(f"DEBUG: Assigning SEARCH_TERM_ID={search_term_id} to article '{title[:50]}...' (RISK_ID={risk_id})") #STID to delete later!
+
             return {
                 'RISK_ID': risk_id,  # proper risk id mapping
                 'SEARCH_TERM_ID': search_term_id,  #STID to delete later!
