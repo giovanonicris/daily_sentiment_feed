@@ -39,7 +39,7 @@ from utils import (
     ScraperSession, setup_nltk, load_existing_links, setup_output_dir,
     save_results, print_debug_info, DEBUG_MODE,
     MAX_ARTICLES_PER_TERM, MAX_SEARCH_TERMS, load_source_lists, 
-    calculate_quality_score
+    calculate_quality_score, get_source_name
 )
 
 # This is the main fx that orchestrates the entire process.
@@ -139,13 +139,13 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
             
         search_term = row['SEARCH_TERMS']  # use DECODED term
         risk_id = row[RISK_ID_COL]
-        search_term_id = row['SEARCH_TERM_ID'] #STID to delete later!
+        search_term_id = row['SEARCH_TERM_ID']  # capture search term id
         
         if pd.isna(search_term):
             print(f"  - Skipping invalid search term for risk ID {risk_id}")
             continue
             
-        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}) - '{search_term[:50]}...'")
+        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}, SEARCH_TERM_ID: {search_term_id}) - '{search_term[:50]}...'")
         
         # Get Google News articles
         articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
@@ -155,7 +155,7 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
             continue
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
-        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links) #STID to delete later!
+        processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links)
         
         all_articles.extend(processed_articles)
         print(f"  - Processed {len(processed_articles)} articles")
@@ -237,7 +237,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 
                 # Extract domain from URL for filtering
                 parsed_url = urlparse(decoded_url)
-                domain_name = parsed_url.netloc.lower().replace('www.', '')
+                domain_name = get_source_name(decoded_url)
                 
                 # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
                 if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
@@ -253,12 +253,6 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Translated article)")
                     continue
-                
-                # removed existing_links check to handle in process_articles_batch
-                # if decoded_url.lower().strip() in existing_links:
-                #     if DEBUG_MODE:
-                #         print(f"Skipping {decoded_url[:50]}... (Already exists)")
-                #     continue
                 
                 try:
                     published_date = parser.parse(item.pubDate.text).date()
@@ -288,7 +282,6 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     'paywalled': is_paywalled,
                     'credibility_type': credibility_type
                 })
-                article_count += 1
                 print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index}, paywalled: {is_paywalled}, credibility: {credibility_type})")
                 
             if article_count >= max_articles:
@@ -372,6 +365,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             )
             
             # include all articles, keeping quality score for review
+            print(f"DEBUG: Assigning SEARCH_TERM_ID={search_term_id} to article '{title[:50]}...' (RISK_ID={risk_id})") #STID to delete later!
+
             return {
                 'RISK_ID': risk_id,  # proper risk id mapping
                 'SEARCH_TERM_ID': search_term_id, #STID to delete later!
@@ -386,7 +381,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 'CREDIBILITY_TYPE': credibility_type,
                 'QUALITY_SCORE': quality_scores['total_score'],
                 # add individual score components
-                **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'}
+                **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'},
+                'SOURCE_NAME': get_source_name(url),
             }
                 
         except Exception as e:

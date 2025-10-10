@@ -55,6 +55,13 @@ def setup_nltk():
             print(f"Downloading NLTK resource: {resource}")
             nltk.download(resource)
 
+# extract domain name from URL
+def get_source_name(url):
+    from urllib.parse import urlparse
+    domain = urlparse(url).netloc.replace('www.', '')
+    parts = domain.split('.')
+    return parts[-2] if len(parts) >= 2 else parts[0]
+
 # Dedup and load existing links from CSV
 def load_existing_links(csv_path):
     if DEBUG_MODE:
@@ -185,8 +192,8 @@ def calculate_quality_score(title, summary, source_url, search_terms, whitelist)
     
     # source quality - IF IN WHITELIST
     if source_url:
-        domain = urlparse(source_url).netloc.lower()
-        if any(white in domain for white in whitelist):
+        source_name = get_source_name(source_url)
+        if any(white in source_name for white in whitelist):
             scores['whitelist_bonus'] = 2
     
     # clickbait detection (hard-coded basic patterns)
