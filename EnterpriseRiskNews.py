@@ -24,7 +24,6 @@ SEARCH_DAYS = 7  # look back this many days for news articles; edit to change
 
 # decoding logic (retained from original script but made a fx)
 def process_encoded_search_terms(term):
-    """decode encoded search terms from the csv file"""
     try:
         encoded_number = int(term)
         byte_length = (encoded_number.bit_length() + 7) // 8
@@ -80,14 +79,14 @@ def main():
         record_count = save_results(articles_df, output_path, RISK_TYPE)
         print(f"Completed: {record_count} total records")
     else:
-        print("WARNING!!! No articles processed!")
+        print("WARNING!!! No articles processed!!")
     
     # end time for reference
     print(f"Completed at: {dt.datetime.now()}")
     print("*" * 50)
 
 def load_search_terms(encoded_csv_path, risk_id_col):
-    # Load and decode search terms from CSV - ORIGINAL LOGIC
+    # load and decode search terms from CSV - ORIGINAL LOGIC
     try:
         usecols = [risk_id_col, 'SEARCH_TERM_ID', 'ENCODED_TERMS']
         df = pd.read_csv(f'data/{encoded_csv_path}', encoding='utf-8', usecols=usecols)
@@ -103,11 +102,11 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         # filter out rows with invalid search terms
         valid_df = df.dropna(subset=['SEARCH_TERMS'])
         if valid_df.empty:
-            print("ERROR!!! No valid search terms after decoding!")
+            print("ERROR!!! No valid search terms after decoding!!")
             sys.exit(1)
         return valid_df
     except FileNotFoundError:
-        print(f"ERROR!!! data/{encoded_csv_path} not found!")
+        print(f"ERROR!!! data/{encoded_csv_path} not found!!")
         sys.exit(1)
     except Exception as e:
         print(f"ERROR loading data/{encoded_csv_path}: {e}")
@@ -142,7 +141,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         search_term_id = row['SEARCH_TERM_ID']  # capture search term id
         
         if pd.isna(search_term):
-            print(f"  - Skipping invalid search term for risk ID {risk_id}")
+            print(f"  ---Skipping invalid search term for risk ID {risk_id}")
             continue
             
         print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}, SEARCH_TERM_ID: {search_term_id}) - '{search_term[:50]}...'")
@@ -158,11 +157,11 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links)
         
         all_articles.extend(processed_articles)
-        print(f"  - Processed {len(processed_articles)} articles")
+        print(f"  ---Processed {len(processed_articles)} articles")
         
         # rate limiting every 5 terms to ease load on Google
         if idx % 5 == 0 and idx > 0:
-            print("  - rate limiting pause...")
+            print("  ---rate limiting pause...")
             time.sleep(random.uniform(2, 5))
     
     # Create final dataframe
@@ -193,7 +192,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
             soup = BeautifulSoup(req.content, 'xml')
             items = soup.find_all('item')
             
-            print(f"    - Page {page+1}: found {len(items)} potential articles")
+            print(f"    ---Page {page+1}: found {len(items)} potential articles")
             
             for item_idx, item in enumerate(items):
                 # Decode the Google News encoded URL - FIXED VERSION
@@ -207,18 +206,18 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                             decoded_url = decoded_result['decoded_url']
                         else:
                             if DEBUG_MODE:
-                                print(f"    - Skipping: bad dict format: {decoded_result}")
+                                print(f"    ---Skipping: bad dict format: {decoded_result}") # this handles when status is False or missing
                             continue
                     elif isinstance(decoded_result, str):
                         decoded_url = decoded_result
                     else:
                         if DEBUG_MODE:
-                            print(f"    - Skipping: unexpected decode type: {type(decoded_result)}")
+                            print(f"    ---Skipping: unexpected decode type: {type(decoded_result)}")
                         continue
                         
                 except Exception as e:
                     if DEBUG_MODE:
-                        print(f"    - URL decode error: {e}")
+                        print(f"    ---URL decode error: {e}") # if decode failed, then we skip
                     continue
                 
                 # Extract title and source
@@ -240,15 +239,17 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 domain_name = get_source_name(decoded_url)
                 
                 # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
+                # FILTER #1 = Reliable TLDs only
                 if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
                     continue
+                # FILTER #2 = No international paths/subdomains
                 if re.match(r'^/[a-z]{2}(/|$)', parsed_url.path.lower()) or re.match(r'^\.[a-z]{2}', domain_name.lower().rsplit('.', 1)[-1]):
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or domain_name})")
                     continue
-                
+                # FILTER #3 = No translated to English articles
                 if "/en/" in decoded_url:
                     if DEBUG_MODE:
                         print(f"Skipping {decoded_url[:50]}... (Translated article)")
@@ -261,7 +262,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     if DEBUG_MODE:
                         print(f"WARNING! Date Error: {item.pubDate.text}")
                 
-                # fix regex pattern for Python 3.12+
+                # use regex to extract source domain
                 regex_pattern = re.compile(r'(https?):((|(\\\\))+[\w\d:#@%;$()~_?\+-=\\\.&]*)')
                 domain_search = regex_pattern.search(str(item.source))
                 
@@ -288,10 +289,10 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 break
                 
         except requests.exceptions.RequestException as e:
-            print(f"Request error for term {search_term[:30]}... on page {page+1}: {e}")
+            print(f"SPOTTED REQUEST ERROR - term {search_term[:30]}... on page {page+1}: {e}")
             break
     
-    print(f"  - found {len(articles)} new articles")
+    print(f"  ---found {len(articles)} new articles")
     return articles
 
 def process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links): #STID to delete later!
@@ -314,7 +315,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             title_key = title.lower().strip()[:100]  # limit title length for comparison
             if url_key in seen_urls or title_key in seen_titles:
                 if DEBUG_MODE:
-                    print(f"  - Skipping duplicate: '{title[:50]}...' ({url[:50]}...)")
+                    print(f"  ---Skipping duplicate: '{title[:50]}...' ({url[:50]}...)")
                 return None
             seen_urls.add(url_key)
             seen_titles.add(title_key)
@@ -324,6 +325,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             #     return None
             
             # PRE-FILTER: Skip known problematic URL patterns from manual review
+            # Add as needed based on result review
             problematic_patterns = [
                 '/video/', '/videos/', '/watch/',
                 'wsj.com/subscriptions', 'bloomberg.com/newsletters',
@@ -339,10 +341,10 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             article = Article(url, config=config)
             article.download()
             
-            # Check if download succeeded - FIXED: Use try/except instead of download_exception
+            # check if download succeeded - FIXED: Use try/except instead of download_exception
             if not article.html or article.html.strip() == '':
                 if DEBUG_MODE:
-                    print(f"  - Download failed for '{title[:50]}...' (empty HTML)")
+                    print(f"  ---Download failed for '{title[:50]}...' (empty HTML)")
                 return None
                 
             article.parse()
@@ -353,11 +355,12 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             # skip empty content
             if not summary or len(summary.strip()) < 50:
                 if DEBUG_MODE:
-                    print(f"  - Empty content for '{title[:50]}...'")
+                    print(f"  ---Empty content for '{title[:50]}...'")
                 return None
             
             # sentiment analysis
             sentiment = analyzer.polarity_scores(title + " " + summary)
+            sentiment_category = 'Negative' if sentiment['compound'] <= -0.05 else 'Positive' if sentiment['compound'] >= 0.05 else 'Neutral'
             
             # quality scoring
             quality_scores = calculate_quality_score(
@@ -366,6 +369,9 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             
             # include all articles, keeping quality score for review
             print(f"DEBUG: Assigning SEARCH_TERM_ID={search_term_id} to article '{title[:50]}...' (RISK_ID={risk_id})") #STID to delete later!
+
+            # format source name in Sentence case (takes the valuefrom utils)
+            source_name = get_source_name(url).capitalize()
 
             return {
                 'RISK_ID': risk_id,  # proper risk id mapping
@@ -376,6 +382,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),
                 'SUMMARY': summary[:1000],  # truncate for CSV size
                 'SENTIMENT_COMPOUND': sentiment['compound'],
+                'SENTIMENT': sentiment_category,
+                'SOURCE': source_name,
                 'SOURCE_URL': url,
                 'PAYWALLED': is_paywalled,
                 'CREDIBILITY_TYPE': credibility_type,
@@ -387,10 +395,10 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 
         except Exception as e:
             if DEBUG_MODE:
-                print(f"  - error processing article '{title[:50] if 'title' in locals() else 'Unknown'}...': {e}")
+                print(f"  ---error processing article '{title[:50] if 'title' in locals() else 'Unknown'}...': {e}")
             return None
     
-    # process with threading (limit to 3 concurrent)
+    # process with threading (limit to 3 concurrent to avoid overload)
     if articles:
         with ThreadPoolExecutor(max_workers=3) as executor:
             results = executor.map(process_single_article, articles)
