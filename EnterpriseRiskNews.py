@@ -370,8 +370,11 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             # include all articles, keeping quality score for review
             print(f"DEBUG: Assigning SEARCH_TERM_ID={search_term_id} to article '{title[:50]}...' (RISK_ID={risk_id})") #STID to delete later!
 
-            # format source name in Sentence case (takes the valuefrom utils)
+            # final formatting before write
             source_name = get_source_name(url).capitalize()
+            
+            publish_date = article.publish_date or dt.datetime.now()
+            formatted_publish_date = pd.to_datetime(publish_date).strftime('%Y-%m-%d %H:%M:%S')
 
             return {
                 'RISK_ID': risk_id,  # proper risk id mapping
@@ -379,7 +382,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 'GOOGLE_INDEX': google_index,  # google news position for this article
                 'TITLE': title,
                 'LINK': url,
-                'PUBLISHED_DATE': article.publish_date or dt.datetime.now(),
+                'PUBLISHED_DATE': formatted_publish_date,
                 'SUMMARY': summary[:1000],  # truncate for CSV size
                 'SENTIMENT_COMPOUND': sentiment['compound'],
                 'SENTIMENT': sentiment_category,
