@@ -356,6 +356,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             #parse article, extract keywords    
             article.parse()
             keywords = article.keywords if article.keywords else []
+            if DEBUG_MODE:
+                print(f"    - Extracted keywords for '{title[:50]}...': {keywords}")
             
             # extract content
             summary = article.summary if article.summary else article.text[:500]

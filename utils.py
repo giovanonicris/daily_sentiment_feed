@@ -48,7 +48,7 @@ class ScraperSession:
 
 # download NLTK resources if not already present
 def setup_nltk():
-    for resource in ['punkt', 'punkt_tab']:
+    for resource in ['punkt', 'punkt_tab', 'stopwords']:
         try:
             nltk.data.find(f'tokenizers/{resource}')
         except LookupError:
