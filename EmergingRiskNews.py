@@ -346,8 +346,10 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 if DEBUG_MODE:
                     print(f"  ---Download failed for '{title[:50]}...' (empty HTML)")
                 return None
-                
+
+            #parse article, extract keywords    
             article.parse()
+            keywords = article.keywords if article.keywords else []
             
             # extract content
             summary = article.summary if article.summary else article.text[:500]
@@ -383,7 +385,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 'TITLE': title,
                 'LINK': url,
                 'PUBLISHED_DATE': formatted_publish_date,
-                'SUMMARY': summary[:1000],  # truncate for CSV size
+                'SUMMARY': summary[:500],  # truncate for CSV size
+                'KEYWORDS': ', '.join(keywords) if keywords else '',
                 'SENTIMENT_COMPOUND': sentiment['compound'],
                 'SENTIMENT': sentiment_category,
                 'SOURCE': source_name,
