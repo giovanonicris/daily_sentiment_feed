@@ -205,19 +205,19 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                         if decoded_result.get('status') and 'decoded_url' in decoded_result:
                             decoded_url = decoded_result['decoded_url']
                         else:
-                            if DEBUG_MODE:
-                                print(f"    --Skipping: bad dict format: {decoded_result}") # this handles when status is False or missing
+                            #if DEBUG_MODE:
+                            print(f"    --Skipping: bad dict format: {decoded_result}") # this handles when status is False or missing
                             continue
                     elif isinstance(decoded_result, str):
                         decoded_url = decoded_result
                     else:
-                        if DEBUG_MODE:
-                            print(f"    ---Skipping: unexpected decode type: {type(decoded_result)}")
+                        #if DEBUG_MODE:
+                        print(f"    ---Skipping: unexpected decode type: {type(decoded_result)}")
                         continue
                         
                 except Exception as e:
-                    if DEBUG_MODE:
-                        print(f"    ---URL decode error: {e}") # if decode failed, then we skip
+                    #if DEBUG_MODE:
+                    print(f"    ---URL decode error: {e}") # if decode failed, then we skip
                     continue
                 
                 # Extract title and source
@@ -238,22 +238,22 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 parsed_url = urlparse(decoded_url)
                 domain_name = get_source_name(decoded_url)
                 
-                # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
-                # FILTER #1 = Reliable TLDs only
-                if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
-                    if DEBUG_MODE:
-                        print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
-                    continue
-                # FILTER #2 = No international paths/subdomains
-                if re.match(r'^/[a-z]{2}(/|$)', parsed_url.path.lower()) or re.match(r'^\.[a-z]{2}', domain_name.lower().rsplit('.', 1)[-1]):
-                    if DEBUG_MODE:
-                        print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or domain_name})")
-                    continue
-                # FILTER #3 = No translated to English articles
-                if "/en/" in decoded_url:
-                    if DEBUG_MODE:
-                        print(f"Skipping {decoded_url[:50]}... (Translated article)")
-                    continue
+                # # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
+                # # FILTER #1 = Reliable TLDs only
+                # if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
+                #     if DEBUG_MODE:
+                #         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
+                #     continue
+                # # FILTER #2 = No international paths/subdomains
+                # if re.match(r'^/[a-z]{2}(/|$)', parsed_url.path.lower()) or re.match(r'^\.[a-z]{2}', domain_name.lower().rsplit('.', 1)[-1]):
+                #     if DEBUG_MODE:
+                #         print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or domain_name})")
+                #     continue
+                # # FILTER #3 = No translated to English articles
+                # if "/en/" in decoded_url:
+                #     if DEBUG_MODE:
+                #         print(f"Skipping {decoded_url[:50]}... (Translated article)")
+                #     continue
                 
                 try:
                     published_date = parser.parse(item.pubDate.text).date()
