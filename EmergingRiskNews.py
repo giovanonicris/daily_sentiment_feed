@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from dateutil import parser
 import sys
+from keybert import KeyBERT
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "EMERGING_RISK_ID" # makes sure it matches the CSV column
@@ -178,8 +179,9 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     articles = []
     article_count = 0
     
-    # iterate over first 3 pages (10 results per page)
-    for page in range(3):
+    # TECH_DEBT! Changed to 5 pages for the first full run
+    # iterate over first 5 pages (10 results per page)
+    for page in range(5):
         start = page * 10
         try:
             time.sleep(0.5)  # rate limit - this avoids 429 errors encountered previously
@@ -356,8 +358,14 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             #parse article, extract keywords    
             article.parse()
             keywords = article.keywords if article.keywords else []
+            # KEYWORD EXTRACT FALLBACK - use KeyBERT if no keywords found using newspaper lib
+            if not keywords and article.text:
+                kw_model = KeyBERT()
+                keywords = kw_model.extract_keywords(article.text, keyphrase_ngram_range=(1, 2), stop_words='english', top_n=5)
+                keywords = [kw[0] for kw in keywords]  # extract keyword strings
             if DEBUG_MODE:
                 print(f"    - Extracted keywords for '{title[:50]}...': {keywords}")
+                print(f"    - Article text length: {len(article.text) if article.text else 0} chars")
             
             # extract content
             summary = article.summary if article.summary else article.text[:500]

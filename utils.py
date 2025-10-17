@@ -47,10 +47,11 @@ class ScraperSession:
         return {'User-Agent': random.choice(self.user_agents)}
 
 # download NLTK resources if not already present
+# added POS tagging (averaged_perceptron_tagger) to help in the keyword extraction which fails at times
 def setup_nltk():
-    for resource in ['punkt', 'punkt_tab', 'stopwords']:
+    for resource in ['punkt', 'punkt_tab', 'stopwords', 'averaged_perceptron_tagger']:
         try:
-            nltk.data.find(f'tokenizers/{resource}')
+            nltk.data.find(f'tokenizers/{resource}' if 'punkt' in resource else f'corpora/{resource}')
         except LookupError:
             print(f"Downloading NLTK resource: {resource}")
             nltk.download(resource)

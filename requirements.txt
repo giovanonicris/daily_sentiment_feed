@@ -10,3 +10,4 @@ googlenewsdecoder==0.1.6
 chardet
 certifi
 newspaper3k>=0.2.8
+keybert>=0.7.0
