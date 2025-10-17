@@ -60,6 +60,20 @@ def get_source_name(url):
     from urllib.parse import urlparse
     domain = urlparse(url).netloc.replace('www.', '')
     parts = domain.split('.')
+    
+    # if domain ends with country-specific TLD, take the part before it
+    if len(parts) > 2 and re.match(r'^[a-z]{2}$', parts[-1]):
+        return parts[-2]
+    
+    # for subdomains like finance.yahoo.com or markets.financialcontent.com, take the last part before .com
+    if len(parts) >= 3 and parts[-1] in ('com', 'org', 'net', 'edu', 'gov'):
+        # check if the second-to-last is a subdomain like 'finance' or 'markets'
+        if re.match(r'^[a-z]+$', parts[-2]) and len(parts[-2]) > 3:
+            return parts[-2]
+        else:
+            return parts[0]
+    
+    # default: first part
     return parts[0] if parts else ''
 
 # Dedup and load existing links from CSV
