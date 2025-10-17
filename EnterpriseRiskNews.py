@@ -181,7 +181,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     
     # TECH_DEBT! Changed to 5 pages for the first full run
     # iterate over first 3 pages (10 results per page)
-    for page in range(5):
+    for page in range(3):
         start = page * 10
         try:
             time.sleep(0.5)  # rate limit - this avoids 429 errors encountered previously
@@ -421,7 +421,7 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
     
     # process with threading (limit to 3 concurrent to avoid overload)
     if articles:
-        with ThreadPoolExecutor(max_workers=3) as executor:
+        with ThreadPoolExecutor(max_workers=1) as executor:
             results = executor.map(process_single_article, articles)
             processed = [r for r in results if r is not None]
     
