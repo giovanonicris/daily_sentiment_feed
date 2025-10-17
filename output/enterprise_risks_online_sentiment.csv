@@ -1,0 +1,421 @@
+RISK_ID,SEARCH_TERM_ID,GOOGLE_INDEX,TITLE,LINK,PUBLISHED_DATE,SUMMARY,KEYWORDS,SENTIMENT_COMPOUND,SENTIMENT,SOURCE,SOURCE_URL,PAYWALLED,CREDIBILITY_TYPE,QUALITY_SCORE,SCORE_RELEVANCE,SCORE_RECENCY,SCORE_LENGTH_150,SCORE_LENGTH_500,SCORE_WHITELIST_BONUS,SCORE_CLICKBAIT_PENALTY
+2,2,87,"F5 Reports Nation-State Cyberattack Breach, Source Code and Customer Data Stolen - Quiver Quantitative",https://www.quiverquant.com/news/F5+Reports+Nation-State+Cyberattack+Breach%2C+Source+Code+and+Customer+Data+Stolen,2025-10-17 19:16:51,"Cybersecurity firm F5 Inc. ($FFIV) disclosed that suspected nation-state hackers infiltrated its internal systems, gaining long-term access and stealing portions of its source code and customer information.
+
+The Seattle-based company discovered the breach on August 9 and disclosed it in a U.S. Securities and Exchange Commission filing on Wednesday.
+
+Attackers accessed systems related to F5’s BIG-IP product development platform, taking source code and details about vulnerabilities under developme",,-0.8442,Negative,Quiverquant,https://www.quiverquant.com/news/F5+Reports+Nation-State+Cyberattack+Breach%2C+Source+Code+and+Customer+Data+Stolen,False,Relevant Article,1,0,1,0,0,0,0
+2,2,79,"China responsible for rising cyber attacks, says NCSC - Computer Weekly",https://www.computerweekly.com/news/366632649/China-responsible-for-rising-cyber-attacks-says-NCSC,2025-10-17 19:16:50,"Chinese-linked hacking groups are responsible for a rising number of cyber attacks against the UK, the National Cyber Security Centre (NCSC) has confirmed.
+
+Paul Chichester, director of operations at the NCSC, said it recognised that nation states such as China were using cyber attacks as a tool to pursue national strategy and national intelligence outcomes.
+
+According to the NCSC’s annual review, the country “continues to be a highly sophisticated and capable threat actor”, and is targeting a w",,0.6195,Positive,Computerweekly,https://www.computerweekly.com/news/366632649/China-responsible-for-rising-cyber-attacks-says-NCSC,False,Relevant Article,1,0,1,0,0,0,0
+2,2,80,UK hit by record-breaking four 'nationally significant' cyberattacks each week - Yahoo,https://www.yahoo.com/news/articles/uk-hit-record-breaking-four-131300648.html,2025-10-17 19:16:50,"Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps us improve the experience.
+
+Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps us improve the experience.
+
+Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps ",,0.7845,Positive,Yahoo,https://www.yahoo.com/news/articles/uk-hit-record-breaking-four-131300648.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,62,72% of hacked healthcare orgs report patient care disruptions - TechTarget,https://www.techtarget.com/healthtechsecurity/news/366632797/72-of-hacked-healthcare-orgs-report-patient-care-disruptions,2025-10-17 19:16:50,"More than half of healthcare organizations that experienced cyberattacks also reported longer patient stays and increased medical procedure complications, highlighting the impact that cyberattacks can have on patient safety, according to a new survey published by Proofpoint and Ponemon Institute.
+
+Ponemon Institute surveyed 677 U.S.-based healthcare IT and cybersecurity professionals to assess the operational and clinical risks associated with cyberattacks against healthcare organizations.
+
+The ",,0.2263,Positive,Techtarget,https://www.techtarget.com/healthtechsecurity/news/366632797/72-of-hacked-healthcare-orgs-report-patient-care-disruptions,False,Relevant Article,2,1,1,0,0,0,0
+2,2,103,"China poses 'highly sophisticated' cyber threat to UK, NCSC warns - Sky News",https://news.sky.com/story/china-poses-highly-sophisticated-cyber-threat-to-uk-ncsc-warns-13449794,2025-10-17 19:16:48,"China poses a ""highly sophisticated and capable"" cyber threat, the UK's cyber agency has warned - as it revealed a 50% jump in significant attacks in Britain by criminals and hostile states.
+
+The National Cyber Security Centre (NCSC)'s verdict on the threat posed by Chinese cyber spies comes as Sir Keir Starmer is under mounting pressure over the sudden collapse of a trial against two British men accused of espionage on behalf of Beijing.
+
+The Crown Prosecution Service said the case was derailed",,-0.9579,Negative,News,https://news.sky.com/story/china-poses-highly-sophisticated-cyber-threat-to-uk-ncsc-warns-13449794,False,Relevant Article,1,0,1,0,0,0,0
+2,2,109,UK security services step up work with business to fight cyber threats - Financial Times,https://www.ft.com/content/6e54967b-48ce-4788-99c7-36b5801e7dfe,2025-10-17 19:16:48,"JavaScript is disabled in your browser. Please enable JavaScript to proceed.
+
+A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",,0.1531,Positive,Ft,https://www.ft.com/content/6e54967b-48ce-4788-99c7-36b5801e7dfe,False,Relevant Article,1,0,1,0,0,0,0
+2,2,72,"Russia, China increasingly using AI to escalate cyberattacks on US, Microsoft finds - livingstonenterprise.net","https://www.livingstonenterprise.net/stories/russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-us-microsoft-finds,279886",2025-10-17 19:16:47,"Gerald William Richards, 79 Oct. 1, 1945 ~ June 13 Gerald William Richards, 79 Oct. 1, 1945 ~ June 13 Mr. Gerald William Richards, 79, of Cookeville, passed away at his residence surrounded by his family Friday, June 13, in Cookeville. Gerald was …
+
+Nelda Sue Looper, 84 June 15, 1941 ~ June 12 Nelda Sue Looper, 84 June 15, 1941 ~ June 12 Ms. Nelda Sue Looper, 84, of Cookeville, passed away Thursday, June 12, at the Cookeville Regional Hospital in Cookeville. Nelda was born Sunday, June 15, …
+
+Al",,0.0,Neutral,Livingstonenterprise,"https://www.livingstonenterprise.net/stories/russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-us-microsoft-finds,279886",False,Relevant Article,2,1,1,0,0,0,0
+2,2,95,Asahi ransomware attack: Personal data potentially stolen - BBC,https://www.bbc.com/news/articles/c0rpwk51qxro,2025-10-17 19:16:47,"Personal data potentially stolen in Asahi cyber-attack
+
+3 days ago Share Save Connie Bowker Share Save
+
+Shutterstock Asahi was forced to halt beer production after an attack hit its ordering and delivering systems
+
+Personal data may have been stolen in the ransomware attack that forced Asahi to halt beer production, the company has said. Japan's biggest brewer was forced to pause operations at most of its 30 factories in the country after a cyber-attack late last month disrupted everything from ",,-0.9524,Negative,Bbc,https://www.bbc.com/news/articles/c0rpwk51qxro,False,Relevant Article,1,0,1,0,0,0,0
+2,2,97,Anti-Israel cyberattack disrupts operations at Kelowna airport - National Post,https://nationalpost.com/news/canada/anti-israel-terrorist-cyberattack-kelowna-airport,2025-10-17 19:16:47,"By signing up you consent to receive the above newsletter from Postmedia Network Inc.
+
+Thanks for signing up!
+
+A welcome email is on its way. If you don't see it, please check your junk folder.
+
+The next issue of NP Posted will soon be in your inbox.",,0.8505,Positive,Nationalpost,https://nationalpost.com/news/canada/anti-israel-terrorist-cyberattack-kelowna-airport,False,Relevant Article,1,0,1,0,0,0,0
+2,2,84,F5 Stock (FFIV) Drops 5% after Revealing a Major Cyberattack - TipRanks,https://www.tipranks.com/news/f5-stock-ffiv-drops-5-after-revealing-a-major-cyberattack,2025-10-17 19:16:46,"Shares of F5 Inc. (FFIV) dropped 5% on Wednesday after the cybersecurity company disclosed details of a major cyberattack. F5 believes the attack was carried out by a highly organized “nation-state threat actor.” The hacker had long-term access to the company’s internal systems, including its development and engineering departments.
+
+Elevate Your Investing Strategy:
+
+Take advantage of TipRanks Premium at 50% off! Unlock powerful investing tools, advanced data, and expert analyst insights to help",,0.4987,Positive,Tipranks,https://www.tipranks.com/news/f5-stock-ffiv-drops-5-after-revealing-a-major-cyberattack,False,Relevant Article,1,0,1,0,0,0,0
+2,2,82,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - The Frederick News-Post",https://www.fredericknewspost.com/public/ap/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article_b9a75bf9-9eed-50d9-b980-7024ca86af58.html,2025-10-17 19:16:44,"Country
+
+United States of America US Virgin Islands United States Minor Outlying Islands Canada Mexico, United Mexican States Bahamas, Commonwealth of the Cuba, Republic of Dominican Republic Haiti, Republic of Jamaica Afghanistan Albania, People's Socialist Republic of Algeria, People's Democratic Republic of American Samoa Andorra, Principality of Angola, Republic of Anguilla Antarctica (the territory South of 60 deg S) Antigua and Barbuda Argentina, Argentine Republic Armenia Aruba Australia,",,0.8126,Positive,Fredericknewspost,https://www.fredericknewspost.com/public/ap/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article_b9a75bf9-9eed-50d9-b980-7024ca86af58.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,89,"Cyberattacks broadcast anti-Trump, pro-Hamas messaging in Ontario, B.C. airports - Toronto Star",https://www.thestar.com/news/canada/cyberattacks-broadcast-anti-trump-pro-hamas-messaging-in-ontario-b-c-airports/article_c44e2cbe-d2a1-4b2b-a454-056de60249ef.html,2025-10-17 19:16:44,"Country
+
+United States of America US Virgin Islands United States Minor Outlying Islands Canada Mexico, United Mexican States Bahamas, Commonwealth of the Cuba, Republic of Dominican Republic Haiti, Republic of Jamaica Afghanistan Albania, People's Socialist Republic of Algeria, People's Democratic Republic of American Samoa Andorra, Principality of Angola, Republic of Anguilla Antarctica (the territory South of 60 deg S) Antigua and Barbuda Argentina, Argentine Republic Armenia Aruba Australia,",,0.8126,Positive,Thestar,https://www.thestar.com/news/canada/cyberattacks-broadcast-anti-trump-pro-hamas-messaging-in-ontario-b-c-airports/article_c44e2cbe-d2a1-4b2b-a454-056de60249ef.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,84,Microsoft 2025 Cybersecurity Report: Ukraine Among Top Targets - Odessa Journal,https://odessa-journal.com/ukraine-ranked-5th-in-the-world-and-third-in-europe-in-the-number-of-cyberattacks,2025-10-17 19:16:44,"Microsoft has published its Digital Defense Report 2025, which shows that over 52% of all cyberattacks worldwide are aimed at extortion or involve ransomware programs. Only 4% of attacks are linked to cyber espionage.
+
+Every day, Microsoft processes more than 100 trillion security signals, blocks 4.5 million malware infection attempts, and scans up to 5 billion emails for phishing threats. The company notes that artificial intelligence accelerates both the creation of phishing attacks and the to",,-0.1531,Negative,Odessa-journal,https://odessa-journal.com/ukraine-ranked-5th-in-the-world-and-third-in-europe-in-the-number-of-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,81,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - The Economic Times",https://economictimes.indiatimes.com/tech/technology/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/articleshow/124608383.cms,2025-10-17 19:16:43,"Russia, China, Iran and North Korea have sharply increased their use of artificial intelligence to deceive people online and mount cyberattacks against the United States, according to new research from Microsoft This July, the company identified more than 200 instances of foreign adversaries using AI to create fake content online, more than double the number from July 2024 and more than ten times the number seen in 2023This July, the company identified more than 200 instances of foreign adversar",,0.4404,Positive,Economictimes,https://economictimes.indiatimes.com/tech/technology/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/articleshow/124608383.cms,False,Relevant Article,2,1,1,0,0,0,0
+2,2,80,"Russia, China increasingly using AI to escalate cyberattacks on the US: Microsoft - The Economic Times",https://m.economictimes.com/tech/technology/russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us-microsoft/amp_articleshow/124618573.cms,2025-10-17 19:16:43,"›
+
+›
+
+›
+
+Russia, China increasingly using AI to escalate cyberattacks on the US: Microsoft",,0.0,Neutral,M,https://m.economictimes.com/tech/technology/russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us-microsoft/amp_articleshow/124618573.cms,False,Relevant Article,2,1,1,0,0,0,0
+2,2,71,Microsoft Warns AI Escalates Global Cyberattacks - Evrim Ağacı,https://evrimagaci.org/gpt/microsoft-warns-ai-escalates-global-cyberattacks-510668,2025-10-17 19:16:42,"Microsoft Warns AI Escalates Global Cyberattacks Foreign adversaries and cybercriminals are using artificial intelligence to intensify attacks on the U.S., as Microsoft urges urgent upgrades to digital defenses.
+
+Key Points Report reveals foreign adversaries like Russia, China, Iran, and North Korea increasingly use AI to conduct sophisticated cyberattacks against the United States.
+
+Microsoft identified over 200 AI-driven fake content instances online in July 2025, more than double the amount f",,0.5719,Positive,Evrimagaci,https://evrimagaci.org/gpt/microsoft-warns-ai-escalates-global-cyberattacks-510668,False,Relevant Article,2,1,1,0,0,0,0
+2,2,69,This new cyberattack tricks you into hacking yourself. Here's how to spot it - ZDNET,https://www.zdnet.com/article/this-new-cyberattack-tricks-you-into-hacking-yourself-heres-how-to-spot-it/,2025-10-17 19:16:41,"Shalitha Ranathunge/iStock/Getty Images Plus
+
+Follow ZDNET: Add us as a preferred source on Google.
+
+ZDNET's key takeaways
+
+The ClickFix social engineering tactic is rising in popularity.
+
+Microsoft said this initial access method was recorded in 47% of attacks.
+
+Traditional phishing protections won't work. Changing your behavior will.
+
+Microsoft is warning that ClickFix social engineering attacks have become a favorite tactic of cybercriminals for gaining access to victims' networks.
+
+The tech ",,-0.2732,Negative,Zdnet,https://www.zdnet.com/article/this-new-cyberattack-tricks-you-into-hacking-yourself-heres-how-to-spot-it/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,67,JLR cyber attacks highlight challenges facing UK car industry - Financial Times,https://www.ft.com/content/54306520-a9dd-4807-905e-b1b20d6fec9e,2025-10-17 19:16:41,"JavaScript is disabled in your browser. Please enable JavaScript to proceed.
+
+A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",,0.5267,Positive,Ft,https://www.ft.com/content/54306520-a9dd-4807-905e-b1b20d6fec9e,False,Relevant Article,1,0,1,0,0,0,0
+2,2,50,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - Clinton Herald",https://www.clintonherald.com/news/national_world_news/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article_86c16563-8b8a-5cb1-b623-43b04d388f6b.html,2025-10-17 19:16:40,"Clinton, IA (52732)
+
+Today
+
+A mix of clouds and sun during the morning will give way to cloudy skies this afternoon. High 81F. Winds S at 10 to 20 mph..
+
+Tonight
+
+Mostly cloudy this evening with thunderstorms developing after midnight. Storms may produce some hail. Low 62F. Winds SSW at 10 to 15 mph. Chance of rain 70%.",,0.0516,Positive,Clintonherald,https://www.clintonherald.com/news/national_world_news/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article_86c16563-8b8a-5cb1-b623-43b04d388f6b.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,51,"CEOs must prepare companies for cyber attacks, says UK agency - Financial Times",https://www.ft.com/content/b4c74e38-eab2-488f-9a0d-32c5bed83c91,2025-10-17 19:16:40,"JavaScript is disabled in your browser. Please enable JavaScript to proceed.
+
+A required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",,0.1779,Positive,Ft,https://www.ft.com/content/b4c74e38-eab2-488f-9a0d-32c5bed83c91,False,Relevant Article,1,0,1,0,0,0,0
+2,2,36,"Russia and China Are Using AI to Escalate Cyberattacks on the U.S., Says Microsoft (MSFT) - TipRanks",https://www.tipranks.com/news/russia-and-china-are-using-ai-to-escalate-cyberattacks-on-the-u-s-says-microsoft-msft,2025-10-17 19:16:38,"A new report from technology giant Microsoft (MSFT) claims that Russia, China, Iran, and North Korea are each using artificial intelligence (AI) to escalate their cyberattacks on the U.S.
+
+Elevate Your Investing Strategy:
+
+Take advantage of TipRanks Premium at 50% off! Unlock powerful investing tools, advanced data, and expert analyst insights to help you invest with confidence.
+
+In July of this year, Microsoft identified more than 200 instances of foreign governments using AI to create fake con",,0.9215,Positive,Tipranks,https://www.tipranks.com/news/russia-and-china-are-using-ai-to-escalate-cyberattacks-on-the-u-s-says-microsoft-msft,False,Relevant Article,2,1,1,0,0,0,0
+2,2,37,T-Mobile Launches Round-the-Clock Defense Center Against Cyberattacks - TmoNews,https://www.tmonews.com/2025/10/t-mobile-launches-round-the-clock-defense-center-against-cyberattacks/,2025-10-17 19:16:38,"T-Mobile is taking its security game to a new level with a dedicated facility designed to hunt down cyber threats before they hit customers. The carrier just opened its Cyber Defense Center at its Bellevue, Washington headquarters, giving its security teams a home base for round-the-clock threat monitoring and response.
+
+Earlier today, T-Mobile announced a new center that represents a major investment in proactive security. Instead of waiting for attacks to happen, T-Mobile’s teams are actively ",,0.8344,Positive,Tmonews,https://www.tmonews.com/2025/10/t-mobile-launches-round-the-clock-defense-center-against-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,38,Microsoft report says foreign adversaries using AI to increase cyberattacks against U.S. - KNDU.com,https://www.nbcrightnow.com/microsoft-report-says-foreign-adversaries-using-ai-to-increase-cyberattacks-against-u-s/video_99b12e96-aba3-519b-9a38-5cb0ae1f3bb8.html,2025-10-17 19:16:38,"Breaking News from NBC Right Now Get Tri-Cities Breaking News alerts from NBC Right Now.
+
+NBC Right Now Daily Weather Updates Get the daily weather forecast, as well as breaking weather alerts, from the NBC Right Now Weather Authority.
+
+Yakima News from NBC Right Now A daily newsletter focused on providing important and timely news for Yakima and surrounding communities.
+
+NBC Right Now Health News Receive timely emails about important health news from NBC Right Now.
+
+Daily News Updates from NonS",,0.7845,Positive,Nbcrightnow,https://www.nbcrightnow.com/microsoft-report-says-foreign-adversaries-using-ai-to-increase-cyberattacks-against-u-s/video_99b12e96-aba3-519b-9a38-5cb0ae1f3bb8.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,26,"Have plans on paper in case of cyber-attack, firms told - BBC",https://www.bbc.com/news/articles/ced61xv967lo,2025-10-17 19:16:37,"Cyber attack contingency plans should be put on paper, firms told
+
+A cyber attack stalled production at Jaguar Land Rover factories in September, including at their Solihull site (pictured, file photo)
+
+The warning comes as the National Cyber-Security Centre (NCSC) reported an increase in nationally significant attacks this year.
+
+A recent spate of hacks has highlighted the chaos that can ensue when hackers take computer systems down.
+
+The government has written to chief executives across the co",,-0.9169,Negative,Bbc,https://www.bbc.com/news/articles/ced61xv967lo,False,Relevant Article,1,0,1,0,0,0,0
+2,2,28,"Foreign adversaries increasingly using AI to conduct cyberattacks on U.S., Microsoft report says - KNDU.com",https://www.nbcrightnow.com/national/foreign-adversaries-increasingly-using-ai-to-conduct-cyberattacks-on-u-s-microsoft-report-says/article_09e4fb1f-0bee-587f-9abb-ab3a5274256f.html,2025-10-17 19:16:37,"Close Get email notifications on {{subject}} daily!
+
+Your notification has been saved.
+
+There was a problem saving your notification.
+
+{{description}}
+
+Email notifications are only sent once a day, and only if there are new matching items.",,-0.2942,Negative,Nbcrightnow,https://www.nbcrightnow.com/national/foreign-adversaries-increasingly-using-ai-to-conduct-cyberattacks-on-u-s-microsoft-report-says/article_09e4fb1f-0bee-587f-9abb-ab3a5274256f.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,29,Taiwan warns Chinese cyberattacks are intensifying - Yahoo,https://www.yahoo.com/news/articles/taiwan-warns-chinese-cyberattacks-intensifying-132400676.html,2025-10-17 19:16:37,"Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps us improve the experience.
+
+Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps us improve the experience.
+
+Yahoo is using AI to generate takeaways from this article. This means the info may not always match what's in the article. Reporting mistakes helps ",,0.6908,Positive,Yahoo,https://www.yahoo.com/news/articles/taiwan-warns-chinese-cyberattacks-intensifying-132400676.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,23,Phishing Remains the Top Initial Access Vector in Cyberattacks Across Europe - KnowBe4 blog,https://blog.knowbe4.com/phishing-remains-the-top-initial-access-vector-in-cyberattacks-across-europe,2025-10-17 19:16:36,"Phishing was the initial access vector for 60% of cyberattacks across Europe between July 2024 and June 2025, according to the European Union Agency for Cybersecurity (ENISA).
+
+“With regards to the primary method for initial intrusion, phishing (including vishing, malspam and malvertising) is identified as the leading vector, accounting for about 60% of observed cases,” the agency says.
+
+“Advancements in its deployment, such as Phishing-as-a-Service (PhaaS) that allows the distribution of ready-",,0.5106,Positive,Blog,https://blog.knowbe4.com/phishing-remains-the-top-initial-access-vector-in-cyberattacks-across-europe,False,Relevant Article,2,1,1,0,0,0,0
+2,2,20,Training the grid to spot cyberattacks without seeing your data - Tech Xplore,https://techxplore.com/news/2025-10-grid-cyberattacks.html,2025-10-17 19:16:36,"This article has been reviewed according to Science X's editorial process and policies . Editors have highlighted the following attributes while ensuring the content's credibility:
+
+Conceptual architecture of federated learning for smart-grid intrusion detection. The illustration shows a three-tier structure—local, edge, and central levels—where model updates are aggregated without transferring raw data, supporting privacy-preserving analysis. Credit: Cybersecurity (2025). DOI: 10.1186/s42400-02",,0.765,Positive,Techxplore,https://techxplore.com/news/2025-10-grid-cyberattacks.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,14,"NSE faced 40 crore cyberattacks in one single day during 'Operation Sindoor', hackers attacked using ... - The Times of India",https://timesofindia.indiatimes.com/technology/tech-news/nse-faced-40-crore-cyberattacks-in-one-single-day-during-operation-sindoor-hackers-attacked-using-/articleshow/124521453.cms,2025-10-17 19:16:35,"How NSE fought highest-ever cyberattacks during 'Operation Sindoor'
+
+What has made cyber attacks more dangerous
+
+
+
+
+
+The National Stock Exchange (NSE) reportedly faces approximately 170 million cyberattacks daily, necessitating a dedicated team of ""cyber warriors"" to ensure seamless operations. ""Every day, millions of cyberattacks target the NSE, but our technical teams, supported by advanced systems and specialized software, combat these threats round the clock,"" a senior NSE official told PTI.",,-0.7466,Negative,Timesofindia,https://timesofindia.indiatimes.com/technology/tech-news/nse-faced-40-crore-cyberattacks-in-one-single-day-during-operation-sindoor-hackers-attacked-using-/articleshow/124521453.cms,False,Relevant Article,2,1,1,0,0,0,0
+2,2,9,Machine learning-based detection and mitigation of cyberattacks in adaptive cruise control systems - Nature,https://www.nature.com/articles/s41598-025-20096-5,2025-10-17 19:16:35,"The methodology for developing the ACC anomaly Detection and Mitigation (ACCDM) model is divided into three parts: (i) Vehicle’s following models in traffic; (ii) ACC anomaly Detection and Mitigation model; and (iii) Simulation setup and evaluation metrics. The specific details are as follows.
+
+Vehicle following model
+
+Adaptive Cruise Control (ACC) and Intelligent Driver Model (IDM) are two advanced models designed for vehicle following in traffic, enabling vehicles to maintain a safe distance f",,0.7845,Positive,Nature,https://www.nature.com/articles/s41598-025-20096-5,False,Relevant Article,2,1,1,0,0,0,0
+2,2,83,Ukraine Ranks 5th Globally in Cyberattack Targets in 2025 - Букви,https://mezha.net/eng/bukvy/ukraine-ranks-5th-globally-in-cyberattack-targets-in-2025/amp/,2025-10-17 17:33:46,"According to the report Digital Defense Report 2025 by Microsoft
+
+In the first half of 2025, Ukraine ranked fifth worldwide in the share of cyberattacks against the country, while leading Europe in the number of operations conducted by other states. These data come from the Digital Defense Report 2025, published by Microsoft.
+
+In the global threat distribution, the top positions are held by the United States (24.8%), the United Kingdom (5.6%), Israel (3.5%), Germany (3.3%), and Ukraine accounts ",,0.7579,Positive,Mezha,https://mezha.net/eng/bukvy/ukraine-ranks-5th-globally-in-cyberattack-targets-in-2025/amp/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,31,"Tech Report: Smart glasses, AI cyberattacks, digital remittances, Bezos’ space prediction - 41NBC News",https://www.41nbc.com/tech-report-smart-glasses-ai-cyberattacks-digital-remittances-bezos-space-prediction/,2025-10-17 16:20:20,"Tech Report: Smart glasses, AI cyberattacks, digital remittances, Bezos’ space prediction
+
+EssilorLuxottica is doubling down on the future of smart glasses, investing in eyewear that lets users play music and take photos — all hands-free.
+
+(LILAMAX)- EssilorLuxottica is doubling down on the future of smart glasses, investing in eyewear that lets users play music and take photos — all hands-free. The company’s CEO says he believes glasses will eventually replace much of what smartphones do today.",,0.9274,Positive,41nbc,https://www.41nbc.com/tech-report-smart-glasses-ai-cyberattacks-digital-remittances-bezos-space-prediction/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,78,Microsoft study says most cyber attacks are for Money and not for Espionage - Cybersecurity Insiders,https://www.cybersecurity-insiders.com/microsoft-study-says-most-cyber-attacks-are-for-money-and-not-for-espionage/,2025-10-17 15:23:42,"Microsoft, in its latest annual Digital Defense Report has shed light on the current trends in cybercrime, revealing that the majority of cyber attacks are financially motivated rather than politically driven. The tech giant’s study, which covered the period from July 2024 to June 2025, found that cybercriminals are increasingly targeting organizations for monetary gain, with state-sponsored hacking actors playing a significant role as well.
+
+The United States stood out as the primary target for",,0.8085,Positive,Cybersecurity-insiders,https://www.cybersecurity-insiders.com/microsoft-study-says-most-cyber-attacks-are-for-money-and-not-for-espionage/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,10,How Automotive Cyberattacks Are Disrupting B2B Customer Experience - CX Today,https://www.cxtoday.com/crm/how-automotive-cyberattacks-are-disrupting-b2b-customer-experience/,2025-10-17 14:00:31,"Cybersecurity has become an unexpected speed bump on the road to digitalizing the automotive industry.
+
+Recent cyber attacks on Jaguar Land Rover and Stellantis have exposed how vulnerable the sector is in its ability to deliver on the customer experience it promises to the consumers and business clients across its sprawling supply chain.
+
+Typically, the conversation in automotive CX centers on showroom experience, mobile apps, and increasingly, infotainment systems. But behind the scenes, a vas",,-0.0258,Neutral,Cxtoday,https://www.cxtoday.com/crm/how-automotive-cyberattacks-are-disrupting-b2b-customer-experience/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,95,3 Must Have AI Cybersecurity Tools : AI Is Fighting Back Against Sophisticated Cyberattacks - Geeky Gadgets,https://www.geeky-gadgets.com/ai-powered-cybersecurity-tools-2025/,2025-10-17 13:14:44,"Imagine receiving an email that looks identical to one from your bank, complete with logos, professional language, and even a personalized greeting. You click a link, enter your credentials, and within minutes, your account is compromised. This isn’t a hypothetical scenario, it’s the reality of modern cybercrime, where AI-powered attacks are becoming more sophisticated and harder to detect. With over 166 million people affected by cyberattacks in 2023, the stakes have never been higher. But here",,0.3064,Positive,Geeky-gadgets,https://www.geeky-gadgets.com/ai-powered-cybersecurity-tools-2025/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,52,Microsoft: Romania ranks 52nd globally in terms of impact of cyberattacks in the first half of 2025 - Romania Insider,https://www.romania-insider.com/microsoft-romania-cyberattacks-first-half-2025,2025-10-17 13:11:55,"In the first half of 2025, Romania ranked 52nd worldwide among the countries most frequently affected by cyber activities, according to the new Microsoft Digital Defense Report.
+
+The sixth annual report, covering trends from July 2024 to June 2025, emphasizes that traditional security measures are no longer sufficient. Modern defenses and strong collaboration between industries and governments are needed to keep pace with threats.
+
+Romania is not among the most targeted nations, according to the",,0.2551,Positive,Romania-insider,https://www.romania-insider.com/microsoft-romania-cyberattacks-first-half-2025,False,Relevant Article,2,1,1,0,0,0,0
+2,2,75,Microsoft: Cyberattackers are adopting artificial intelligence faster than defenders - Baltic News Network,https://bnn-news.com/microsoft-cyberattackers-are-adopting-artificial-intelligence-faster-than-defenders-273205,2025-10-17 10:43:31,"The Baltic states are not among the countries most frequently targeted by cyberattacks, said Renāte Strazdiņa, representative of Microsoft NTO Europe North Multi-country Cluster.
+
+However, Strazdiņa notes that attackers are not resting – they are rapidly mastering the latest technologies, including artificial intelligence (AI), to improve and accelerate their attack methods.
+
+According to data from Microsoft’s Digital Defense Report for the first half of 2025, Latvia ranks 64th worldwide among c",,0.4767,Positive,Bnn-news,https://bnn-news.com/microsoft-cyberattackers-are-adopting-artificial-intelligence-faster-than-defenders-273205,False,Relevant Article,2,1,1,0,0,0,0
+2,2,90,"'Trump Is A Pig, Israel Lost War': Mass Cyberattack Hits US & Canadian Airports With Pro-Hamas Messages - Times Now",https://www.timesnownews.com/world/trump-is-a-pig-israel-lost-war-mass-cyberattack-hits-us-canadian-airports-with-pro-hamas-messages-article-153012989,2025-10-17 10:04:45,"Several airports were compromised, prompting investigations by transportation officials.
+
+A coordinated cyberattack disrupted three Canadian airports and one in the US on Tuesday, displaying messages supporting Hamas and criticising President Donald Trump and Israeli Prime Minister Benjamin Netanyahu. Flight information screens were also affected, leaving passengers alarmed.
+
+An ""advertisement streaming service"" at the Kelowna International Airport in British Columbia was briefly compromised and",,-0.8402,Negative,Timesnownews,https://www.timesnownews.com/world/trump-is-a-pig-israel-lost-war-mass-cyberattack-hits-us-canadian-airports-with-pro-hamas-messages-article-153012989,False,Relevant Article,1,0,1,0,0,0,0
+2,2,86,"Microsoft’s BIG revelations! China, Russia, Iran, North Korea carry out cyberattacks against US, research say - india.com",https://www.india.com/us/microsofts-big-revelations-china-russia-iran-north-korea-carry-out-cyberattacks-against-us-research-says-8136547/,2025-10-17 09:25:42,"Home
+
+Us
+
+Microsofts BIG revelations! China, Russia, Iran, North Korea carry out cyberattacks against US, research says…
+
+Microsoft’s BIG revelations! China, Russia, Iran, North Korea carry out cyberattacks against US, research says…
+
+Microsoft research revealed that Russia, China are increasingly using AI to escalate cyberattacks on the US.
+
+US President Donald Trump
+
+Russia, China, Iran, and North Korea have reportedly escalated their use of artificial intelligence to spread online disinformat",,0.6093,Positive,India,https://www.india.com/us/microsofts-big-revelations-china-russia-iran-north-korea-carry-out-cyberattacks-against-us-research-says-8136547/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,24,Microsoft Report Warns of AI-Powered Automation in Cyberattacks and Malware Creation - GBHackers News,https://gbhackers.com/ai-powered-automation/,2025-10-17 09:21:01,"Cybercriminals are weaponizing artificial intelligence to accelerate malware development, discover vulnerabilities faster, and create more sophisticated phishing campaigns, according to Microsoft’s latest Digital Defense Report covering trends from July 2024 through June 2025.
+
+In 80% of the cyber incidents Microsoft investigated last year, attackers sought to steal data primarily for profit rather than intelligence gathering.
+
+The rise of AI-powered attacks has lowered the barrier to entry for ",,0.5984,Positive,Gbhackers,https://gbhackers.com/ai-powered-automation/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,96,"Russia's cyber attacks against NATO nations rise by 25% in 2025, Microsoft analysis finds - Firstpost",https://www.firstpost.com/tech/russias-cyber-attacks-against-nato-nations-rise-by-25-in-2025-microsoft-analysis-finds-13942768.html,2025-10-17 06:56:26,"Amid the war in Ukraine, Russia has increased its cyber-attacks on Nato nations by 25 per cent over the past year, Microsoft’s annual digital defence report reveals
+
+Amid the war in Ukraine, Russia has increased its cyber-attacks on Nato nations by 25 per cent over the past year. According to the latest analysis by Microsoft, nine of the top 10 countries most affected by Russian state cyber-activity were members of the Nato alliance. The attacks are coming at a time when the Kremlin has escalate",,-0.8777,Negative,Firstpost,https://www.firstpost.com/tech/russias-cyber-attacks-against-nato-nations-rise-by-25-in-2025-microsoft-analysis-finds-13942768.html,False,Relevant Article,1,0,1,0,0,0,0
+2,2,32,North Korean Hackers Expand Global Cyberattacks Using Blockchain Tools - CoinCentral,https://coincentral.com/north-korean-hackers-expand-global-cyberattacks-using-blockchain-tools/,2025-10-17 06:09:35,"TLDR
+
+North Korean hackers are utilizing blockchain technology to develop decentralized command systems.
+
+Fake job offers are a common tactic for North Korean cyberattacks.
+
+Malware like BeaverTail and OtterCookie is used for credential theft.
+
+EtherHiding malware hides payloads on public blockchains for stealth.
+
+North Korea-linked hackers are increasing their global cyberattacks using new decentralized and evasive malware tools, according to recent reports from Cisco Talos and Google’s Threat ",,-0.5719,Negative,Coincentral,https://coincentral.com/north-korean-hackers-expand-global-cyberattacks-using-blockchain-tools/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,11,"Russia, China Using AI to Escalate Cyberattacks on the United States - politicstoday.org",https://politicstoday.org/russia-china-using-ai-to-escalate-cyberattacks-on-the-united-states/,2025-10-17 05:18:12,"R
+
+ussia, China, Iran, and North Korea have dramatically ramped up their use of artificial intelligence (AI) to conduct cyberattacks and spread disinformation targeting the United States, according to new findings released by Microsoft on Thursday.
+
+In its annual digital threats report, the tech giant said it identified more than 200 instances in July 2025 of foreign adversaries using AI to create or amplify fake content online — a figure that has doubled since 2024 and increased tenfold since 2",,0.6124,Positive,Politicstoday,https://politicstoday.org/russia-china-using-ai-to-escalate-cyberattacks-on-the-united-states/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,59,"Microsoft says Russia, China increasingly using AI to escalate cyberattacks on the U.S. - The Hindu",https://www.thehindu.com/sci-tech/technology/microsoft-says-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article70174030.ece,2025-10-17 03:28:52,"Russia, China, Iran and North Korea have sharply increased their use of artificial intelligence to deceive people online and mount cyberattacks against the United States, according to new research from Microsoft.
+
+This July, the company identified more than 200 instances of foreign adversaries using AI to create fake content online, more than double the number from July 2024 and more than ten times the number seen in 2023.
+
+The findings, published Thursday in Microsoft’s annual digital threats r",,0.0258,Neutral,Thehindu,https://www.thehindu.com/sci-tech/technology/microsoft-says-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us/article70174030.ece,False,Relevant Article,2,1,1,0,0,0,0
+2,2,62,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - KOAT",http://www.koat.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,2025-10-17 01:20:00,"through the weekend before cooler and drier air arrives for next week. SEPTEMBER IS SUICIDE AWARENESS MONTH. IN VERMONT, OFFICIALS SAY SUICIDE DEATHS HAVE DECLINED FOR THREE STRAIGHT YEARS... BUT THE STATE IS STILL SEEING HUNDREDS OF PEOPLE STRUGGLING. NBC5'S CHARLOTTE HANCOX IS LIVE IN THE NEWSROOM WITH MORE ON THE DATA AND THE ADVICE FROM MENTAL HEALTH PROFESSIONALS. WELL ADRIAN AND ERICKA, OFFICIALS SAY RAISING AWARENESS IS KEY TO SAVING LIVES. AND WHILE THE NUMBERS IN VERMONT ARE HEADING IN ",,-0.7555,Negative,Koat,http://www.koat.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,False,Relevant Article,2,1,1,0,0,0,0
+2,2,53,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - WAPT",https://www.wapt.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,2025-10-17 01:20:00,"through the weekend before cooler and drier air arrives for next week. SEPTEMBER IS SUICIDE AWARENESS MONTH. IN VERMONT, OFFICIALS SAY SUICIDE DEATHS HAVE DECLINED FOR THREE STRAIGHT YEARS... BUT THE STATE IS STILL SEEING HUNDREDS OF PEOPLE STRUGGLING. NBC5'S CHARLOTTE HANCOX IS LIVE IN THE NEWSROOM WITH MORE ON THE DATA AND THE ADVICE FROM MENTAL HEALTH PROFESSIONALS. WELL ADRIAN AND ERICKA, OFFICIALS SAY RAISING AWARENESS IS KEY TO SAVING LIVES. AND WHILE THE NUMBERS IN VERMONT ARE HEADING IN ",,-0.7555,Negative,Wapt,https://www.wapt.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,False,Relevant Article,2,1,1,0,0,0,0
+2,2,60,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - WGAL",https://www.wgal.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,2025-10-17 01:20:00,"through the weekend before cooler and drier air arrives for next week. SEPTEMBER IS SUICIDE AWARENESS MONTH. IN VERMONT, OFFICIALS SAY SUICIDE DEATHS HAVE DECLINED FOR THREE STRAIGHT YEARS... BUT THE STATE IS STILL SEEING HUNDREDS OF PEOPLE STRUGGLING. NBC5'S CHARLOTTE HANCOX IS LIVE IN THE NEWSROOM WITH MORE ON THE DATA AND THE ADVICE FROM MENTAL HEALTH PROFESSIONALS. WELL ADRIAN AND ERICKA, OFFICIALS SAY RAISING AWARENESS IS KEY TO SAVING LIVES. AND WHILE THE NUMBERS IN VERMONT ARE HEADING IN ",,-0.7555,Negative,Wgal,https://www.wgal.com/article/ai-cyberattacks-microsoft-report-us-target/69058935,False,Relevant Article,2,1,1,0,0,0,0
+2,2,64,Kearney Public Schools addresses cyberattack impact - Central Nebraska Today,https://www.centralnebraskatoday.com/2025/10/17/kearney-public-schools-address-cyberattack-impact/,2025-10-17 00:00:00,"KEARNEY — After receiving our final report from our Fortinet Incident Response Team, the hacking organization, Interlock, has publicly taken claim for and verified to have accessed sensitive data of current and former KPS staff and Special Education students.
+
+The Interlock organization has targeted hundreds of businesses and educational institutions across the United States, and in many cases, pursued a financial “ransom”. However, in the KPS breach, school and district technology officials nev",,0.6705,Positive,Centralnebraskatoday,https://www.centralnebraskatoday.com/2025/10/17/kearney-public-schools-address-cyberattack-impact/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,12,Russian cyberattacks against NATO members up 25%: analysis - Euronews.com,https://www.euronews.com/next/2025/10/17/russian-cyberattacks-against-nato-members-up-25-in-a-year-analysis-shows,2025-10-17 00:00:00,"ADVERTISEMENT
+
+Russian cyberattacks against NATO countries surged by 25 per cent in a year, according to a new analysis by Microsoft.
+
+While Ukraine is still Russia’s primary target, the report found that the rest of the top 10 countries are all NATO members.
+
+Twenty per cent of Russia’s cyberattacks targeted the United States, followed by the United Kingdom at 12 per cent and Germany at 6 per cent.
+
+Belgium, Italy, Estonia, France, the Netherlands, and Poland were all targeted in 5 per cent or ",,0.7506,Positive,Euronews,https://www.euronews.com/next/2025/10/17/russian-cyberattacks-against-nato-members-up-25-in-a-year-analysis-shows,False,Relevant Article,2,1,1,0,0,0,0
+2,2,19,"Israel ranks third worldwide in cyberattacks, Microsoft says - CTech",https://www.calcalistech.com/ctechnews/article/byfvftctel,2025-10-16 19:38:43,"Israel ranks third in the world for the number of cyberattacks, behind only the United States and the United Kingdom, according to Microsoft’s 2025 Digital Defense Report. The data shows that 3.5% of all global cyberattacks were directed at Israel, compared with 24.8% targeting the U.S. and 5.6% the U.K.
+
+In the Middle East and Africa, Israel topped the regional list, absorbing 20.4% of all cyber incidents, a total of 603 documented attacks.
+
+1 View gallery Hacker. ( Photo: Reuters )
+
+The report",,0.5423,Positive,Calcalistech,https://www.calcalistech.com/ctechnews/article/byfvftctel,False,Relevant Article,2,1,1,0,0,0,0
+2,2,5,How utilities work together to guard against cyberattacks - Entergy,https://www.entergy.com/blog/how-utilities-work-together-to-guard-against-cyberattacks,2025-10-16 18:46:00,"October is National Cybersecurity Month, but for utility employees at Entergy, security is central to our everyday work.
+
+The term “shared threat landscape” is often used by cybersecurity experts. But what does it mean?
+
+A shared threat landscape means many organizations face similar cyber risks. These include threats to outdated systems that run operations, as well as risks tied to supply chain and vendors. Attackers often use familiar methods such as phishing, ransomware, insider compromise an",,-0.9468,Negative,Entergy,https://www.entergy.com/blog/how-utilities-work-together-to-guard-against-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,49,Hackers backed by China blamed for cyberattack on Seattle tech company - MyNorthwest.com,https://mynorthwest.com/local/f5-inc-cyberattack-seattle/4143844,2025-10-16 17:27:58,"More information has been released after a Seattle tech company said it was hit by a sophisticated cyberattack.
+
+Hackers backed by the Chinese government are being blamed for the attack on Seattle-based F5 Inc., Bloomberg reported. Meanwhile, China publicly denied it.
+
+“Regarding such groundless accusation made without evidence, we have made clear China’s position more than once,” China Foreign Ministry spokesman Lin Jian said at a press conference, according to Bloomberg. “China always opposes ",,-0.7783,Negative,Mynorthwest,https://mynorthwest.com/local/f5-inc-cyberattack-seattle/4143844,False,Relevant Article,1,0,1,0,0,0,0
+2,2,4,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - AP News",https://apnews.com/article/ai-cybersecurity-russia-china-deepfakes-microsoft-ad678e5192dd747834edf4de03ac84ee,2025-10-16 14:44:35,"WASHINGTON (AP) — Russia, China, Iran and North Korea have sharply increased their use of artificial intelligence to deceive people online and mount cyberattacks against the United States, according to new research from Microsoft.
+
+This July, the company identified more than 200 instances of foreign adversaries using AI to create fake content online, more than double the number from July 2024 and more than ten times the number seen in 2023.
+
+The findings, published Thursday in Microsoft’s annual",,0.4404,Positive,Apnews,https://apnews.com/article/ai-cybersecurity-russia-china-deepfakes-microsoft-ad678e5192dd747834edf4de03ac84ee,False,Relevant Article,2,1,1,0,0,0,0
+2,2,30,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - WGAU Radio",https://www.wgauradio.com/news/technology/microsoft-russia/A2NASJOZWQ3WXF4JVMVLTDCIBQ/?outputType=amp,2025-10-16 14:44:35,"WASHINGTON — Russia, China, Iran and North Korea have sharply increased their use of artificial intelligence to deceive people online and mount cyberattacks against the United States, according to new research from Microsoft.
+
+This July, the company identified more than 200 instances of foreign adversaries using AI to create fake content online, more than double the number from July 2024 and more than ten times the number seen in 2023.
+
+The findings, published Thursday in Microsoft's annual digi",,0.4404,Positive,Wgauradio,https://www.wgauradio.com/news/technology/microsoft-russia/A2NASJOZWQ3WXF4JVMVLTDCIBQ/?outputType=amp,False,Relevant Article,2,1,1,0,0,0,0
+2,2,102,"Cyberattack on Indian Ports Could Freeze Global Trade, Warns Navy Chief - indianwitness.com",https://www.indianwitness.com/news/national/cyberattack-on-indian-ports-could-freeze-global-trade-w,2025-10-16 14:37:30,"Navy Chief Admiral Dinesh K. Tripathi has sounded a stark warning about the growing cyber vulnerabilities in India’s maritime domain as the country’s ports and naval systems rapidly digitize. Speaking at a seminar on the “Impact of Cyber-attacks in the Maritime Sector,” Admiral Tripathi said the implications of a cyber disruption across India’s 12 major ports, over 200 smaller ports, and an 11,000-kilometre coastline could be “enormous” for national security and global trade stability.
+
+“The sea",,0.25,Positive,Indianwitness,https://www.indianwitness.com/news/national/cyberattack-on-indian-ports-could-freeze-global-trade-w,False,Relevant Article,1,0,1,0,0,0,0
+2,2,119,China-linked APT Jewelbug targets Russian IT provider in rare cross-nation cyberattack - Security Affairs,https://securityaffairs.com/183488/apt/china-linked-apt-jewelbug-targets-russian-it-provider-in-rare-cross-nation-cyberattack.html,2025-10-16 14:08:00,"China-linked APT Jewelbug targets Russian IT provider in rare cross-nation cyberattack
+
+Pierluigi Paganini October 16, 2025 October 16, 2025
+
+China-linked APT Jewelbug targeted a Russian IT provider for five months in 2025, showing Russia remains exposed to Chinese cyber espionage.
+
+China-linked threat actor Jewelbug (aka CL-STA-0049, Earth Alux, and REF7707) carried out a five-month intrusion on a Russian IT service provider, marking its expansion beyond Southeast Asia and South America. The ca",,-0.3182,Negative,Securityaffairs,https://securityaffairs.com/183488/apt/china-linked-apt-jewelbug-targets-russian-it-provider-in-rare-cross-nation-cyberattack.html,False,Relevant Article,1,0,1,0,0,0,0
+2,2,38,Switzerland ranks ninth in Europe for cyberattack frequency - Microsoft Source,https://news.microsoft.com/source/emea/2025/10/switzerland-ranks-ninth-in-europe-for-cyberattack-frequency/,2025-10-16 14:01:34,"Switzerland ranked ninth in Europe and 22nd globally for frequency of cyberattacks in the first half of 2025, according to the sixth Microsoft’s Digital Defense Report released today. The country accounted for approximately 3.3% of all European organizations impacted by malicious cyber activity—meaning about three out of every 100 affected European organizations are Swiss.
+
+Key findings:
+
+At least 52% of cyberattacks worldwide were driven by ransomware or extortion, while only 4% focused solely ",,0.3612,Positive,News,https://news.microsoft.com/source/emea/2025/10/switzerland-ranks-ninth-in-europe-for-cyberattack-frequency/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,48,F5 systems data stolen in major nation-state cyberattack - Silicon Republic,https://www.siliconrepublic.com/enterprise/f5-cyberattack-cybersecurity-breach-big-ip,2025-10-16 12:01:42,"Sources familiar with the matter told Bloomberg that Chinese state-sponsored hackers were responsible for the breach, and that the attackers had remained in F5’s network for at least a year.
+
+Yesterday (15 October), US cybersecurity company F5 disclosed knowledge of a significant cyberattack that gave threat actors long-term access to some of its systems.
+
+According to a regulatory filing submitted by the company, F5 first learned of the breach – which it attributed to a “highly sophisticated na",,-0.5423,Negative,Siliconrepublic,https://www.siliconrepublic.com/enterprise/f5-cyberattack-cybersecurity-breach-big-ip,False,Relevant Article,1,0,1,0,0,0,0
+2,2,74,Mango Data Breach Confirms Exposure Of Limited Customer Info - The Cyber Express,https://thecyberexpress.com/mango-data-breach/,2025-10-16 09:27:16,"Spanish fashion retailer Mango has confirmed a data breach after one of its external marketing service providers suffered unauthorized access to limited customer information. The company emphasized that its corporate systems were not compromised and that financial or login details remain secure. The Mango data breach adds to a growing list of cybersecurity incidents hitting major global retailers in 2025.
+
+In its official statement, Mango said the exposed data included customers’ first names, co",,-0.4939,Negative,Thecyberexpress,https://thecyberexpress.com/mango-data-breach/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,46,Cyberattack ensnares Ann Arbor-based site for municipal bonds - Crain's Detroit Business,https://www.crainsdetroit.com/banking-finance/cyberattack-ensnares-ann-arbor-based-munios-municipal-bond-site,2025-10-16 05:52:06,"A ransomware attack is disrupting state and local borrowers’ ability to post debt documents on the $4.3 trillion municipal-bond market’s main distribution platform.
+
+MuniOS, a website operated by Ann Arbor-based tech company ImageMaster LLC, has been out of service for several days due to the cyberattack, according to people familiar with the matter who asked not to be named discussing the private matter.
+
+Borrowers use the website to showcase their bond offering documents, and it’s a popular se",,-0.0772,Negative,Crainsdetroit,https://www.crainsdetroit.com/banking-finance/cyberattack-ensnares-ann-arbor-based-munios-municipal-bond-site,False,Relevant Article,1,0,1,0,0,0,0
+2,2,73,Nintendo Denies Data Leak After Alleged Cyberattack Claim by Hacker Group - Twisted Voxel,https://twistedvoxel.com/nintendo-denies-data-leak-after-alleged-cyberattack-claim-by-hacker-group/,2025-10-16 04:51:52,"Nintendo has officially denied reports of a data breach following online claims from a hacker group alleging that they had successfully infiltrated the company’s systems. In a statement provided to the Sankei Shimbun on October 15, the gaming giant assured the public that there was “no confirmation of any leakage of personal information, nor any breach of development or business information.” The company also clarified that while some external servers used for hosting parts of its website were t",,-0.34,Negative,Twistedvoxel,https://twistedvoxel.com/nintendo-denies-data-leak-after-alleged-cyberattack-claim-by-hacker-group/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,72,Airport officials say cyberattack at HIA 'wasn't a threat' - WGAL,https://www.wgal.com/article/airport-officials-say-cyberattack-hia-wasnt-threat/69049015,2025-10-16 01:04:00,"Harrisburg International Airport experienced an unexpected broadcast of an unauthorized political message over its loudspeakers for about 10 minutes on Tuesday night, though airport officials say there was no threat issued.
+
+Harrisburg International Airport experienced an unexpected broadcast of a pro-Palestinian political message over its loudspeakers for about 10 minutes on Tuesday night, which included profanity and references to President Donald Trump and Israeli Prime Minister Benjamin Neta",,0.6759,Positive,Wgal,https://www.wgal.com/article/airport-officials-say-cyberattack-hia-wasnt-threat/69049015,False,Relevant Article,1,0,1,0,0,0,0
+2,2,47,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - The Virginian-Pilot",https://www.pilotonline.com/2025/10/16/microsoft-ai-cyberattacks/,2025-10-16 00:00:00,"By DAVID KLEPPER, Associated Press
+
+WASHINGTON (AP) — Russia, China, Iran and North Korea have sharply increased their use of artificial intelligence to deceive people online and mount cyberattacks against the United States, according to new research from Microsoft.
+
+This July, the company identified more than 200 instances of foreign adversaries using AI to create fake content online, more than double the number from July 2024 and more than ten times the number seen in 2023.
+
+The findings, publ",,0.4404,Positive,Pilotonline,https://www.pilotonline.com/2025/10/16/microsoft-ai-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,18,Extortion and ransomware drive over half of cyberattacks - Microsoft Source,https://news.microsoft.com/europe/2025/10/16/extortion-and-ransomware-drive-over-half-of-cyberattacks/,2025-10-16 00:00:00,"Extortion and ransomware drive over half of cyberattacks
+
+Extortion and ransomware drive over half of cyberattacks
+
+In the first half of 2025, Microsoft data showed Ireland ranked 46th globally among countries where customers were most frequently impacted by cyber activity, and 20 th in Europe.
+
+in Europe. The data also showed that Ireland accounted for approximately 1.2% of customers impacted by cyber activity in Europe.
+
+Despite increasing threat sophistication, 30% of Irish workers say they r",,0.4168,Positive,News,https://news.microsoft.com/europe/2025/10/16/extortion-and-ransomware-drive-over-half-of-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,35,"Russian cyber-attacks against Nato states up by 25% in a year, analysis finds - The Guardian",https://www.theguardian.com/world/2025/oct/16/russian-cyber-attacks-against-nato-states-up-by-25-in-a-year-analysis-finds,2025-10-16 00:00:00,"Russia has increased cyber-attacks against Nato states by 25% over the past year, according to an analysis, as the Kremlin escalates its “hybrid war” against European countries.
+
+Microsoft said nine of the top 10 countries most affected by Russian state cyber-activity were members of the Nato alliance and attacks against them had risen by a quarter compared with the previous year.
+
+The US was the most targeted region, at 20% of all attacks, followed by the UK at 12% and Ukraine – the only non-Na",,-0.5849,Negative,Theguardian,https://www.theguardian.com/world/2025/oct/16/russian-cyber-attacks-against-nato-states-up-by-25-in-a-year-analysis-finds,False,Relevant Article,1,0,1,0,0,0,0
+2,2,44,Auction house Sotheby's finds its data on the block after cyberattack - theregister.com,https://www.theregister.com/2025/10/16/sothebys_breach/,2025-10-16 00:00:00,"Auction house Sotheby's says it was breached on July 24, and those behind the intrusion stole an unspecified amount of data, including Social Security numbers and financial account information.
+
+The multinational broker of fine art and luxury items said it is not aware of who was behind the attack, but confirmed in a filing with the state's Attorney General's Office this week that two Maine residents were affected by the breach.
+
+The Register asked the auctioneer for more information about the t",,-0.4215,Negative,Theregister,https://www.theregister.com/2025/10/16/sothebys_breach/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,1,Extortion and ransomware drive over half of cyberattacks - The Official Microsoft Blog,https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/,2025-10-16 00:00:00,"In 80% of the cyber incidents Microsoft’s security teams investigated last year, attackers sought to steal data—a trend driven more by financial gain than intelligence gathering. According to the latest Microsoft Digital Defense Report, written with our Chief Information Security Officer Igor Tsyganskiy, over half of cyberattacks with known motives were driven by extortion or ransomware. That’s at least 52% of incidents fueled by financial gain, while attacks focused solely on espionage made up ",,0.8055,Positive,Blogs,https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,57,"Microsoft: Russia, China increasingly using AI to escalate cyberattacks on the US - CNBC",https://www.cnbc.com/amp/2025/10/16/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us.html,2025-10-16 00:00:00,"The findings, published Thursday in Microsoft's annual digital threats report, show how foreign adversaries are adopting new and innovative tactics in their efforts to weaponize the internet as a tool for espionage and deception.
+
+AI's potential said to be exploited by U.S. foes
+
+America's adversaries, as well as criminal gangs and hacking companies, have exploited AI's potential, using it to automate and improve cyberattacks, to spread inflammatory disinformation and to penetrate sensitive syst",,-0.9217,Negative,Cnbc,https://www.cnbc.com/amp/2025/10/16/microsoft-russia-china-increasingly-using-ai-to-escalate-cyberattacks-on-the-us.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,21,How to Safeguard Your Online Presence from Social Engineering Cyberattacks - Cybersecurity Insiders,https://www.cybersecurity-insiders.com/how-to-safeguard-your-online-presence-from-social-engineering-cyberattacks/,2025-10-15 15:45:47,"Social engineering attacks don’t rely on breaking into systems through sophisticated software or hardware vulnerabilities; instead, they exploit human psychology, trust, and emotions. Hackers use social engineering to trick people into giving up passwords, credit card details, or other sensitive data. These attacks can occur in the form of phishing, spear-phishing, pretexting, baiting, or even impersonation.
+
+Let’s dive into practical ways to safeguard your online presence from these dangerous a",,0.7184,Positive,Cybersecurity-insiders,https://www.cybersecurity-insiders.com/how-to-safeguard-your-online-presence-from-social-engineering-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,52,Taiwan warns Chinese cyberattacks are intensifying - TechRadar,https://www.techradar.com/pro/security/taiwan-warns-chinese-cyberattacks-are-intensifying,2025-10-15 13:24:00,"Taiwan faces 2.8 million daily cyber intrusions, mostly attributed to Chinese threat actors
+
+China allegedly spreads pro-Beijing misinformation via 10,000 troll accounts and 1.5 million fake posts
+
+Groups like APT41 and Volt Typhoon target critical sectors; China denies all cyberattack allegations
+
+China’s cyberattacks and misinformation campaigns against Taiwan are escalating, as the Red Dragon looks to degrade public trust against the government ahead of the Taiwanese 2026 local elections.
+
+Th",,-0.9136,Negative,Techradar,https://www.techradar.com/pro/security/taiwan-warns-chinese-cyberattacks-are-intensifying,False,Relevant Article,2,1,1,0,0,0,0
+2,2,70,"Russian internet provider 'impoverished by 66 million rubles' after Ukrainian cyberattack, HUR source claims - The Kyiv Independent",https://kyivindependent.com/russian-internet-provider-impoverished-by-66-million-rubles-after-ukrainian-cyberattack-hur-source-claims/,2025-10-15 11:59:41,"A cyberattack carried out by Ukraine’s military intelligence (HUR) caused over 66 million rubles (approximately $800,000) in damages to Orion Telecom, one of the largest internet providers in Siberia, a HUR source told the Kyiv Independent.
+
+According to the source, the provider itself reported the losses in a complaint submitted to Russian police following the attack. The company also admitted that the cyber operation led to a leak of users’ personal data.
+
+""One of the largest Siberian Internet",,-0.8316,Negative,Kyivindependent,https://kyivindependent.com/russian-internet-provider-impoverished-by-66-million-rubles-after-ukrainian-cyberattack-hur-source-claims/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,68,Dealer software firms boost cyber defenses after CDK hack shakes industry - Automotive News,https://www.autonews.com/retail/anc-spotlight-cybersecurity/,2025-10-15 11:58:08,"The Proton Dealership IT and Security command centre in Dayton, Ohio, continually monitors client systems for hacking attempts.
+
+(PROTON)",,0.7003,Positive,Autonews,https://www.autonews.com/retail/anc-spotlight-cybersecurity/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,82,"Shelbyville Police dealing with cyberattack, disrupted computer systems - WAVE News",https://www.wave3.com/2025/10/15/shelbyville-police-dealing-with-cyberattack-disrupting-computer-systems/,2025-10-15 00:00:00,"LOUISVILLE, Ky. (WAVE) - Officials in Shelbyville are investigating a cyberattack on the police department.
+
+Police chief Bruce Gentry said the incident is affecting their network, and disrupting some of their computer systems.
+
+Chief Gentry tells WAVE they have launched an investigation for the cause of the incident, and they ask for patience as they work to restore their systems.
+
+Anyone filing an accident or incident report can still access them.
+
+Copyright 2025 WAVE. All rights reserved.",,-0.1027,Negative,Wave3,https://www.wave3.com/2025/10/15/shelbyville-police-dealing-with-cyberattack-disrupting-computer-systems/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,17,The importance of hardening customer support tools against cyberattacks - Microsoft,https://www.microsoft.com/en-us/security/blog/2025/10/15/the-importance-of-hardening-customer-support-tools-against-attack/,2025-10-15 00:00:00,"The Deputy CISO blog series is where Microsoft Deputy Chief Information Security Officers (CISOs) share their thoughts on what is most important in their respective domains. In this series, you will get practical advice, tactics to start (and stop) deploying, forward-looking commentary on where the industry is going, and more. In this article, Raji Dani, Vice President and Deputy CISO for Microsoft business functions, finance, and marketing at Microsoft dives into the importance of securing cust",,0.9359,Positive,Microsoft,https://www.microsoft.com/en-us/security/blog/2025/10/15/the-importance-of-hardening-customer-support-tools-against-attack/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,91,Recovering and rebuilding trust after a cyberattack [Q&A] - BetaNews,https://betanews.com/2025/10/15/recovering-and-rebuilding-trust-after-a-cyberattack-qa/,2025-10-15 00:00:00,"However good your defenses, cyberattacks can still happen. However, in many cases, the aftermath can be worse than the attack itself, as enterprises struggle to calm nerves and reassure staff, customers, and shareholders.
+
+We spoke with Daniel Tobok, CEO of incident response specialist CYPFER, to discuss how organizations can recover from a cyberattack and why the leadership's response is vital.
+
+BN: What are the first steps an organization should take to develop a robust post-breach plan, espec",,0.743,Positive,Betanews,https://betanews.com/2025/10/15/recovering-and-rebuilding-trust-after-a-cyberattack-qa/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,77,New Cyberattack Leverages NPM Ecosystem to Infect Developers While Installing Packages - Cyber Security News,https://cybersecuritynews.com/new-cyberattack-leverages-npm-ecosystem/,2025-10-14 19:10:09,"Cybersecurity researchers have uncovered a sophisticated phishing campaign that weaponizes the NPM ecosystem through an unprecedented attack vector.
+
+Unlike traditional malicious package installations, this operation leverages the trusted unpkg.com CDN to deliver phishing scripts directly through browsers, targeting enterprise employees across 135+ organizations primarily in Europe’s industrial, technology, and energy sectors.
+
+The campaign, discovered in October 2025, represents a dangerous evo",,0.6124,Positive,Cybersecuritynews,https://cybersecuritynews.com/new-cyberattack-leverages-npm-ecosystem/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,22,Support for Windows 10 Ends Today Leaving Users Vulnerable to Cyberattacks - Cyber Security News,https://cybersecuritynews.com/windows-10-support-ends/,2025-10-14 16:59:33,"Microsoft officially ended support for Windows 10, marking the close of a decade-long era for one of the most popular operating systems in history.
+
+This means that as of today, the company will no longer deliver free security updates, feature enhancements, or technical assistance for the OS, leaving millions of devices potentially exposed to emerging threats.
+
+With Windows 10 powering around 43% of global Windows devices as recently as July 2025, the transition poses significant challenges for ",,0.8883,Positive,Cybersecuritynews,https://cybersecuritynews.com/windows-10-support-ends/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,56,"Harvard University hit in Oracle EBS cyberattack, 1.3 TB of data leaked by Cl0p group - Security Affairs",https://securityaffairs.com/183379/security/harvard-university-hit-in-oracle-ebs-cyberattack-1-3-tb-of-data-leaked-by-cl0p-group.html,2025-10-14 14:08:07,"Harvard University hit in Oracle EBS cyberattack, 1.3 TB of data leaked by Cl0p group
+
+Pierluigi Paganini October 14, 2025 October 14, 2025
+
+Harvard University confirmed being targeted in the Oracle EBS campaign after the Cl0p ransomware group leaked 1.3 TB of data.
+
+Harvard University confirmed it was targeted in the Oracle E-Business Suite campaign after the Cl0p ransomware group listed it on its leak site. The cybercrime group claimed to have leaked 1.3 TB of data allegedly stolen from Harvar",,-0.886,Negative,Securityaffairs,https://securityaffairs.com/183379/security/harvard-university-hit-in-oracle-ebs-cyberattack-1-3-tb-of-data-leaked-by-cl0p-group.html,False,Relevant Article,1,0,1,0,0,0,0
+2,2,97,Britain sees 50% spike in major cyber attacks as top firms targeted - The Straits Times,https://www.straitstimes.com/world/europe/uk-sees-50-spike-in-major-cyberattacks-as-top-firms-targeted,2025-10-14 13:20:00,"Sign up now: Get ST's newsletters delivered to your inbox
+
+Britain’s National Cyber Security Centre said it had dealt with 429 cyber incidents in the 12 months to the end of August.
+
+– Britain saw a significant increase in major cyber attacks by criminals and hostile states over 2024, the country’s cyber-security agency said, following a spate of high-profile incidents targeting companies from Jaguar Land Rover to the Marks and Spencer Group.
+
+Britain’s National Cyber Security Centre (NCSC), par",,-0.6068,Negative,Straitstimes,https://www.straitstimes.com/world/europe/uk-sees-50-spike-in-major-cyberattacks-as-top-firms-targeted,False,Relevant Article,1,0,1,0,0,0,0
+2,2,54,"UK Cyberattacks Surge to Record 429 in 2024-2025, NCSC Reports - WebProNews",https://www.webpronews.com/uk-cyberattacks-surge-to-record-429-in-2024-2025-ncsc-reports/,2025-10-14 11:53:27,"In the escalating realm of global cybersecurity threats, the United Kingdom finds itself under siege, with cyberattacks reaching unprecedented levels. According to a recent report from the National Cyber Security Centre (NCSC), the nation is grappling with an average of four “nationally significant” incidents every week. This alarming statistic emerges from the NCSC’s 2024 annual review, which details assistance provided in 429 attacks from September 2024 to late August 2025. Among these, 204 we",,-0.0836,Negative,Webpronews,https://www.webpronews.com/uk-cyberattacks-surge-to-record-429-in-2024-2025-ncsc-reports/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,41,NCSC demands action amid 50% surge in major UK cyberattacks - theregister.com,https://www.theregister.com/2025/10/14/ncsc_uk_cyberattack_surge/,2025-10-14 00:00:00,"Cyberattacks that meet upper severity thresholds set by the UK government's cyber agents have risen 50 percent in the last year, despite almost zero change in the volume of cases handled.
+
+GCHQ's cyber arm, the National Cyber Security Centre's (NCSC), said in its annual review published today that its incident management team handled 429 cyberattacks on organizations in the past 12 months, one fewer than the same reporting period in last year's review.
+
+However, the number of nationally signific",,0.4019,Positive,Theregister,https://www.theregister.com/2025/10/14/ncsc_uk_cyberattack_surge/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,2,Top 7 Cyber Attacks in the United States - SentinelOne,https://www.sentinelone.com/cybersecurity-101/cybersecurity/cyber-attacks-in-the-united-states/,2025-10-13 00:00:00,"Cybersecurity What is a Firewall? Firewalls are critical in network security. Explore how they function and their role in protecting sensitive data from unauthorized access. Read More
+
+Cybersecurity What is Red Hat OpenShift? Red Hat OpenShift offers a platform for containerized applications. Learn how to secure your OpenShift deployments effectively. Read More
+
+Cybersecurity What is Hacktivism? Hacktivism blurs the lines between activism and cybercrime. Explore the motivations behind hacktivism",,0.7677,Positive,Sentinelone,https://www.sentinelone.com/cybersecurity-101/cybersecurity/cyber-attacks-in-the-united-states/,False,Relevant Article,1,0,1,0,0,0,0
