@@ -238,22 +238,28 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 parsed_url = urlparse(decoded_url)
                 domain_name = get_source_name(decoded_url)
                 
-                # # filter for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
-                # # FILTER #1 = Reliable TLDs only
-                # if not any(domain_name.endswith(ext) for ext in ('.com', '.edu', '.org', '.net', '.gov')):
-                #     if DEBUG_MODE:
-                #         print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {domain_name})")
-                #     continue
-                # # FILTER #2 = No international paths/subdomains
-                # if re.match(r'^/[a-z]{2}(/|$)', parsed_url.path.lower()) or re.match(r'^\.[a-z]{2}', domain_name.lower().rsplit('.', 1)[-1]):
-                #     if DEBUG_MODE:
-                #         print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or domain_name})")
-                #     continue
-                # # FILTER #3 = No translated to English articles
-                # if "/en/" in decoded_url:
-                #     if DEBUG_MODE:
-                #         print(f"Skipping {decoded_url[:50]}... (Translated article)")
-                #     continue
+                # FILTER SERIES for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
+
+                # extract full domain for filtering
+                parsed_url = urlparse(decoded_url)
+                full_domain = parsed_url.netloc.replace('www.', '')
+                valid_tlds = ('.com', '.edu', '.org', '.net', '.gov', '.co', '.news', '.info')
+
+                # FILTER #1 = Reliable TLDs only
+                if not any(full_domain.endswith(ext) for ext in valid_tlds):
+                    # if DEBUG_MODE:
+                    print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {full_domain})")
+                    continue
+                # FILTER #2 = No international paths/subdomains
+                if re.search(r'\.[a-z]{2}$|\.[a-z]{2}\.[a-z]{2}$', full_domain.lower()):
+                    # if DEBUG_MODE:
+                    print(f"Skipping {decoded_url[:50]}... (International path or subdomain: {parsed_url.path or full_domain})")
+                    continue
+                # FILTER #3 = No translated to English articles
+                if "/en/" in decoded_url.lower():
+                    # if DEBUG_MODE:
+                    print(f"Skipping {decoded_url[:50]}... (Translated article)")
+                    continue
                 
                 try:
                     published_date = parser.parse(item.pubDate.text).date()
