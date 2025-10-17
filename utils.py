@@ -60,7 +60,7 @@ def get_source_name(url):
     from urllib.parse import urlparse
     domain = urlparse(url).netloc.replace('www.', '')
     parts = domain.split('.')
-    return parts[-2] if len(parts) >= 2 else parts[0]
+    return parts[0] if parts else ''
 
 # Dedup and load existing links from CSV
 def load_existing_links(csv_path):

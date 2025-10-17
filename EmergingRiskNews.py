@@ -393,7 +393,6 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
                 'QUALITY_SCORE': quality_scores['total_score'],
                 # add individual score components
                 **{f'SCORE_{k.upper()}': v for k, v in quality_scores.items() if k != 'total_score'},
-                'SOURCE_NAME': get_source_name(url),
             }
                 
         except Exception as e:
