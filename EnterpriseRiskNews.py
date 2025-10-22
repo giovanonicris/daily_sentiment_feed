@@ -180,7 +180,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     article_count = 0
     
     # TECH_DEBT! Changed to 5 pages for the first full run
-    # iterate over first 3 pages (10 results per page)
+    # iterate over first 5 pages (10 results per page)
     for page in range(3):
         start = page * 10
         try:
@@ -190,7 +190,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
             req = session.session.get(f"{url_start}{search_term}{url_end}&start={start}", headers=session.get_random_headers())
             req.raise_for_status()
             
-            # Parse RSS feed
+            # parse RSS feed
             soup = BeautifulSoup(req.content, 'xml')
             items = soup.find_all('item')
             
@@ -208,7 +208,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                             decoded_url = decoded_result['decoded_url']
                         else:
                             #if DEBUG_MODE:
-                            print(f"    ---Skipping: bad dict format: {decoded_result}") # this handles when status is False or missing
+                            print(f"    --Skipping: bad dict format: {decoded_result}") # this handles when status is False or missing
                             continue
                     elif isinstance(decoded_result, str):
                         decoded_url = decoded_result
@@ -222,7 +222,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     print(f"    ---URL decode error: {e}") # if decode failed, then we skip
                     continue
                 
-                # Extract title and source
+                # extract title and source
                 title_elem = item.title.text.strip() if item.title else None
                 source_elem = item.source.text.strip() if item.source else None
                 
@@ -232,25 +232,20 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 title_text = title_elem
                 source_text = source_elem
                 
-                # Basic filtering
+                # basic filtering
                 if len(title_text) < 10:
                     continue
                 
-                # Extract domain from URL for filtering
-                parsed_url = urlparse(decoded_url)
-                domain_name = get_source_name(decoded_url)
-                
-                # FILTER SERIES for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
-
-                # extract full domain for filtering
+                # extract domain from URL for filtering
                 parsed_url = urlparse(decoded_url)
                 full_domain = parsed_url.netloc.replace('www.', '')
-                valid_tlds = ('.com', '.edu', '.org', '.net', '.gov', '.co', '.news', '.info')
-
+                
+                # FILTER SERIES for reliable TLDs (.com, .edu, .org, .net, .gov) and exclude international paths
                 # FILTER #1 = Reliable TLDs only
+                valid_tlds = ('.com', '.edu', '.org', '.net', '.gov', '.co', '.news', '.info', '.biz')
                 if not any(full_domain.endswith(ext) for ext in valid_tlds):
-                    # if DEBUG_MODE:
-                    print(f"Skipping {decoded_url[:50]}... (Invalid domain extension: {full_domain})")
+                    if DEBUG_MODE:
+                        print(f"    - Skipping: invalid domain extension: {full_domain}")
                     continue
                 # FILTER #2 = No international paths/subdomains
                 if re.search(r'\.[a-z]{2}$|\.[a-z]{2}\.[a-z]{2}$', full_domain.lower()):
@@ -278,10 +273,10 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 google_index = page * 10 + item_idx + 1
                 
                 # check if domain is paywalled
-                is_paywalled = domain_name in paywalled
+                is_paywalled = full_domain.lower() in paywalled
                 
                 # set credibility type (default to Relevant Article)
-                credibility_type = credibility_map.get(domain_name, 'Relevant Article')
+                credibility_type = credibility_map.get(full_domain.lower(), 'Relevant Article')
                 
                 articles.append({
                     'url': decoded_url,
@@ -291,8 +286,9 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     'paywalled': is_paywalled,
                     'credibility_type': credibility_type
                 })
-                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {domain_name}, index: {google_index}, paywalled: {is_paywalled}, credibility: {credibility_type})")
-                
+                print(f"    - Added article: '{title_text[:50]}...' from {source_text} (domain: {get_source_name(decoded_url)}, full_domain: {full_domain}, index: {google_index}, paywalled: {is_paywalled}, credibility: {credibility_type})")
+
+            article_count += 1    
             if article_count >= max_articles:
                 break
                 
