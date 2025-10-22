@@ -73,6 +73,10 @@ def get_source_name(url):
             return parts[-2]
         else:
             return parts[0]
+        
+    # for simple domains like ft.com, return full domain
+    if len(parts) == 2 and parts[-1] in ('com', 'org', 'net', 'edu', 'gov'):
+        return '.'.join(parts)
     
     # default: first part
     return parts[0] if parts else ''
