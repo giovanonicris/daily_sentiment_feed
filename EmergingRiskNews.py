@@ -153,6 +153,11 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         if not articles:
             print(f"  - No new articles found for this term")
             continue
+
+        # just checking...for debug, DELETE LATER!
+        if articles and DEBUG_MODE:
+            print("Sample article keys:", articles[0].keys() if isinstance(articles[0], dict) else "Not a dict")
+            print("Sample source value:", articles[0].get('source', 'No source key') if articles else 'No articles')
         
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
         processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links)
@@ -173,6 +178,7 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
     else:
         print("No articles to process")
         return pd.DataFrame()
+
 
 def get_google_news_articles(search_term, session, existing_links, max_articles, now, yesterday, whitelist, paywalled, credibility_map):
     # from original logic, fetch articles from Google News RSS
