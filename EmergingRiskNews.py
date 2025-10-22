@@ -18,6 +18,7 @@ import pandas as pd
 from dateutil import parser
 import sys
 from keybert import KeyBERT
+import xml.etree.ElementTree as ET
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "EMERGING_RISK_ID" # makes sure it matches the CSV column
@@ -153,6 +154,26 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         if not articles:
             print(f"  - No new articles found for this term")
             continue
+        
+        # PRETTY SOURCE NAME
+        # parse raw rss for source names (google news decoder doesn't expose it)
+        try:
+            # assuming decoder has a 'rss_xml' or similar attr; if not, refetch via requests.get(decoder.url) and .text
+            rss_xml = decoder.rss_xml  # adjust key if your lib stores it differently
+            root = ET.fromstring(rss_xml)
+            items = root.findall('.//item')
+            source_dict = {}
+            for i, item in enumerate(items):
+                source_elem = item.find('source')
+                if source_elem is not None:
+                    source_dict[i] = source_elem.text.strip()  # e.g., "Financial Times"
+            # map to articles by index (assuming order matches)
+            for j, art in enumerate(articles):
+                if j in source_dict:
+                    art['pretty_source'] = source_dict[j]
+        except Exception as e:
+            print(f"rss source parse failed: {e}")
+            # fallback: no change
 
         # just checking...for debug, DELETE LATER!
         if articles and DEBUG_MODE:
@@ -390,8 +411,11 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             # include all articles, keeping quality score for review
             print(f"DEBUG: Assigning SEARCH_TERM_ID={search_term_id} to article '{title[:50]}...' (RISK_ID={risk_id})") #STID to delete later!
 
+            # PRETTY SOURCE NAME
             # final formatting before write
-            source_name = get_source_name(url).capitalize()
+            # source_name = get_source_name(url).capitalize()
+            source_name = art.get('pretty_source', get_source_name(url)).capitalize()
+            # art is the article dict from articles list—pass it down if needed
             
             publish_date = article.publish_date or dt.datetime.now()
             formatted_publish_date = pd.to_datetime(publish_date).strftime('%Y-%m-%d %H:%M:%S')
