@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from urllib.parse import urlparse
 
 # set the base directory
 base_dir = r'C:\Users\giova\Documents\GitHub\daily_sentiment_feed'
@@ -16,6 +17,14 @@ credibility_map = dict(zip(source_df['SOURCE_NAME'].str.lower().str.strip(), sou
 
 print(f"loaded {len(paywalled_set)} paywalled sources and {len(credibility_map)} credibility mappings")
 
+# extract domain name from url - simplified to full domain
+def get_source_name(url):
+    if pd.isna(url):
+        return ''
+    parsed = urlparse(str(url))
+    domain = parsed.netloc.lower().replace('www.', '')
+    return domain
+
 # function to clean a single csv
 def clean_csv(file_name):
     csv_path = os.path.join(output_dir, file_name)
@@ -30,20 +39,21 @@ def clean_csv(file_name):
         print(f"no SOURCE column in {file_name}")
         return
     
-    df['SOURCE'] = df['SOURCE'].astype(str).str.lower().str.strip()
+    # compute domain from source_url for accurate matching
+    df['DOMAIN'] = df['SOURCE_URL'].apply(get_source_name).str.strip()
     
     # update PAYWALLED: convert to bool, True if in paywalled_set
     if 'PAYWALLED' in df.columns:
-        df['PAYWALLED'] = df['SOURCE'].isin(paywalled_set)
+        df['PAYWALLED'] = df['DOMAIN'].isin(paywalled_set)
     else:
-        df['PAYWALLED'] = df['SOURCE'].isin(paywalled_set)
+        df['PAYWALLED'] = df['DOMAIN'].isin(paywalled_set)
         print(f"added missing PAYWALLED column to {file_name}")
     
     # update CREDIBILITY_TYPE: map from dict, default to 'Relevant Article' if no match
     if 'CREDIBILITY_TYPE' in df.columns:
-        df['CREDIBILITY_TYPE'] = df['SOURCE'].map(credibility_map).fillna('Relevant Article')
+        df['CREDIBILITY_TYPE'] = df['DOMAIN'].map(credibility_map).fillna('Relevant Article')
     else:
-        df['CREDIBILITY_TYPE'] = df['SOURCE'].map(credibility_map).fillna('Relevant Article')
+        df['CREDIBILITY_TYPE'] = df['DOMAIN'].map(credibility_map).fillna('Relevant Article')
         print(f"added missing CREDIBILITY_TYPE column to {file_name}")
     
     # remove rows with null published_date
@@ -55,6 +65,9 @@ def clean_csv(file_name):
             print(f"removed {removed_rows} rows with null PUBLISHED_DATE from {file_name}")
     else:
         print(f"no PUBLISHED_DATE column in {file_name}, skipping date filter")
+    
+    # drop the temp domain column before saving
+    df = df.drop(columns=['DOMAIN'], errors='ignore')
     
     # save back to the same file (overwrite)
     df.to_csv(csv_path, index=False)
