@@ -151,15 +151,14 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         # Get Google News articles
         articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
         
-        if not articles:
-            print(f"  - No new articles found for this term")
-            continue
-        
         # PRETTY SOURCE NAME
         # parse raw rss for source names (google news decoder doesn't expose it)
         try:
             # assuming decoder has a 'rss_xml' or similar attr; if not, refetch via requests.get(decoder.url) and .text
-            rss_xml = decoder.rss_xml  # adjust key if your lib stores it differently
+            # refetch rss for this term's first page to get xml
+            rss_url = f'https://news.google.com/rss/search?q={search_term}%20when%3A{SEARCH_DAYS}d&start=0'
+            req_rss = session.session.get(rss_url, headers=session.get_random_headers())
+            rss_xml = req_rss.content.decode('utf-8')
             root = ET.fromstring(rss_xml)
             items = root.findall('.//item')
             source_dict = {}
@@ -174,6 +173,10 @@ def process_emerging_articles(search_terms_df, session, existing_links, analyzer
         except Exception as e:
             print(f"rss source parse failed: {e}")
             # fallback: no change
+
+        if not articles:
+            print(f"  - No new articles found for this term")
+            continue
 
         # just checking...for debug, DELETE LATER!
         if articles and DEBUG_MODE:
