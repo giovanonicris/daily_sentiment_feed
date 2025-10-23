@@ -22,8 +22,7 @@ import csv
 # Load environment variables
 DEBUG_MODE = os.getenv('DEBUG_MODE', 'false').lower() == 'true'
 MAX_ARTICLES_PER_TERM = int(os.getenv('MAX_ARTICLES_PER_TERM', '20'))
-MAX_SEARCH_TERMS = os.getenv('MAX_SEARCH_TERMS')
-MAX_SEARCH_TERMS = int(MAX_SEARCH_TERMS) if MAX_SEARCH_TERMS and MAX_SEARCH_TERMS != 'None' else None
+MAX_SEARCH_TERMS = 5 if DEBUG_MODE else None
 
 class ScraperSession:
     def __init__(self):
