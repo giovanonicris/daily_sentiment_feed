@@ -231,6 +231,9 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                 try:
                     encoded_url = item.link.text.strip()
                     decoded_result = new_decoderv1(encoded_url)
+
+                    # quick delay per decode to ease Google load - fixes 429 errors
+                    time.sleep(random.uniform(2, 4))
                     
                     # FIXED: Handle both string and dict responses from the decoder
                     if isinstance(decoded_result, dict):
