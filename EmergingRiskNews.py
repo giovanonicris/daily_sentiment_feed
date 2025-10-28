@@ -417,8 +417,8 @@ def process_articles_batch(articles, config, analyzer, search_term, whitelist, r
             # PRETTY SOURCE NAME
             # final formatting before write
             # source_name = get_source_name(url).capitalize()
-            source_name = art.get('pretty_source', get_source_name(url)).capitalize()
-            # art is the article dict from articles list—pass it down if needed
+            source_name = article_data.get('pretty_source', get_source_name(url)).capitalize()
+            # article_data is the local var - use it for pretty_source fallback
             
             publish_date = article.publish_date or dt.datetime.now()
             formatted_publish_date = pd.to_datetime(publish_date).strftime('%Y-%m-%d %H:%M:%S')
