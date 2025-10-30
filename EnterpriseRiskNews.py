@@ -131,31 +131,25 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
     now = dt.date.today()
     yesterday = now - dt.timedelta(days=SEARCH_DAYS)
     
-    # process each search term
-    for idx, row in search_terms_df.iterrows():
-        # quick exit for debug mode!
-        if DEBUG_MODE and len(all_articles) >= 5:
-            print("DEBUG: Early exit after 5 articles")
-            break
-            
-        search_term = row['SEARCH_TERMS']  # use DECODED term
+# process each search term
+    # helper for single term processing - for parallel
+    def process_single_term(row):
+        search_term = row['SEARCH_TERMS']
         risk_id = row[RISK_ID_COL]
-        search_term_id = row['SEARCH_TERM_ID']  # capture search term id
+        search_term_id = row['SEARCH_TERM_ID']
         
         if pd.isna(search_term):
-            print(f"  ---Skipping invalid search term for risk ID {risk_id}")
-            continue
+            print(f"  ---skipping invalid search term for risk ID {risk_id}")
+            return []
             
-        print(f"Processing search term {idx + 1}/{len(search_terms_df)} (ID: {risk_id}, SEARCH_TERM_ID: {search_term_id}) - '{search_term[:50]}...'")
+        print(f"processing search term (ID: {risk_id}, SEARCH_TERM_ID: {search_term_id}) - '{search_term[:50]}...'")  # dropped idx since parallel
         
         # Get Google News articles
         articles = get_google_news_articles(search_term, session, existing_links, MAX_ARTICLES_PER_TERM, now, yesterday, whitelist, paywalled, credibility_map)
-
-
+        
         # PRETTY SOURCE NAME
         # parse raw rss for source names (google news decoder doesn't expose it)
         try:
-            # assuming decoder has a 'rss_xml' or similar attr; if not, refetch via requests.get(decoder.url) and .text
             # refetch rss for this term's first page to get xml
             rss_url = f'https://news.google.com/rss/search?q={search_term}%20when%3A{SEARCH_DAYS}d&start=0'
             req_rss = session.session.get(rss_url, headers=session.get_random_headers())
@@ -177,7 +171,7 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
 
         if not articles:
             print(f"  - No new articles found for this term")
-            continue
+            return []
 
         # just checking...for debug, DELETE LATER!
         if articles and DEBUG_MODE:
@@ -187,15 +181,23 @@ def process_enterprise_articles(search_terms_df, session, existing_links, analyz
         # IMPORTANT FOR OPTIMIZATION: process articles in parallel
         processed_articles = process_articles_batch(articles, config, analyzer, search_term, whitelist, risk_id, search_term_id, existing_links)
         
-        all_articles.extend(processed_articles)
         print(f"  ---Processed {len(processed_articles)} articles")
-        
-        # rate limiting every 5 terms to ease load on Google
-        if idx % 5 == 0 and idx > 0:
-            print("  ---rate limiting pause...")
-            time.sleep(random.uniform(2, 5))
+        return processed_articles
     
-    # Create final dataframe
+    # parallel over terms - was sequential
+    if search_terms_df.empty:
+        return pd.DataFrame()
+    
+    with ThreadPoolExecutor(max_workers=3) as executor:  # low to avoid google limits
+        term_results = executor.map(process_single_term, [row for _, row in search_terms_df.iterrows()])
+        for term_articles in term_results:
+            all_articles.extend(term_articles)
+    
+    # debug early exit approx in parallel - collect and check total
+    if DEBUG_MODE and len(all_articles) >= 5:
+        all_articles = all_articles[:5]
+        print("DEBUG: limited to first 5 articles total")
+    
     if all_articles:
         df = pd.DataFrame(all_articles)
         print(f"Total articles collected: {len(df)}")
