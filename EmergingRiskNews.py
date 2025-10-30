@@ -211,7 +211,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
     
     # TECH_DEBT! Changed to 5 pages for the first full run
     # iterate over first 5 pages (10 results per page)
-    for page in range(3):
+    for page in range(1):
         start = page * 10
         try:
             time.sleep(0.5)  # rate limit - this avoids 429 errors encountered previously
@@ -233,7 +233,7 @@ def get_google_news_articles(search_term, session, existing_links, max_articles,
                     decoded_result = new_decoderv1(encoded_url)
 
                     # quick delay per decode to ease Google load - fixes 429 errors
-                    time.sleep(random.uniform(2, 4))
+                    time.sleep(random.uniform(0.5, 1.5))
                     
                     # FIXED: Handle both string and dict responses from the decoder
                     if isinstance(decoded_result, dict):
