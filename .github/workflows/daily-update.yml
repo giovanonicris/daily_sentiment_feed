@@ -22,6 +22,11 @@ on:
         options:
           - "true"
           - "false"
+      chunk_size:
+        description: "Number of search terms per chunk (default 5)"
+        required: false
+        default: "5"
+        type: string
 
 jobs:
   setup:
@@ -49,27 +54,74 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install lxml[html_clean] newspaper3k vaderSentiment googlenewsdecoder
+          pip install lxml[html_clean] newspaper3k vaderSentiment googlenewsdecoder pandas
+
+      - name: Load and Chunk Terms
+        id: chunk-terms
+        run: |
+          python << 'EOF'
+          import pandas as pd
+          import json
+          from datetime import datetime
+
+          # decoding function from scripts
+          def process_encoded_search_terms(term):
+              try:
+                  encoded_number = int(term)
+                  byte_length = (encoded_number.bit_length() + 7) // 8
+                  byte_rep = encoded_number.to_bytes(byte_length, byteorder='little')
+                  decoded_text = byte_rep.decode('utf-8')
+                  return decoded_text
+              except (ValueError, UnicodeDecodeError, OverflowError):
+                  return None
+
+          # load enterprise
+          ent_df = pd.read_csv('data/EnterpriseRisksListEncoded.csv', usecols=['ENTERPRISE_RISK_ID', 'SEARCH_TERM_ID', 'ENCODED_TERMS'])
+          ent_df['ENTERPRISE_RISK_ID'] = pd.to_numeric(ent_df['ENTERPRISE_RISK_ID'], downcast='integer', errors='coerce')
+          ent_df['SEARCH_TERMS'] = ent_df['ENCODED_TERMS'].apply(process_encoded_search_terms)
+          ent_valid = ent_df.dropna(subset=['SEARCH_TERMS']).reset_index(drop=True)
+          num_ent = len(ent_valid)
+
+          # load emerging
+          em_df = pd.read_csv('data/EmergingRisksListEncoded.csv', usecols=['EMERGING_RISK_ID', 'SEARCH_TERM_ID', 'ENCODED_TERMS'])
+          em_df['EMERGING_RISK_ID'] = pd.to_numeric(em_df['EMERGING_RISK_ID'], downcast='integer', errors='coerce')
+          em_df['SEARCH_TERMS'] = em_df['ENCODED_TERMS'].apply(process_encoded_search_terms)
+          em_valid = em_df.dropna(subset=['SEARCH_TERMS']).reset_index(drop=True)
+          num_em = len(em_valid)
+
+          chunk_size = int('${{ github.event.inputs.chunk_size || 5 }}')
+
+          # build matrix based on input
+          matrix = []
+          if '${{ github.event.inputs.run_job }}' in ['all', 'enterprise']:
+              for i in range(0, num_ent, chunk_size):
+                  chunk_id = i // chunk_size
+                  matrix.append({'type': 'enterprise', 'chunk': chunk_id, 'start': i, 'end': min(i + chunk_size, num_ent)})
+
+          if '${{ github.event.inputs.run_job }}' in ['all', 'emerging']:
+              for i in range(0, num_em, chunk_size):
+                  chunk_id = i // chunk_size
+                  matrix.append({'type': 'emerging', 'chunk': chunk_id, 'start': i, 'end': min(i + chunk_size, num_em)})
+
+          # output json
+          with open('matrix.json', 'w') as f:
+              json.dump(matrix, f)
+          print(f'Generated matrix with {len(matrix)} chunks')
+          EOF
 
       - name: Set job matrix
         id: set-matrix
         run: |
-          if [[ "${{ github.event.inputs.run_job }}" == "all" ]]; then
-            echo "matrix=[\"enterprise\",\"emerging\"]" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.inputs.run_job }}" == "enterprise" ]]; then
-            echo "matrix=[\"enterprise\"]" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.inputs.run_job }}" == "emerging" ]]; then
-            echo "matrix=[\"emerging\"]" >> $GITHUB_OUTPUT
-          else
-            echo "matrix=[\"enterprise\",\"emerging\"]" >> $GITHUB_OUTPUT
-          fi
+          MATRIX_JSON=$(cat matrix.json)
+          echo "matrix=$MATRIX_JSON" >> $GITHUB_OUTPUT
+          echo "Generated matrix: $MATRIX_JSON"
 
   process-data:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        job_type: ${{ fromJson(needs.setup.outputs.matrix) }}
+        include: ${{ fromJson(needs.setup.outputs.matrix) }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -93,55 +145,50 @@ jobs:
           pip install -r requirements.txt
           pip install lxml[html_clean] newspaper3k vaderSentiment googlenewsdecoder
 
-      - name: Run ${{ matrix.job_type }} sentiment processor
+      - name: Run ${{ matrix.type }} sentiment processor (chunk ${{ matrix.chunk }})
         env:
           DEBUG_MODE: ${{ github.event.inputs.debug_mode || 'false' }}
           MAX_ARTICLES_PER_TERM: 20
           MAX_SEARCH_TERMS: None
+          TERM_START: ${{ matrix.start }}
+          TERM_END: ${{ matrix.end }}
+          CHUNK_ID: ${{ matrix.chunk }}
         run: |
-          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
-            python EnterpriseRiskNews.py
+          if [ "${{ matrix.type }}" = "enterprise" ]; then
+            python EnterpriseRiskNews.py --chunk-start $TERM_START --chunk-end $TERM_END
           else
-            python EmergingRiskNews.py
+            python EmergingRiskNews.py --chunk-start $TERM_START --chunk-end $TERM_END
           fi
 
       - name: Check CSV size
         run: |
-          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
-            file="output/enterprise_risks_online_sentiment.csv"
-          else
-            file="output/emerging_risks_online_sentiment.csv"
-          fi
+          file="output/${{ matrix.type }}_risks_online_sentiment_chunk_${{ matrix.chunk }}.csv"
           if [ -f "$file" ]; then
             size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
             if [ $size -gt 90000000 ]; then
               echo "Error: $file exceeds 90MB ($size bytes)"
               exit 1
             fi
-            echo "${{ matrix.job_type }} CSV size: $size bytes"
+            echo "${{ matrix.type }} chunk ${{ matrix.chunk }} CSV size: $size bytes"
           else
-            echo "No ${{ matrix.job_type }} CSV found"
+            echo "No ${{ matrix.type }} chunk CSV found"
           fi
 
       - name: Compress CSV
         run: |
-          if [ "${{ matrix.job_type }}" = "enterprise" ]; then
-            file="output/enterprise_risks_online_sentiment.csv"
-          else
-            file="output/emerging_risks_online_sentiment.csv"
-          fi
+          file="output/${{ matrix.type }}_risks_online_sentiment_chunk_${{ matrix.chunk }}.csv"
           if [ -f "$file" ]; then
             gzip "$file"
           else
-            echo "No ${{ matrix.job_type }} CSV to compress"
+            echo "No ${{ matrix.type }} chunk CSV to compress"
           fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.job_type }}-data
+          name: ${{ matrix.type }}-chunk-${{ matrix.chunk }}-data
           path: |
-            output/${{ matrix.job_type }}_risks_online_sentiment.csv.gz
+            output/${{ matrix.type }}_risks_online_sentiment_chunk_${{ matrix.chunk }}.csv.gz
 
   publish-data:
     needs: process-data
@@ -156,36 +203,60 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           ref: main
 
-      - name: Download enterprise artifact
+      - name: Download all artifacts
         if: contains(needs.process-data.result, 'success')
-        uses: actions/download-artifact@v4
-        with:
-          name: enterprise-data
-          path: output/
+        run: |
+          # download enterprise chunks
+          for chunk in $(seq 0 10); do  # assume max 11 chunks; adjust if needed
+            echo "Downloading enterprise-chunk-$chunk-data"
+            mkdir -p output/enterprise
+            if ! actions/download-artifact --name enterprise-chunk-$chunk-data --path output/enterprise 2>/dev/null; then
+              echo "No enterprise chunk $chunk"
+            fi
+          done
+          # download emerging chunks
+          for chunk in $(seq 0 10); do
+            echo "Downloading emerging-chunk-$chunk-data"
+            mkdir -p output/emerging
+            if ! actions/download-artifact --name emerging-chunk-$chunk-data --path output/emerging 2>/dev/null; then
+              echo "No emerging chunk $chunk"
+            fi
+          done
 
-      - name: Download emerging artifact
-        if: contains(needs.process-data.result, 'success')
-        uses: actions/download-artifact@v4
-        with:
-          name: emerging-data
-          path: output/
-
-      - name: Decompress and commit CSVs
+      - name: Decompress and merge CSVs
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
           git checkout main
           mkdir -p output
 
-          # Decompress files if they exist
-          for file in output/*.csv.gz; do
+          # enterprise merge
+          ent_files=()
+          for file in output/enterprise/*.csv.gz; do
             if [ -f "$file" ]; then
               gunzip -c "$file" > "${file%.gz}"
-              rm "$file"
+              ent_files+=("${file%.gz}")
             fi
           done
+          if [ ${#ent_files[@]} -gt 0 ]; then
+            cat "${ent_files[@]}" > output/enterprise_risks_online_sentiment.csv
+            rm "${ent_files[@]}"
+          fi
 
-          # Add and commit changes
+          # emerging merge
+          em_files=()
+          for file in output/emerging/*.csv.gz; do
+            if [ -f "$file" ]; then
+              gunzip -c "$file" > "${file%.gz}"
+              em_files+=("${file%.gz}")
+            fi
+          done
+          if [ ${#em_files[@]} -gt 0 ]; then
+            cat "${em_files[@]}" > output/emerging_risks_online_sentiment.csv
+            rm "${em_files[@]}"
+          fi
+
+          # add and commit changes
           git add output/*.csv
           if git diff --staged --quiet; then
             echo "No changes to commit"

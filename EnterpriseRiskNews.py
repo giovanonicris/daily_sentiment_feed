@@ -19,6 +19,7 @@ from dateutil import parser
 import sys
 from keybert import KeyBERT
 import xml.etree.ElementTree as ET
+import argparse
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "ENTERPRISE_RISK_ID" # makes sure it matches the CSV column
@@ -43,7 +44,13 @@ from utils import (
     calculate_quality_score, get_source_name
 )
 
-# This is the main fx that orchestrates the entire process.
+# CHUNKING 1 - setup argparse to chunk search terms
+parser = argparse.ArgumentParser()
+parser.add_argument('--chunk-start', type=int, default=0)
+parser.add_argument('--chunk-end', type=int, default=None)
+args = parser.parse_args()
+
+# this is the main fx that orchestrates the entire process.
 def main():
     # config
     RISK_TYPE = "enterprise"
@@ -96,6 +103,13 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         
         # ORIGINAL DECODING LOGIC
         df['SEARCH_TERMS'] = df['ENCODED_TERMS'].apply(process_encoded_search_terms)
+
+        # CHUNKING 2 - filter rows based on args
+        start = args.chunk_start
+        end = args.chunk_end if args.chunk_end is not None else len(df)
+        df = df.iloc[start:end].reset_index(drop=True)
+        if DEBUG_MODE:
+            print(f"DEBUG: filtering to terms {start}:{end} ({len(df)} terms)")
         
         print(f"Loaded {len(df)} search terms from {encoded_csv_path}")
         valid_terms = df['SEARCH_TERMS'].dropna()
