@@ -45,10 +45,10 @@ from utils import (
 )
 
 # CHUNKING 1 - setup argparse to chunk search terms
-parser = argparse.ArgumentParser()
-parser.add_argument('--chunk-start', type=int, default=0)
-parser.add_argument('--chunk-end', type=int, default=None)
-args = parser.parse_args()
+arg_parser = argparse.ArgumentParser()
+arg_parser.add_argument('--chunk-start', type=int, default=0)
+arg_parser.add_argument('--chunk-end', type=int, default=None)
+args = arg_parser.parse_args()
 
 # this is the main fx that orchestrates the entire process.
 def main():
@@ -109,7 +109,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         end = args.chunk_end if args.chunk_end is not None else len(df)
         df = df.iloc[start:end].reset_index(drop=True)
         if DEBUG_MODE:
-            print(f"DEBUG: filtering to terms {start}:{end} ({len(df)} terms)")
+            print(f"DEBUG: Filtering to terms {start}:{end} ({len(df)} terms)")
         
         print(f"Loaded {len(df)} search terms from {encoded_csv_path}")
         valid_terms = df['SEARCH_TERMS'].dropna()
