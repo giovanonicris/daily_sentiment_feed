@@ -22,7 +22,12 @@ import csv
 # Load environment variables
 DEBUG_MODE = os.getenv('DEBUG_MODE', 'false').lower() == 'true'
 MAX_ARTICLES_PER_TERM = int(os.getenv('MAX_ARTICLES_PER_TERM', '20'))
-MAX_SEARCH_TERMS = 1 if DEBUG_MODE else None
+
+# CHUNKING - disable limit if chunking
+if os.getenv('TERM_START') is not None:
+    MAX_SEARCH_TERMS = None
+else:
+    MAX_SEARCH_TERMS = 1 if DEBUG_MODE else None
 
 class ScraperSession:
     def __init__(self):

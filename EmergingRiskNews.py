@@ -24,7 +24,7 @@ import os
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "EMERGING_RISK_ID" # makes sure it matches the CSV column
-SEARCH_DAYS = 30  # look back this many days for news articles; edit to change
+SEARCH_DAYS = 7  # look back this many days for news articles; edit to change
 
 # decoding logic (retained from original script but made a fx)
 def process_encoded_search_terms(term):
