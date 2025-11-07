@@ -20,6 +20,7 @@ import sys
 from keybert import KeyBERT
 import xml.etree.ElementTree as ET
 import argparse
+import os
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "EMERGING_RISK_ID" # makes sure it matches the CSV column
@@ -61,6 +62,11 @@ def main():
     print("*" * 50)
     start_time = dt.datetime.now()
     print_debug_info("EmergingRiskNews", RISK_TYPE, start_time)
+
+    # CHUNKING 2 - filename
+    chunk_id = os.getenv('CHUNK_ID')
+    if chunk_id is not None:
+        OUTPUT_CSV += f"_chunk_{chunk_id}"
     
     # setup NLTK and session etc.
     setup_nltk()
@@ -104,7 +110,7 @@ def load_search_terms(encoded_csv_path, risk_id_col):
         # ORIGINAL DECODING LOGIC
         df['SEARCH_TERMS'] = df['ENCODED_TERMS'].apply(process_encoded_search_terms)
 
-        # CHUNKING 2 - filter rows based on args
+        # CHUNKING 3 - filter rows based on args
         start = args.chunk_start
         end = args.chunk_end if args.chunk_end is not None else len(df)
         df = df.iloc[start:end].reset_index(drop=True)

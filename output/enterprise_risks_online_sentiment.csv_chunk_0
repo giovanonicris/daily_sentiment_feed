@@ -1,0 +1,15 @@
+RISK_ID,SEARCH_TERM_ID,GOOGLE_INDEX,TITLE,LINK,PUBLISHED_DATE,SUMMARY,KEYWORDS,SENTIMENT_COMPOUND,SENTIMENT,SOURCE,SOURCE_URL,PAYWALLED,CREDIBILITY_TYPE,QUALITY_SCORE,SCORE_RELEVANCE,SCORE_RECENCY,SCORE_LENGTH_150,SCORE_LENGTH_500,SCORE_WHITELIST_BONUS,SCORE_CLICKBAIT_PENALTY
+2,2,1,Why no business is immune to cyberattacks - EclecticIQ Blog,https://blog.eclecticiq.com/why-no-business-is-immune-to-cyberattacks,2025-11-07 11:39:34,"The reality: every organization is a potential target
+
+Cybersecurity is no longer a concern reserved for the world’s largest enterprises or government agencies. In today’s hyperconnected world, every organization — regardless of size, sector, or geography — is a potential target.
+
+Recent attacks across the UK and Europe show that threat actors will exploit any weakness they can find. Retailers, manufacturers, cultural institutions, and transport providers have all been hit. Attackers don’t discr","cyberattacks crippled, suffered ransomware, faced ransomware, data breaches, production cyberattacks",-0.9371,Negative,Eclecticiq blog,https://blog.eclecticiq.com/why-no-business-is-immune-to-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,5,"Cyberattacks surge against IoT, mobile devices in critical infrastructure - Cybersecurity Dive",https://www.cybersecuritydive.com/news/mobile-iot-attacks-surge-critical-infrastructure-zscaler/805008/,2025-11-07 10:58:00,"Listen to the article 4 min This audio is auto-generated. Please let us know if you have feedback
+
+Dive Brief:
+
+Energy, healthcare, government and transportation saw the biggest surges in cyberattacks targeting Android devices between June 2024 and May 2025, the security firm Zscaler said in a report published on Wednesday.
+
+Agriculture, IT and education saw some of the biggest drops in attacks on Android devices, according to the report.
+
+Manufacturing, which also saw a significant increase in ","cyberattacks android, devices sectors, surges cyberattacks, devices proliferating, attacks android",0.5719,Positive,Healthcare dive,https://www.cybersecuritydive.com/news/mobile-iot-attacks-surge-critical-infrastructure-zscaler/805008/,False,Relevant Article,2,1,1,0,0,0,0

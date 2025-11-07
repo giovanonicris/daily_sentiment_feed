@@ -20,6 +20,7 @@ import sys
 from keybert import KeyBERT
 import xml.etree.ElementTree as ET
 import argparse
+import os
 
 # GLOBAL CONSTANTS
 RISK_ID_COL = "ENTERPRISE_RISK_ID" # makes sure it matches the CSV column
@@ -61,6 +62,11 @@ def main():
     print("*" * 50)
     start_time = dt.datetime.now()
     print_debug_info("EnterpriseRiskNews", RISK_TYPE, start_time)
+
+    # CHUNKING 2 - filename
+    chunk_id = os.getenv('CHUNK_ID')
+    if chunk_id is not None:
+        OUTPUT_CSV += f"_chunk_{chunk_id}"
     
     # setup NLTK and session etc.
     setup_nltk()
