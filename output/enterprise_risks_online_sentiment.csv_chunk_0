@@ -1,4 +1,88 @@
 RISK_ID,SEARCH_TERM_ID,GOOGLE_INDEX,TITLE,LINK,PUBLISHED_DATE,SUMMARY,KEYWORDS,SENTIMENT_COMPOUND,SENTIMENT,SOURCE,SOURCE_URL,PAYWALLED,CREDIBILITY_TYPE,QUALITY_SCORE,SCORE_RELEVANCE,SCORE_RECENCY,SCORE_LENGTH_150,SCORE_LENGTH_500,SCORE_WHITELIST_BONUS,SCORE_CLICKBAIT_PENALTY
+2,2,68,US Congressional Budget Office hit by suspected cyberattack - here's what we know - TechRadar,https://www.techradar.com/pro/security/us-congressional-budget-office-hit-by-suspected-cyberattack-heres-what-we-know,2025-11-07 14:03:00,"The US Congressional Budget Office has confirmed a cyber incident
+
+The attack may have been from a foreign adversary
+
+This is one of many recent incidents targeting US government institutions
+
+The US Congressional Budget Office has confirmed it was targeted in a cybersecurity incident it suspects can be attributed to a foreign hacker.
+
+The non-partisan accounting service holds financial records and assessments for the legislative branch, and holds sensitive government information.
+
+“The Congress","data compromised, cybersecurity incident, security incident, cyber incident, hackers state",-0.802,Negative,Euronews.com,https://www.techradar.com/pro/security/us-congressional-budget-office-hit-by-suspected-cyberattack-heres-what-we-know,False,Relevant Article,1,0,1,0,0,0,0
+2,2,88,American cyberattack on China’s time network - ZATAZ,https://www.zataz.com/american-cyberattack-on-chinas-time-network/,2025-11-07 13:53:45,"China’s National Time Service Center at the Chinese Academy of Sciences has become the target of a large-scale cyberespionage campaign attributed to the U.S. National Security Agency (NSA), exposing the strategic value of time control in cyberspace.
+
+The hacking of China’s National Time Service Center reveals one of the least visible fronts of cyberwarfare: the race for time mastery. Behind this NSA-attributed operation lies a technological and geopolitical struggle centered on digital sovereign","nsa china, hacking china, beijing time, china security, time service",-0.34,Negative,London free press,https://www.zataz.com/american-cyberattack-on-chinas-time-network/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,82,Smarter AI Cyberattacks Redefine Global Security Risks - varindia.com,https://www.varindia.com/news/smarter-ai-cyberattacks-redefine-global-security-risks,2025-11-07 13:53:35,"Nothing to see here - yet
+
+When they Tweet, their Tweets will show up here.","tweet tweets, tweet, tweets",0.5106,Positive,Businessworld online,https://www.varindia.com/news/smarter-ai-cyberattacks-redefine-global-security-risks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,78,India faces spyware storm: Cyberattacks on enterprises soar 273% in 2025 - varindia.com,https://www.varindia.com/news/india-faces-spyware-storm-cyberattacks-on-enterprises-soar-273-in-2025,2025-11-07 13:53:34,"The enterprises across India see massive rise in stealthy data theft attempts as Kaspersky warns of growing spyware sophistication
+
+Indian enterprises are witnessing a sharp escalation in spyware activity, with detections more than tripling in the first half of 2025, according to new data from Kaspersky. Between January and June this year, the cybersecurity firm’s enterprise solutions blocked over 2.18 lakh spyware attacks, marking a 273% surge from 58,578 incidents recorded in the same period l","spyware increasingly, theft spyware, growing spyware, spyware operations, lakh spyware",-0.0258,Neutral,Chron,https://www.varindia.com/news/india-faces-spyware-storm-cyberattacks-on-enterprises-soar-273-in-2025,False,Relevant Article,2,1,1,0,0,0,0
+2,2,74,Oxford County cyberattack linked to dark web ransomware group - London Free Press,https://lfpress.com/news/local-news/oxford-county-cyberattack-linked-to-dark-web-ransomware-group,2025-11-07 13:53:30,"By signing up, you consent to receive the above newsletter from Postmedia Network Inc.
+
+Thanks for signing up!
+
+A welcome email is on its way. If you don't see it, please check your junk folder.
+
+The next issue of Homes in London will soon be in your inbox.","newsletter postmedia, receive newsletter, newsletter, homes london, postmedia network",0.8566,Positive,Theregister.com,https://lfpress.com/news/local-news/oxford-county-cyberattack-linked-to-dark-web-ransomware-group,False,Relevant Article,1,0,1,0,0,0,0
+2,2,58,PRC Narrates Cyber Victimhood - The Jamestown Foundation,https://jamestown.org/program/prc-narrates-cyber-victimhood/,2025-11-07 13:53:23,"Executive Summary:
+
+The People’s Republic of China (PRC) has responded to an alleged U.S. cyberattack on its National Time Service Center (NTSC) by constructing a narrative of empire and victimhood, consolidating its alignment with global south countries against U.S. hegemony.
+
+Chinese analysts have used the attack as an opportunity to highlight perceived hypocrisy in the declared values of the United States and the U.S.-led international order, calling for stability and a “new cyberspace order.","prc cyberattacks, taiwanese cyberattacks, prc cyber, cyberattacks country, alleged cyberattacks",0.1531,Positive,Travel and tour world,https://jamestown.org/program/prc-narrates-cyber-victimhood/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,51,HCHS Report: Cyber Threats on the Rise - MeriTalk,https://meritalk.com/articles/hchs-report-cyber-threats-on-the-rise/,2025-11-07 13:53:14,"In a year marked by escalating cyber threats, 2025 has already witnessed major cyberattacks on state and local governments across 44 U.S. states, highlighting the growing vulnerability of critical infrastructure to malicious actors, according to a new cyber threat snapshot from the House Committee on Homeland Security (HCHS). The snapshot illustrates a clear trend of increasing cyberattacks targeting U.S. networks and critical infrastructure since 2024.
+
+According to the snapshot, malicious cybe","increasing cyberattacks, cyber threat, cyberattacks state, cyberattacks ongoing, major cyberattacks",-0.8316,Negative,Bebeez international,https://meritalk.com/articles/hchs-report-cyber-threats-on-the-rise/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,56,"Nikkei’s Slack breach leaks sensitive data from more than 17,000 users - csoonline.com",https://www.csoonline.com/article/4086100/nikkeis-slack-breach-leaks-sensitive-data-from-more-than-17000-users.html,2025-11-07 13:53:14,"Japanese media company Nikkei has confirmed that a security breach of its Slack accounts has potentially leaked highly sensitive information from more than 17,000 of its users. Consultants point to the incident as yet another reminder of the dangers when non-corporate devices are allowed to access confidential corporate data.
+
+“An employee’s personal computer was infected with a virus, leading to the leakage of Slack authentication credentials. It is believed that this information was used to ga","slack accounts, slack authentication, slack nikkei, breach slack, security breach",-0.743,Negative,Slashgear,https://www.csoonline.com/article/4086100/nikkeis-slack-breach-leaks-sensitive-data-from-more-than-17000-users.html,False,Relevant Article,1,0,1,0,0,0,0
+2,2,46,Zscaler Report Reveals 387% Surge in Cyber Attacks on Energy Sector and Rising Mobile Threats - Quiver Quantitative,https://www.quiverquant.com/news/Zscaler+Report+Reveals+387%25+Surge+in+Cyber+Attacks+on+Energy+Sector+and+Rising+Mobile+Threats,2025-11-07 13:53:04,"Key Findings:
+
+Critical infrastructure in the energy sector experienced a 387% increase in attacks compared to the previous year
+
+India continues to be the top target for mobile attacks, with 26% of activity
+
+The US remains the top target for IoT attacks, with 54% of activity
+
+
+
+
+
+SAN JOSE, Calif., Nov. 05, 2025 (GLOBE NEWSWIRE) -- Zscaler, Inc. (NASDAQ: ZS), the leader in cloud security, today published the findings of its Zscaler ThreatLabz 2025 Mobile, IoT, and OT Threat Report, outlining how","mobile threat, malicious apps, mobile threats, malware threatlabz, mobile malware",-0.8625,Negative,Sc media,https://www.quiverquant.com/news/Zscaler+Report+Reveals+387%25+Surge+in+Cyber+Attacks+on+Energy+Sector+and+Rising+Mobile+Threats,False,Relevant Article,1,0,1,0,0,0,0
+2,2,35,U.S. Sanctions North Korean Bankers Over Crypto Laundering Tied to Cyberattacks - Yahoo! Finance UK,https://uk.finance.yahoo.com/news/u-sanctions-north-korean-bankers-162804323.html,2025-11-07 13:52:55,"The U.S. Treasury has imposed fresh sanctions on a group of North Korean bankers and institutions accused of laundering millions in cryptocurrency tied to cyberattacks and illicit IT work schemes that help fund Pyongyang’s weapons programs.
+
+The Office of Foreign Assets Control (OFAC) said Tuesday that eight individuals and two entities were designated for “laundering funds derived from cybercrime and information technology worker fraud,” including proceeds linked to ransomware and crypto thefts","crypto laundering, korean hackers, laundering millions, cyberattacks illicit, crypto thefts",0.3382,Positive,Cincinnati enquirer,https://uk.finance.yahoo.com/news/u-sanctions-north-korean-bankers-162804323.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,19,AI-Powered Cyberattacks Are A Problem For Law Firms - Law360,https://www.law360.com/articles/2408045/ai-powered-cyberattacks-are-a-problem-for-law-firms,2025-11-07 13:52:45,"PLEASE NOTE: A verification email will be sent to your address before you can access your trial.
+
+Law360 Pulse may contact you in your professional capacity with information about our other products, services and events that we believe may be of interest.
+
+
+
+You’ll be able to update your communication preferences via the unsubscribe link provided within our communications.
+
+
+
+We take your privacy seriously. Please see our Privacy Policy.","law360 pulse, trial law360, law360, verification email, privacy policy",0.6037,Positive,San antonio express-news,https://www.law360.com/articles/2408045/ai-powered-cyberattacks-are-a-problem-for-law-firms,False,Relevant Article,2,1,1,0,0,0,0
+2,2,16,Human Error is Still a Top Contributor to Cyberattacks - KnowBe4,https://blog.knowbe4.com/human-error-is-still-a-top-contributor-to-cyberattacks,2025-11-07 13:52:43,"Human error remains the primary exploitation vector in mobile security incidents, according to Verizon’s latest Mobile Security Index (MSI).
+
+“At 44%, user behavior is the top cited breach contributor, just ahead of app threats, network threats, and internet threats, which were each cited by 43% of survey respondents,” the report says. “Verizon’s 2025 Data Breach Investigations Report found that around 60% of confirmed breaches involved a human element.”
+
+The report also found that most responde","mobile threats, app threats, mobile security, say ransomware, text phishing",-0.7506,Negative,The business journals,https://blog.knowbe4.com/human-error-is-still-a-top-contributor-to-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,7,Inside the F5 Breach: What It Teaches Us About State-Sponsored Cyberattacks - Illumio,https://www.illumio.com/blog/inside-the-f5-breach-what-it-teaches-us-about-state-sponsored-attacks,2025-11-07 13:52:32,"State-sponsored cyberattacks have expanded far beyond government targets, reaching every sector of the economy.
+
+Once focused mainly on cyber espionage, these operations now include destructive attacks on critical infrastructure. Often, they work alongside cybercrime groups.
+
+These attackers are patient, stealthy, and well-funded. They exploit zero-day vulnerabilities. They move laterally through networks. And worst of all, they can remain undetected for months.
+
+The cybersecurity industry has m","cyberattacks expanded, funded security, sponsored cyberattacks, cyberattacks, sponsored attacks",-0.9403,Negative,Malwarebytes,https://www.illumio.com/blog/inside-the-f5-breach-what-it-teaches-us-about-state-sponsored-attacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,36,"U.S. Congressional Budget Office Hit by Cyberattack, Sensitive Data Compromised - GBHackers News",https://gbhackers.com/u-s-congressional-budget-office-hit-by-cyberattack/,2025-11-07 11:56:13,"The Congressional Budget Office (CBO), which serves as Congress’s official financial advisor, has been targeted in a suspected cyberattack by suspected foreign actors.
+
+The breach exposed sensitive financial research data that lawmakers rely on to make crucial budgeting decisions and craft legislation affecting millions of Americans.
+
+The CBO confirmed the attack through an official agency spokeswoman, revealing that unauthorized individuals gained access to the organization’s systems.
+
+This non","congressional budget, agencies congress, data lawmakers, government agencies, funding security",-0.5574,Negative,Automotive news,https://gbhackers.com/u-s-congressional-budget-office-hit-by-cyberattack/,False,Relevant Article,1,0,1,0,0,0,0
 2,2,1,Why no business is immune to cyberattacks - EclecticIQ Blog,https://blog.eclecticiq.com/why-no-business-is-immune-to-cyberattacks,2025-11-07 11:39:34,"The reality: every organization is a potential target
 
 Cybersecurity is no longer a concern reserved for the world’s largest enterprises or government agencies. In today’s hyperconnected world, every organization — regardless of size, sector, or geography — is a potential target.
@@ -13,3 +97,175 @@ Energy, healthcare, government and transportation saw the biggest surges in cybe
 Agriculture, IT and education saw some of the biggest drops in attacks on Android devices, according to the report.
 
 Manufacturing, which also saw a significant increase in ","cyberattacks android, devices sectors, surges cyberattacks, devices proliferating, attacks android",0.5719,Positive,Healthcare dive,https://www.cybersecuritydive.com/news/mobile-iot-attacks-surge-critical-infrastructure-zscaler/805008/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,12,Simulating Cyberattacks to Strengthen Defenses for Smart Buildings - Security Boulevard,https://securityboulevard.com/2025/11/simulating-cyberattacks-to-strengthen-defenses-for-smart-buildings/,2025-11-07 10:47:00,"Smart buildings contain dozens, sometimes hundreds, of internet-connected devices with weak built-in security controls — a threat actor’s ideal target if there ever was one. Despite information technology (IT) teams’ best efforts to secure endpoints and entry points, internet-of-things (IoT) attacks are growing more frequent. Can simulations strengthen their defenses?
+
+The Link Between Penetration Rate and Cyberattacks
+
+Experts expect the smart building market will steadily grow in the coming ye","building cyberattacks, buildings security, fueling cyberattacks, building cyberattack, cyberattacks simulations",0.9607,Positive,Theregister.com,https://securityboulevard.com/2025/11/simulating-cyberattacks-to-strengthen-defenses-for-smart-buildings/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,100,Data breach at the Congressional Budget Office after Cyber Attack - Cybersecurity Insiders,https://www.cybersecurity-insiders.com/data-breach-at-the-congressional-budget-office-after-cyber-attack/,2025-11-07 09:05:55,"The Congressional Budget Office (CBO) has issued a press release confirming that its servers were compromised by a state-sponsored cyberattack from outside the United States. The breach involved fraudulent access to sensitive data, which was detected in a timely manner by the CBO’s cybersecurity team. As soon as the intrusion was identified, swift actions were taken to mitigate the threat and secure the network, safeguarding against further risks.
+
+Caitlin Emma, a spokesperson for the CBO, confi","foreign cyberattacks, cyberattacks government, cbo cybersecurity, cybersecurity breaches, security agency",-0.5719,Negative,Splash247,https://www.cybersecurity-insiders.com/data-breach-at-the-congressional-budget-office-after-cyber-attack/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,86,Voice of SecOps Spotlight: ’Tis the Season for Online Sales​​ – and AI-Fueled Cyberattacks - Retail Bulletin,https://www.theretailbulletin.com/retail-solutions/voice-of-secops-spotlight-tis-the-season-for-online-sales-and-ai-fueled-cyberattacks-07-11-2025/,2025-11-07 06:00:38,"RETAIL SOLUTIONS UK NEWS
+
+Voice of SecOps Spotlight: ’Tis the Season for Online Sales​​ – and AI-Fueled Cyberattacks
+
+By Justin Baker
+
+With Black Friday, Cyber Monday, and peak holiday shopping just weeks away, retailers anticipate record-breaking sales volumes — paired with a sharp surge in cyber risk. The massive flow of sensitive data, cloud file transfers, and third-party integrations makes this the most dangerous time of year.
+
+Deep Instinct recently released the sixth edition of its Voice ","retail cybersecurity, retail security, security retail, industry cybersecurity, protect retailers",-0.0926,Negative,Houston chronicle,https://www.theretailbulletin.com/retail-solutions/voice-of-secops-spotlight-tis-the-season-for-online-sales-and-ai-fueled-cyberattacks-07-11-2025/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,91,AI-Powered Blockchain Model Defends 6G Networks From Cyberattacks With 97 % Accuracy - AZoRobotics,https://www.azorobotics.com/News.aspx?newsID=16242,2025-11-07 04:01:00,"A new AI-powered intrusion detection system combines blockchain and federated learning to create a smarter, more secure 6G network, achieving near-perfect accuracy while defending against data poisoning and zero-day cyber threats.
+
+Study: AI-Driven Intrusion Detection and Prevention Systems to Safeguard 6G Networks from Cyber Threats. Image Credit: vectorfusionart/Shutterstock.com
+
+In an article published in the journal Scientific Reports, researchers proposed a novel intrusion detection system ","securing 6g, secure 6g, challenges intrusion, intrusion detection, powered intrusion",0.5984,Positive,Digital trends,https://www.azorobotics.com/News.aspx?newsID=16242,False,Relevant Article,2,1,1,0,0,0,0
+2,2,92,Congressional Budget Office Cyberattack Suspected Chinese Hackers - Букви,https://mezha.net/eng/bukvy/congressional-budget-office-cyberattack-suspected-chinese-hackers/,2025-11-07 03:37:21,"A sign marks the offices of the nonpartisan Congressional Budget Office (CBO) inside the Ford House Office Building in Washington, D.C., on March 13, 2017. Jim Lo Scalzo/EPA/Shutterstock
+
+As reported by CNN
+
+The Congressional Budget Office (CBO) came under a cyberattack that could have exposed internal correspondence from lawmakers’ offices. The incident became known through emails sent to Congress staff this week and released by CNN.
+
+The letter from the Senate Sergeant at Arms for Security did","policy breaches, security agency, agency china, cbo incident, analysts cbo",0.0516,Positive,Dark reading | security,https://mezha.net/eng/bukvy/congressional-budget-office-cyberattack-suspected-chinese-hackers/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,62,Bank of England says JLR's cyberattack contributed to UK's unexpectedly slower GDP growth - theregister.com,https://www.theregister.com/2025/11/07/bank_of_england_says_jlrs/,2025-11-07 00:00:00,"The Bank of England (BoE) has cited the cyberattack on Jaguar Land Rover (JLR) as one of the reasons for the country's slower-than-expected GDP growth in its latest rates decision.
+
+We've not had anything like this before, where the company has not made any cars for a month
+
+In the announcement on Thursday, the BoE - which held interest rates at 4 percent - said the UK's headline GDP grew by a projected 0.2 percent in calendar Q3, a slight fall compared to the 0.3 percent predicted in the bank's","cyberattack jaguar, cyberattacks affecting, significant cyberattacks, cyberattacks growing, affecting uk",0.7261,Positive,Inquirer.net,https://www.theregister.com/2025/11/07/bank_of_england_says_jlrs/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,45,FBI Accuses Fired White Hat Hacking Pros Of Carrying Out Illegal Cyberattacks On US Companies - SlashGear,https://www.slashgear.com/2018133/digitalmint-employee-hacking-fbi-accusation/,2025-11-06 20:15:00,"It's like something out of a contemporary spy novel: Two cybersecurity professionals that worked to help businesses fend off hackers have now been accused of being cybercriminals themselves. The FBI and federal prosecutors allege that two cybersecurity firms' former employees took part in a yearlong conspiracy to hack and extort multiple U.S. companies for millions of dollars in total.
+
+Per an indictment unsealed in the Southern District of Florida: The men are being charged with conspiracy to i","ransomware cyberattacks, cyberattacks companies, notorious ransomware, cybercriminals fbi, ransomware",-0.9169,Negative,Gbhackers news,https://www.slashgear.com/2018133/digitalmint-employee-hacking-fbi-accusation/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,40,IoT attacks on the rise in education sector - EdScoop,https://edscoop.com/education-cyberattack-trends-2025/,2025-11-06 16:10:25,"The education sector has seen an 861% rise in cyberattacks against “internet of things” devices, according to a new report from the cybersecurity firm Zscaler.
+
+The group attributed the rise to the increased adoption of internet-connected devices, like cameras, security systems and classroom learning technologies.
+
+“From smart classroom devices and connected learning tools to campus security systems, these advancements have inadvertently created an expansive attack surface,” the report reads.
+
+T","attacks education, cyberattacks internet, rise cyberattacks, campus security, cyberattacks",0.7269,Positive,Foley & lardner llp,https://edscoop.com/education-cyberattack-trends-2025/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,77,Cyber Threats Surge as Talent Gaps Deepen in Mexico - Mexico Business News,https://mexicobusiness.news/cybersecurity/news/cyber-threats-surge-talent-gaps-deepen-mexico,2025-11-06 12:25:00,"A 260% projected surge in attacks against Mexico’s federal institutions exposes human error and insider risks as the weakest link. Despite larger budgets, PwC data reveals that half of Mexican firms still face multimillion-dollar breaches, underscoring the persistent gap between investment and measurable resilience. Yet, the demand for cybersecurity expertise is soaring — Udemy reports a 96% increase in corporate training, reflecting growing awareness across sectors. The region stands at an infl","cybersecurity mexico, cyberattacks mexico, cybersecurity demand, risks cyberattacks, demand cybersecurity",-0.8402,Negative,Realcleardefense,https://mexicobusiness.news/cybersecurity/news/cyber-threats-surge-talent-gaps-deepen-mexico,False,Relevant Article,1,0,1,0,0,0,0
+2,2,47,"Seattle-Tacoma Joins Hartsfield-Jackson, and LAX Airports To Face Massive Cyberattacks Where Thousands of Passengers Were Stranded Giving Surge to Travel Chaos: Is Your Future Air Travel In Jeopardy? - Travel And Tour World",https://www.travelandtourworld.com/news/article/seattle-tacoma-joins-hartsfield-jackson-and-lax-airports-to-face-massive-cyberattacks-where-thousands-of-passengers-were-stranded-giving-surge-to-travel-chaos-is-your-future-air-travel-in-jeopardy/,2025-11-06 11:03:59,"Seattle-Tacoma Joins Hartsfield-Jackson, and LAX Airports To Face Massive Cyberattacks Where Thousands of Passengers Were Stranded Giving Surge to Travel Chaos: Is Your Future Air Travel In Jeopardy?
+
+Seattle-Tacoma International Airport (SEA) faced a ransomware attack on August 24, 2024, disrupting airport systems and triggering system outages across airport and port networks. The Port of Seattle was affected, with 90,000 records compromised. Hartsfield-Jackson Atlanta International Airport (AT","airport cybersecurity, airports intruders, exploited airport, massive cyberattacks, cyberattacks event",-0.9308,Negative,Cybernews,https://www.travelandtourworld.com/news/article/seattle-tacoma-joins-hartsfield-jackson-and-lax-airports-to-face-massive-cyberattacks-where-thousands-of-passengers-were-stranded-giving-surge-to-travel-chaos-is-your-future-air-travel-in-jeopardy/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,6,Cyberattacks on UK water systems reveal rising risks to critical infrastructure - Malwarebytes,https://www.malwarebytes.com/blog/news/2025/11/cyberattacks-on-uk-water-systems-reveal-rising-risks-to-critical-infrastructure,2025-11-06 10:29:56,"Digital intruders have been targeting UK drinking water systems in what seems to be a growing risk.
+
+Recorded Future News sent a request to the UK’s Drinking Water Inspectorate (DWI), the organization responsible for ensuring that drinking water is safe, for details on cyberattacks affecting the country’s water system. Using freedom of information laws, the site discovered five incidents that had taken place since January 1, 2024.
+
+A steady stream of water attacks
+
+These aren’t the first attacks","attacks water, water attacks, water attack, cyberattacks affecting, details cyberattacks",0.2263,Positive,Healthcare dive,https://www.malwarebytes.com/blog/news/2025/11/cyberattacks-on-uk-water-systems-reveal-rising-risks-to-critical-infrastructure,False,Relevant Article,2,1,1,0,0,0,0
+2,2,98,"Marks And Spencer Reports Steep Profit Drop Amid Cyberattack Fallout, Despite Strong Sales Growth - The Cyber Express",https://thecyberexpress.com/marks-and-spencer-profit-falls/,2025-11-06 09:10:35,"Marks And Spencer Group Plc (M&S) has reported a dramatic decline in its first-half profit, largely from the financial impact arising from a recent cyberattack. The company, disclosed their half-year results on Wednesday, revealing how the one-off costs from the cyber incident sharply affected their earnings performance.
+
+According to the retail group, profit before tax plunged 99.1 percent to £3.4 million for the 26 weeks ending in the first half of the financial year, compared to £391.9 millio","profit decline, spencer sales, earnings performance, earnings share, affected earnings",0.2764,Positive,Varindia.com,https://thecyberexpress.com/marks-and-spencer-profit-falls/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,75,WhatsApp could soon make it easier to protect your account from scams and cyberattacks - Digital Trends,https://www.digitaltrends.com/phones/whatsapp-could-soon-make-it-easier-to-protect-your-account-from-scams-and-cyberattacks/,2025-11-06 00:54:06,"What’s happened? WhatsApp is working on a new feature that will let users enable multiple privacy and security settings with one tap.
+
+According to WABetaInfo, the latest WhatsApp beta for Android includes evidence of an upcoming “Strict account settings” feature.
+
+Designed for users who believe they are at risk of a cyberattack, this feature will offer a quick way to change multiple security settings.
+
+Once enabled, the feature will block media and attachments from unknown senders, disable link","secure whatsapp, whatsapp privacy, turn whatsapp, changes whatsapp, whatsapp tweaking",0.3612,Positive,Msn,https://www.digitaltrends.com/phones/whatsapp-could-soon-make-it-easier-to-protect-your-account-from-scams-and-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,34,U.S. sanctioned North Korea bankers for laundering funds linked to cyberattacks and peapons program - Security Affairs,https://securityaffairs.com/184249/laws-and-regulations/u-s-sanctioned-north-korea-bankers-for-laundering-funds-linked-to-cyberattacks-and-peapons-program.html,2025-11-05 19:48:58,"U.S. sanctioned North Korea bankers for laundering funds linked to cyberattacks and peapons program
+
+Pierluigi Paganini November 05, 2025 November 05, 2025
+
+U.S. sanctions North Korea bankers and firms accused of laundering cybercrime funds used to finance the country’s nuclear weapons program.
+
+The U.S. Government has imposed sanctions on several North Korea bankers, financial institutions, and individuals accused of laundering funds obtained from cybercrime operations. According to the U.S. Tr","cybercrime funds, laundering cybercrime, cyberattacks financial, cybercrime information, cybercrime operations",-0.6369,Negative,Tvp world,https://securityaffairs.com/184249/laws-and-regulations/u-s-sanctioned-north-korea-bankers-for-laundering-funds-linked-to-cyberattacks-and-peapons-program.html,False,Relevant Article,2,1,1,0,0,0,0
+2,2,9,Google Identifies New Forms of AI-Powered Cyberattacks - PYMNTS.com,https://www.pymnts.com/google/2025/google-identifies-new-forms-of-ai-powered-cyberattacks/,2025-11-05 19:21:15,"State-sponsored threat fraudsters have developed malware powered by artificial intelligence (AI) that can not only generate malicious scripts but also “change its code on the fly” to get around detection systems, Google Threat Intelligence Group (GTIG) said in a Wednesday (Nov. 5) blog post.
+
+By completing this form, you agree to receive marketing communications from PYMNTS and to the sharing of your information with our sponsor, if applicable, in accordance with our Privacy Policy and Terms and","threat fraudsters, generate malicious, threat intelligence, malicious scripts, google threat",0.631,Positive,The ithacan,https://www.pymnts.com/google/2025/google-identifies-new-forms-of-ai-powered-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,15,CyberArk alumni’s Malanta raises $10M Seed round to stop cyberattacks before they start - CTech,https://www.calcalistech.com/ctechnews/article/bkdklby1zx,2025-11-05 17:21:51,"Malanta, an Israeli AI startup founded by CyberArk alumni, has emerged from stealth with a $10 million Seed round aimed at stopping cyberattacks before they begin.
+
+The company says it has developed the world’s first AI-based Pre-Attack Prevention platform, designed to identify and neutralize attack infrastructures during the preparation phase, before an intrusion ever occurs.
+
+1 View gallery Malanta founders. ( Photo: David Garb )
+
+The Seed round was led by Cardumen Capital, with participation ","malanta founders, ventures malanta, malanta founded, angel investors, founded cyberark",-0.7351,Negative,Securityweek,https://www.calcalistech.com/ctechnews/article/bkdklby1zx,False,Relevant Article,2,1,1,0,0,0,0
+2,2,8,Young adults must be wary of increasing cyberattacks - The Ithacan,https://theithacan.org/64026/opinion/young-adults-must-be-wary-of-increasing-cyberattacks/,2025-11-05 15:00:36,"In an increasingly digital world, cyberattacks are a significant threat to both individuals and organizations. Risks to information technology are on the rise and malicious actors are increasingly aggressive and more capable of carrying out cyberattacks.The goal of a cyberattack is often data theft, financial fraud or system sabotage. Since fall break, a number of phishing attempts have targeted Ithaca College students.
+
+Phishing is a type of online attack or scam that attempts to steal sensitiv","cybersecurity phishing, phishing messages, phishing attempts, students phishing, information phishing",-0.9602,Negative,Illumio,https://theithacan.org/64026/opinion/young-adults-must-be-wary-of-increasing-cyberattacks/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,23,"Report: Nevada didn’t pay ransom in statewide cyberattack, spent $1.5M on response - The Nevada Independent",https://thenevadaindependent.com/article/report-nevada-didnt-pay-ransom-in-statewide-cyberattack-spent-1-5m-on-response,2025-11-05 14:00:00,"Nevada officials have released a comprehensive report on the cyberattack discovered in August that crippled state systems, describing a sophisticated intrusion months in the making and an around-the-clock response that led to full recovery within one month.
+
+The Wednesday report from the Governor’s Technology Office answers many questions that the state had previously declined to disclose because of the investigation’s sensitivity. It reveals that the state did not pay a ransom requested by the ","cyberattacks data, state cybersecurity, compromised data, compromised state, report cyberattack",0.6701,Positive,Law360,https://thenevadaindependent.com/article/report-nevada-didnt-pay-ransom-in-statewide-cyberattack-spent-1-5m-on-response,False,Relevant Article,1,0,1,0,0,0,0
+2,2,59,Cyberattack on Marks & Spencer slices profits by more than a half - CBS 42,https://www.cbs42.com/news/business/ap-cyberattack-on-marks-spencer-slices-profits-by-more-than-a-half/amp/,2025-11-05 12:39:28,"LONDON (AP) — British retailer Marks and Spencer saw its half-year profits more than halve as a result of a cyberattack that brought its online business to a grinding halt.
+
+In a statement Wednesday, M&S said its underlying pretax profits tumbled 55.4% to 184.1 million pounds ($240 million) in the six months to Sept. 27, largely on the back of a 40% collapse in online home and fashion sales after it was forced to halt website orders. Firm food sales helped cushion the blow.
+
+M&S had to stop all ","profits tumbled, lost sales, profits halve, retailer suffer, impact profits",0.0772,Positive,Frontier enterprise,https://www.cbs42.com/news/business/ap-cyberattack-on-marks-spencer-slices-profits-by-more-than-a-half/amp/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,87,Cyberattack on Marks & Spencer slices profits by more than a half - KIRO 7 News Seattle,https://www.kiro7.com/news/business/cyberattack-marks/VVBJEJJ5X454VIEMXFJ7QD2JWU/?outputType=amp,2025-11-05 12:05:41,"Britain Marks and Spencer Earns People walk past a branch of British clothing and food store Marks and Spencer in London, Wednesday, May 23, 2018. (AP Photo/Alastair Grant) (Alastair Grant/AP)
+
+LONDON — British retailer Marks and Spencer saw its half-year profits more than halve as a result of a cyberattack that brought its online business to a grinding halt.
+
+In a statement Wednesday, M&S said its underlying pretax profits tumbled 55.4% to 184.1 million pounds ($240 million) in the six months t","spencer earns, british retailer, retailer marks, marks spencer, pretax profits",0.8807,Positive,News is my business,https://www.kiro7.com/news/business/cyberattack-marks/VVBJEJJ5X454VIEMXFJ7QD2JWU/?outputType=amp,False,Relevant Article,1,0,1,0,0,0,0
+2,2,2,The race to defend satellites from cyberattacks - SpaceNews,https://spacenews.com/deloittes-payloads-will-test-whether-satellites-can-defend-themselves/,2025-11-05 12:00:00,"A small satellite named Deloitte-1 is hunting for hackers in orbit.
+
+Launched in March, it’s the first of nine spacecraft the consulting firm Deloitte expects to be operating over the next 18 months to demonstrate a technology to detect cyber intrusions targeted at satellites in space.
+
+The company is building these satellites to prove that defending space networks from cyberattack requires putting defenses in orbit and not just on the ground.
+
+“Deloitte doesn’t just do taxes and audits,” Bradle","satellites cyberattacks, satellite deloitte, deloitte satellite, deloitte satellites, satellites cyber",0.296,Positive,Spacenews,https://spacenews.com/deloittes-payloads-will-test-whether-satellites-can-defend-themselves/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,71,Security Hardening: Essential Cyber Resilience for SMBs - Mexico Business News,https://mexicobusiness.news/cybersecurity/news/security-hardening-essential-cyber-resilience-smbs,2025-11-05 09:00:00,"The past several years have seen some positive developments in global cybersecurity, with many Latin American organizations making significant investments to bolster their defenses against cyberthreats. More sophisticated solutions, more guidelines available, and a more collaborative cybersecurity environment have all contributed toward a digital landscape enhancement. Yet, against the backdrop of these encouraging developments, a disparity in cyber resilience between small and large companies h","cyber resilience, cybersecurity environment, collaborative cybersecurity, potential cybersecurity, cybersecurity risks",0.9499,Positive,Cbs 42,https://mexicobusiness.news/cybersecurity/news/security-hardening-essential-cyber-resilience-smbs,False,Relevant Article,1,0,1,0,0,0,0
+2,2,83,Shipping’s cyber reckoning - Splash247,https://splash247.com/shippings-cyber-reckoning/,2025-11-05 03:00:39,"Craig Wooldridge, maritime cyber baseline manager at IASME Consortium, on the importance of cybersecurity hygiene on ships.
+
+The maritime industry is increasingly reliant on digital systems to ensure the safe and efficient operation of vessels. From navigation and communication systems to cargo management and propulsion controls, ships of all classifications, regardless of their size or shape, are becoming more dependent on information technology (IT) and operationaltechnology (OT). However, thi","cyberattacks ships, maritime cyber, cyberattack compromises, cyberattacks maintaining, operators cyberattacks",0.8834,Positive,The record from recorded future news,https://splash247.com/shippings-cyber-reckoning/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,53,M&S First-Half Profit Hammered by Impact of Cyber Hack - Insurance Journal,https://www.insurancejournal.com/news/international/2025/11/05/846495.htm,2025-11-05 00:00:00,"British retailer Marks & Spencer reported a 55.4% slide in first-half underlying profit, reflecting the impact of an April cyber hack that forced it to suspend online clothing orders for seven weeks and also hit food availability.
+
+M&S, one of the biggest names on the UK high street, did, however, say it was confident it will be back on track by its financial year-end in March 2026.
+
+“In the second half, we expect profit to be at least in line with last year. This should give us a springboard in","profit performance, operating profit, profit year, marks spencer, pounds cyberattack",0.765,Positive,Insurance business america,https://www.insurancejournal.com/news/international/2025/11/05/846495.htm,False,Relevant Article,1,0,1,0,0,0,0
+2,2,22,Microsoft warns a key OpenAI API is being exploited to launch cyberattacks - TechRadar,https://www.techradar.com/pro/security/microsoft-warns-a-key-openai-api-is-being-exploited-to-launch-cyberattacks,2025-11-04 16:03:00,"SesameOp malware uses OpenAI’s Assistants API as a covert command-and-control channel
+
+It enables persistent access, runs commands, and exfiltrates data via encrypted API traffic
+
+Microsoft urges firewall audits, tamper protection, and endpoint detection to mitigate threats
+
+To be able to operate properly, malware needs a way to communicate with its “headquarters” - the command & control (C2) server - which is one of the usual ways cybersecurity researchers identify malware - by looking at suspi","sesameop malware, espionage malware, malware uses, malware, commands malware",-0.7351,Negative,Industrial cyber,https://www.techradar.com/pro/security/microsoft-warns-a-key-openai-api-is-being-exploited-to-launch-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,64,Marcos orders DICT to prepare for possible DDoS cyberattacks - GMA Network,https://www.gmanetwork.com/news/topstories/nation/964844/marcos-orders-dict-to-prepare-for-ddos-cyber-attacks/story/,2025-11-04 15:07:59,"President Ferdinand ""Bongbong"" Marcos Jr. has ordered the Department of Information and Communications Technology (DICT) to prepare for possible Distributed Denial of Service (DDoS) cyberattacks on Wednesday, November 5, 2025.
+
+Citing a message from the DICT, Palace Press Officer Undersecretary Atty. Claire Castro on Tuesday said the department confirmed receiving such a directive from the President.
+
+The DICT reported to Malacañang that it had activated ""Oplan CyberDome"" to ensure that all ""dig","ddos cyberattacks, ddos, service ddos, potential ddos, respond ddos",0.3818,Positive,Insurance journal,https://www.gmanetwork.com/news/topstories/nation/964844/marcos-orders-dict-to-prepare-for-ddos-cyber-attacks/story/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,42,Latin America Leads Globally in Cyberattack Growth - Mexico Business News,https://mexicobusiness.news/cybersecurity/news/latin-america-leads-globally-cyberattack-growth,2025-11-04 11:45:00,"Latin America records the highest global growth rate for cyberattacks, with an annual increase of 25% between 2014 and 2023, reports Endeavor. In 2025, organizations in the region faced an average of 2,803 weekly attacks, a figure that significantly exceeds the global average of 1,984 incidents.
+
+In a new report, Endeavor points to two main factors driving the increase: a rapid expansion of the digital economy and a structural lag in policies, talent, and cybersecurity culture. Vincent Speranza,","cybersecurity culture, cyberattacks operational, rate cyberattacks, evaluate cybersecurity, cyberattacks annual",0.743,Positive,Mexico business news,https://mexicobusiness.news/cybersecurity/news/latin-america-leads-globally-cyberattack-growth,False,Relevant Article,2,1,1,0,0,0,0
+2,2,73,Inside a cyberattack: Anatomy of a silent invasion - News is My Business,https://newsismybusiness.com/inside-a-cyberattack-anatomy-of-a-silent-invasion/,2025-11-04 09:02:00,"Puerto Rico ranked among the most targeted territories in Latin America, with 154.3 billion attempted cyberattacks in the first half of 2025 — a sign of how rapidly digital threats are escalating for businesses worldwide. (Credit: Michael Borgers | Dreamstime.com)
+
+Cybercrime is no longer just a threat — it’s a critical risk impacting companies of every size and industry. The scale is staggering: According to FortiGuard Labs, Fortinet’s threat intelligence and research division, Puerto Rico reco","cyberattack crisis, intelligence cyberattack, cyberattacks, attempted cyberattacks, cyberattacks half",-0.8591,Negative,Msn,https://newsismybusiness.com/inside-a-cyberattack-anatomy-of-a-silent-invasion/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,33,Cyberattacks Targeting Mexican Government to Increase by 260% - Mexico Business News,https://mexicobusiness.news/cybersecurity/news/cyberattacks-targeting-mexican-government-increase-260,2025-11-04 08:50:00,"Cyberattacks against Mexico’s federal institutions are projected to increase by 260% in 2025 compared with the previous year, with employees identified as the main risk factor, according to research by the cybersecurity company SILIKN.
+
+“The most concerning threat does not come from external hackers, but from insiders: active employees, former staff with unrevoked credentials, or negligent personnel,” says Víctor Ruiz, CEO and Founder, SILIKN. According to the analysis, insiders account for abou","cyberattacks mexico, security breaches, data breaches, hackers insiders, cybersecurity silikn",0.4517,Positive,The record from recorded future news,https://mexicobusiness.news/cybersecurity/news/cyberattacks-targeting-mexican-government-increase-260,False,Relevant Article,2,1,1,0,0,0,0
+2,2,69,PHL firms told to boost mobile app security as cyberattacks rise - BusinessWorld Online,https://www.bworldonline.com/corporate/2025/11/04/709771/phl-firms-told-to-boost-mobile-app-security-as-cyberattacks-rise/,2025-11-04 00:00:00,"By Beatriz Marie D. Cruz, Reporter
+
+PHILIPPINE COMPANIES should boost investments in mobile app security as cybercriminals increasingly exploit artificial intelligence (AI) tools to bypass traditional defenses, according to cybersecurity firm Appdome, Inc.
+
+“Recent studies have shown that the Philippines is pretty much the biggest market in Southeast Asia for fraudulent activity,” Jan Sysmans, Appdome mobile app security evangelist, said in a video interview.
+
+“In the past, security and informat","securing mobile, protecting mobile, app security, mobile apps, apps",0.9468,Positive,The jamestown foundation,https://www.bworldonline.com/corporate/2025/11/04/709771/phl-firms-told-to-boost-mobile-app-security-as-cyberattacks-rise/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,48,Lessons from a cyberattack with Troy Hunt - Frontier Enterprise,https://www.frontier-enterprise.com/lessons-from-a-cyberattack-with-troy-hunt/,2025-11-04 00:00:00,"- Advertisement -
+
+
+
+Even the founder of Have I Been Pwned, a global database that lets users check if their credentials have been compromised, isn’t immune to phishing. For Troy Hunt, the experience underscored how human error, not just technical flaws, continues to expose enterprises to risk.
+
+In this conversation with Frontier Enterprise, he discusses what organisations still get wrong about breach disclosure, why technology alone won’t stop cyberattacks, and how AI could strengthen both offe","cybersecurity asia, security enterprises, stop cyberattacks, reality cyberattacks, security habits",-0.802,Negative,The record from recorded future news,https://www.frontier-enterprise.com/lessons-from-a-cyberattack-with-troy-hunt/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,29,Cyberattack that crippled Middletown's systems shows how hackers target smaller cities - Cincinnati Enquirer,https://www.cincinnati.com/story/news/2025/11/04/cyberattack-has-crippled-middletown-systems-for-months-what-happened/86585161007/,2025-11-04 00:00:00,"Cyberattack that crippled Middletown's systems shows how hackers target smaller cities
+
+Show Caption Hide Caption Cyberattack causes delays, cancellations at airports across Europe A cyberattack disrupted operations at several major European airports, causing delays and cancellations.
+
+A cyberattack has left Middletown residents unable to receive exact water bills for over two months.
+
+The attack has also impacted other city services, including the police department's ability to process backgrou","cyberattacks state, middletown cybersecurity, cyberattacks including, cyberattacks, cyberattack affecting",-0.3612,Negative,The nevada independent,https://www.cincinnati.com/story/news/2025/11/04/cyberattack-has-crippled-middletown-systems-for-months-what-happened/86585161007/,False,Relevant Article,1,0,1,0,0,0,0
+2,2,50,U.S. Sanctions North Korean Bankers Over Spate of Crypto Crime - CoinDesk,https://www.coindesk.com/business/2025/11/04/u-s-sanctions-north-korean-bankers-over-crypto-laundering-tied-to-cyberattacks,2025-11-04 00:00:00,"The U.S. Treasury has imposed fresh sanctions on a group of North Korean bankers and institutions accused of laundering millions in cryptocurrency tied to cyberattacks and illicit IT work schemes that help fund Pyongyang’s weapons programs.
+
+The Office of Foreign Assets Control (OFAC) said Tuesday that eight individuals and two entities were designated for “laundering funds derived from cybercrime and information technology worker fraud,” including proceeds linked to ransomware and crypto thefts","crypto laundering, crypto thefts, laundering millions, korean hackers, coindesk investigation",-0.34,Negative,Edscoop,https://www.coindesk.com/business/2025/11/04/u-s-sanctions-north-korean-bankers-over-crypto-laundering-tied-to-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,80,Kaspersky SAS 2025 – Sergey Anufrienko talks about the risks of vehicle cyberattacks - Hitech Century,https://hitechcentury.com/kaspersky-sas-2025-sergey-anufrienko/,2025-11-03 10:01:08,"At Kaspersky Security Analyst Summit (SAS) 2025, Sergey Anufrienko, Vulnerability Research Group Manager, Kaspersky ICS CERT talked about the theoretical possibilities for vehicle hacks. We have a word with Sergey about how close we are to that possibility happening in real life…
+
+[Hitech Century] We often think of cybersecurity as something primarily for phones and computers but what does it mean when things like factories, public transport, power grids, water companies and even traffic lights ","vehicle hacking, vehicle hacks, car hacked, cars attacks, kaspersky security",0.4497,Positive,Yahoo,https://hitechcentury.com/kaspersky-sas-2025-sergey-anufrienko/,False,Relevant Article,2,1,1,0,0,0,0
+2,2,10,Guv wants mandatory reporting of municipal cyberattacks - Franklin Observer,https://franklinobserver.town.news/g/franklin-town-ma/n/348144/guv-wants-mandatory-reporting-municipal-cyberattacks,2025-11-03 04:35:56,"Colin Young | SHNS
+
+Cities and towns would be required under a plan from Gov. Maura Healey to let the state know of any cybersecurity incidents like hacks and data breaches, a proposed mandate that state officials hope will lead to a better picture of the cyber threats confronting the Bay State.
+
+Cybersecurity has been a growing concern for Beacon Hill and many Massachusetts municipalities have already been stung by ransomware, hacking and other malicious cyber breaches. In 2020, NBC Boston repo","cybersecurity cities, state cybersecurity, cybersecurity incidents, oversee cybersecurity, vulnerabilities cities",0.7096,Positive,Pymnts.com,https://franklinobserver.town.news/g/franklin-town-ma/n/348144/guv-wants-mandatory-reporting-municipal-cyberattacks,False,Relevant Article,2,1,1,0,0,0,0
+2,2,11,Europe's energy grid faces growing cyber threat - theregister.com,https://www.theregister.com/2025/11/03/europe_power_grid_security/,2025-11-03 00:00:00,"Feature It was a sunny morning in late April when a massive power outage suddenly rippled across Spain, Portugal, and parts of southwestern France, leaving tens of millions of people without electricity for hours.
+
+Cities were plunged into darkness. Trains stopped and metro lines had to be evacuated. Flights were cancelled. Mobile networks and internet providers went down. Roads were gridlocked as traffic lights stopped working.
+
+It took 10 hours for power to be restored and 23 hours before the ","grid ransomware, recent cyberattacks, cyberattacks revolved, devastating cyberattack, ransomware",-0.296,Negative,Franklin observer,https://www.theregister.com/2025/11/03/europe_power_grid_security/,False,Relevant Article,1,0,1,0,0,0,0

@@ -120,6 +120,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 3
       matrix:
         include: ${{ fromJson(needs.setup.outputs.matrix) }}
     steps:
