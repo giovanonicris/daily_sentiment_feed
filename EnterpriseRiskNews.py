@@ -66,7 +66,9 @@ def main():
     # CHUNKING 2 - filename
     chunk_id = os.getenv('CHUNK_ID')
     if chunk_id is not None:
-        OUTPUT_CSV += f"_chunk_{chunk_id}"
+        base_name = OUTPUT_CSV.rsplit('.csv', 1)[0]  # split before .csv
+        OUTPUT_CSV = f"{base_name}_chunk_{chunk_id}.csv"
+        print(f"DEBUG: chunked filename - {OUTPUT_CSV}")   # optional: to verify
     
     # setup NLTK and session etc.
     setup_nltk()
