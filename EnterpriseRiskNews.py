@@ -90,11 +90,13 @@ def main():
     
     # process articles
     articles_df = process_enterprise_articles(search_terms_df, session, existing_links, analyzer, whitelist, paywalled, credibility_map)
+    print(f"Processed DF size: {len(articles_df)}") # debug print
     
     # save results
     if not articles_df.empty:
         record_count = save_results(articles_df, output_path, RISK_TYPE)
-        print(f"Completed: {record_count} total records")
+        print(f"About to save to: {str(output_path)}") # debug print
+        print(f"Completed: {record_count} total records") # validation print
     else:
         print("WARNING!!! No articles processed!!")
     
